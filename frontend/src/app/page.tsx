@@ -259,9 +259,10 @@ function HeroSection({ settings }: { settings: any }) {
 }
 
 // ─── Scroll-Reveal Wrapper ─────────────────────────────────────
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function Reveal({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -439,7 +440,8 @@ function FeaturedPets({ pets }: { pets: any[] }) {
 
 // ─── Royal Felines (Dedicated Cats Section) ─────────────────────
 function RoyalFelines({ pets }: { pets: any[] }) {
-  const sourcePets = pets && pets.length > 0 ? pets : mockPets;
+  // Force use of mockPets to display all 16 dummy premium cats as requested
+  const sourcePets = mockPets;
   const displayCats = sourcePets
     .filter(p => p.species === 'cat')
     .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
@@ -469,15 +471,16 @@ function RoyalFelines({ pets }: { pets: any[] }) {
           </div>
         </Reveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 24 }}>
+        <div className="masonry-gallery">
           {displayCats.map((cat, idx) => (
-            <Reveal key={cat.id} delay={idx * 0.05}>
+            <Reveal key={cat.id} delay={idx * 0.05} className="masonry-item">
               <Link href={`/shop/${cat.id}`} style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
                 <div style={{
                   position: 'relative',
-                  borderRadius: 16,
+                  borderRadius: 32, // Softer, more beautiful rounded corners
                   overflow: 'hidden',
-                  aspectRatio: '3/4',
+                  // Alternate aspect ratios to create a Pinterest-style masonry collage effect
+                  aspectRatio: idx % 3 === 0 ? '3/4' : idx % 3 === 1 ? '4/5' : '1/1',
                   boxShadow: '0 10px 30px rgba(0,0,0,0.4)',
                   transition: 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
                   cursor: 'pointer'

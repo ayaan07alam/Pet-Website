@@ -695,4 +695,25 @@ input, textarea, select {
   }
 }
 
+/* ===== PREMIUM MASONRY GALLERY ===== */
+.masonry-gallery {
+  column-count: 4;
+  column-gap: 24px;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .masonry-gallery { column-count: 3; }
+}
+@media (max-width: 768px) {
+  .masonry-gallery { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .masonry-gallery { column-count: 1; }
+}
+
 
