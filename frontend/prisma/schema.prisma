@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Pet {
+  id          String   @id @default(uuid())
+  name        String
+  species     String
+  breed       String   @default("")
+  age         String   @default("")
+  gender      String   @default("")
+  price       Float
+  status      String   @default("Available") // Available, Sold, Reserved
+  images      String[] // Array of image URLs
+  description String   @db.Text
+  isNew       Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  image     String?
+  pets      Pet[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSettings {
+  id               String   @id @default("global") // Single row pattern
+  whatsappNumber   String   @default("919876543210")
+  address          String   @default("123 Exotic Pet Lane, Paradise City")
+  embeddedMapUrl   String?  @db.Text
+  storeHoursRaw    String   @default("Mon-Sat: 10:00 AM - 8:00 PM\nSunday: 11:00 AM - 6:00 PM")
+  heroImages       String[] // Array of URLs for the hero carousel backgrounds
+  heroCentralImages String[] // Array of URLs for the rotating pet carousel in the center
+  instagramUrl     String?
+  facebookUrl      String?
+  youtubeUrl       String?
+  twitterUrl       String?
+  emailAddress     String   @default("info@rumzeesexotic.com")
+  updatedAt        DateTime @updatedAt
+}
+
+model ContentPage {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  htmlContent String   @db.Text
+  updatedAt   DateTime @updatedAt
+}
