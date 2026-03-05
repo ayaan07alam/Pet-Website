@@ -437,7 +437,57 @@ function FeaturedPets({ pets }: { pets: any[] }) {
   );
 }
 
-// ─── Why Choose Us ──────────────────────────────────────────────
+// ─── Royal Felines (Dedicated Cats Section) ─────────────────────
+function RoyalFelines({ pets }: { pets: any[] }) {
+  const sourcePets = pets && pets.length > 0 ? pets : mockPets;
+  // Filter only cats and prioritise featured ones
+  let cats = sourcePets.filter(p => p.species === 'cat');
+  const featuredCats = cats.filter(c => c.isFeatured || c.featured);
+  const otherCats = cats.filter(c => !c.isFeatured && !c.featured);
+
+  // Show top 4 cats (featured first)
+  const displayCats = [...featuredCats, ...otherCats].slice(0, 4);
+
+  if (displayCats.length === 0) return null;
+
+  return (
+    <section style={{ padding: '96px 0', background: 'linear-gradient(135deg, #1A0E06 0%, #2f1b0c 100%)', position: 'relative', overflow: 'hidden' }}>
+      {/* Immersive Feline Decorative Elements */}
+      <div style={{ position: 'absolute', top: -50, right: 10, fontSize: 300, color: 'rgba(201,125,14,0.03)', pointerEvents: 'none', transform: 'rotate(15deg)', userSelect: 'none' }}>🐱</div>
+      <div style={{ position: 'absolute', bottom: -50, left: -20, fontSize: 200, color: 'rgba(201,125,14,0.02)', pointerEvents: 'none', transform: 'rotate(-10deg)', userSelect: 'none' }}>🐾</div>
+
+      {/* Glowing Aura for Premium Feel */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', height: '80%', background: 'radial-gradient(circle, rgba(201,125,14,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <Reveal>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
+            <div>
+              <div className="section-label" style={{ color: '#C97D0E', background: 'rgba(201,125,14,0.1)' }}>Our Specialty</div>
+              <h2 className="section-title" style={{ color: '#F5E6C8', marginBottom: 8, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>Royal Felines</h2>
+              <p style={{ color: 'rgba(245,230,200,0.7)', fontSize: 16 }}>Discover the majesty of our most majestic and sought-after exotic cats.</p>
+            </div>
+            <Link href="/shop?category=cats" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.05)', color: '#F5E6C8', borderColor: 'rgba(245,230,200,0.2)' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,125,14,0.2)'; e.currentTarget.style.borderColor = '#C97D0E'; }} onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.2)'; }}>
+              View All Cats <ArrowRight size={16} />
+            </Link>
+          </div>
+        </Reveal>
+
+        <div className="grid-4">
+          {displayCats.map((cat, idx) => (
+            <Reveal key={cat.id} delay={idx * 0.12}>
+              <div style={{ padding: 4, background: 'linear-gradient(135deg, rgba(201,125,14,0.4), rgba(201,125,14,0.05))', borderRadius: 24, transition: 'transform 0.3s ease' }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-8px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                <PetCard pet={cat} />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Featured Pets ──────────────────────────────────────────────
 function WhyUsSection() {
   const features = [
     { icon: <Shield size={28} />, title: 'Health Guaranteed', desc: 'Every pet comes with a vet certificate and 15-day health guarantee. We only sell 100% healthy animals.', emoji: '🩺' },
@@ -713,6 +763,7 @@ export default function HomePage() {
       <HeroSection settings={data.settings} />
       <StatsStrip />
       <CategoriesSection categories={data.categories} />
+      <RoyalFelines pets={data.pets} />
       <FeaturedPets pets={data.pets} />
       <AnimalFactsBanner />
       <WhyUsSection />
