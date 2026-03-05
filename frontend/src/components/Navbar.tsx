@@ -91,7 +91,7 @@ export default function Navbar() {
                     <Link href="/" className={styles.logo}>
                         <div className={styles.logoWrapper}>
                             <img
-                                src="/logo.png"
+                                src="/logo-exotic.png"
                                 alt="Rumzee's Exotic Paradise"
                                 className={styles.logoImg}
                             />
