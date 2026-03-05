@@ -89,23 +89,16 @@ export default function Navbar() {
                 <div className={`container ${styles.inner}`}>
                     {/* Logo */}
                     <Link href="/" className={styles.logo}>
-                        <div className={styles.logoCrest}>
-                            <svg viewBox="0 0 100 100" className={styles.crestSvg}>
-                                {/* Outer Ring */}
-                                <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                                {/* Inner Ring */}
-                                <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4" fill="none" opacity="0.6" />
-                                {/* Elegant Monogram R */}
-                                <text x="47" y="66" fontFamily="'Cormorant Garamond', serif" fontSize="56" fontWeight="600" fill="currentColor" textAnchor="middle" fontStyle="italic">R</text>
-                            </svg>
-                            {/* Overlayed Pet Icon to explicitly denote "Pet Shop" */}
-                            <div className={styles.crestPawWrapper}>
-                                <PawPrint size={14} className={styles.crestPaw} strokeWidth={2.5} />
-                            </div>
+                        <div className={styles.logoWrapper}>
+                            <img
+                                src="/logo.png"
+                                alt="Rumzee's Exotic Paradise"
+                                className={styles.logoImg}
+                            />
                         </div>
                         <div className={styles.logoText}>
                             <span className={styles.logoMain}>Rumzee's</span>
-                            <span className={styles.logoSub}>EXOTIC PETS &mdash; QUALITY COMPANIONS</span>
+                            <span className={styles.logoSub}>Exotic Pets Paradise</span>
                         </div>
                     </Link>
 
