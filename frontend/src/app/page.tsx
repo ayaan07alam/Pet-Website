@@ -440,117 +440,81 @@ function FeaturedPets({ pets }: { pets: any[] }) {
 // ─── Royal Felines (Dedicated Cats Section) ─────────────────────
 function RoyalFelines({ pets }: { pets: any[] }) {
   const sourcePets = pets && pets.length > 0 ? pets : mockPets;
-  // Filter only cats and prioritise featured ones
-  let cats = sourcePets.filter(p => p.species === 'cat');
-  const featuredCats = cats.filter(c => c.isFeatured || c.featured);
-  const otherCats = cats.filter(c => !c.isFeatured && !c.featured);
-
-  // Show top 16 cats (featured first)
-  const displayCats = [...featuredCats, ...otherCats].slice(0, 16);
+  const displayCats = sourcePets
+    .filter(p => p.species === 'cat')
+    .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+    .slice(0, 16);
 
   if (displayCats.length === 0) return null;
 
   return (
-    <section style={{ padding: '120px 0', background: 'linear-gradient(135deg, #1A0E06 0%, #2f1b0c 100%)', position: 'relative', overflow: 'hidden' }}>
-      {/* Immersive Feline Decorative Elements */}
-      <div style={{ position: 'absolute', top: -50, right: 10, fontSize: 300, color: 'rgba(201,125,14,0.03)', pointerEvents: 'none', transform: 'rotate(15deg)', userSelect: 'none' }}>🐱</div>
-      <div style={{ position: 'absolute', bottom: -50, left: -20, fontSize: 200, color: 'rgba(201,125,14,0.02)', pointerEvents: 'none', transform: 'rotate(-10deg)', userSelect: 'none' }}>🐾</div>
+    <section style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(to bottom, #1A0E06 0%, #2f1b0c 100%)', overflow: 'hidden' }}>
+      {/* Decorative floating elements */}
+      <div style={{ position: 'absolute', top: '10%', right: '5%', opacity: 0.05, fontSize: '180px', pointerEvents: 'none', transform: 'rotate(15deg)' }}>🐾</div>
+      <div style={{ position: 'absolute', bottom: '5%', left: '2%', opacity: 0.03, fontSize: '240px', pointerEvents: 'none', transform: 'rotate(-20deg)' }}>🐈</div>
 
-      {/* Glowing Aura for Premium Feel */}
+      {/* Center ambient glow */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', height: '80%', background: 'radial-gradient(circle, rgba(201,125,14,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <Reveal>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
-            <div style={{ maxWidth: 640 }}>
-              <div className="section-label" style={{ color: '#C97D0E', background: 'rgba(201,125,14,0.1)' }}>Our Crown Jewels</div>
-              <h2 className="section-title" style={{ color: '#F5E6C8', marginBottom: 16, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>Royal Felines</h2>
-              <p style={{ color: 'rgba(245,230,200,0.7)', fontSize: 16, lineHeight: 1.7 }}>
-                Step into the world of uncompromised luxury. Our curated collection of exotic felines represents the absolute pinnacle of breeding, beauty, and temperament. Each cat is raised with unparalleled care to ensure they become the perfect, majestic addition to your family.
-              </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 16 }}>
+            <div style={{ maxWidth: 800 }}>
+              <div className="section-label" style={{ color: '#C97D0E', background: 'rgba(201,125,14,0.1)' }}>Our Specialty</div>
+              <h2 className="section-title" style={{ color: '#F5E6C8', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)', fontSize: '42px' }}>Royal Felines</h2>
             </div>
             <Link href="/shop?category=cats" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.05)', color: '#F5E6C8', borderColor: 'rgba(245,230,200,0.2)' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,125,14,0.2)'; e.currentTarget.style.borderColor = '#C97D0E'; }} onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.2)'; }}>
-              View All Cats <ArrowRight size={16} />
+              Explore Cattery <ArrowRight size={16} />
             </Link>
           </div>
         </Reveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 24 }}>
           {displayCats.map((cat, idx) => (
-            <Reveal key={cat.id} delay={idx * 0.08}>
-              <Link href={`/shop/${cat.id}`} style={{ display: 'block', textDecoration: 'none' }}>
+            <Reveal key={cat.id} delay={idx * 0.05}>
+              <Link href={`/shop/${cat.id}`} style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
                 <div style={{
                   position: 'relative',
-                  borderRadius: 24,
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(201,125,14,0.15)',
+                  borderRadius: 16,
                   overflow: 'hidden',
-                  transition: 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column'
+                  aspectRatio: '3/4',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.4)',
+                  transition: 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                  cursor: 'pointer'
                 }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-10px)';
-                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(201,125,14,0.15)';
-                    e.currentTarget.style.borderColor = 'rgba(201,125,14,0.4)';
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(201,125,14,0.25)';
                     const img = e.currentTarget.querySelector('img');
                     if (img) img.style.transform = 'scale(1.08)';
+                    const overlay = e.currentTarget.querySelector('.card-overlay') as HTMLElement;
+                    if (overlay) overlay.style.opacity = '1';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
-                    e.currentTarget.style.borderColor = 'rgba(201,125,14,0.15)';
+                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
                     const img = e.currentTarget.querySelector('img');
                     if (img) img.style.transform = 'scale(1)';
+                    const overlay = e.currentTarget.querySelector('.card-overlay') as HTMLElement;
+                    if (overlay) overlay.style.opacity = '0.7';
                   }}>
 
-                  {/* Premium Image Container */}
-                  <div style={{ position: 'relative', width: '100%', height: 260, overflow: 'hidden' }}>
-                    <img src={cat.images?.[0] || cat.image || '/logo.png'} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,14,6,0.9) 0%, transparent 60%)' }} />
+                  {/* Full Cover Image */}
+                  <img src={cat.images?.[0] || cat.image || '/logo.png'} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 1s cubic-bezier(0.2, 0.8, 0.2, 1)' }} />
 
-                    {/* Status Badge */}
-                    <div style={{ position: 'absolute', top: 16, left: 16, display: 'flex', gap: 8 }}>
-                      {cat.status === 'Sold' || cat.available === false ? (
-                        <span style={{ background: 'rgba(0,0,0,0.7)', color: '#fff', padding: '6px 14px', borderRadius: 50, fontSize: 12, fontWeight: 700, backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.2)' }}>RESERVED</span>
-                      ) : (
-                        <span style={{ background: 'rgba(201,125,14,0.9)', color: '#fff', padding: '6px 14px', borderRadius: 50, fontSize: 12, fontWeight: 700, backdropFilter: 'blur(4px)', boxShadow: '0 4px 10px rgba(201,125,14,0.3)' }}>AVAILABLE</span>
-                      )}
-                      {(cat.isNew || cat.featured || cat.isFeatured) && (
-                        <span style={{ background: 'rgba(255,255,255,0.9)', color: '#2C1A0E', padding: '6px 14px', borderRadius: 50, fontSize: 12, fontWeight: 800, backdropFilter: 'blur(4px)' }}>✨ ELITE</span>
-                      )}
+                  {/* Vignette Overlay for Text Legibility */}
+                  <div className="card-overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,14,6,0.95) 0%, rgba(26,14,6,0.3) 30%, transparent 100%)', transition: 'opacity 0.6s ease', opacity: 0.7 }} />
+
+                  {/* Elite Badge */}
+                  {(cat.featured || cat.isNew) && (
+                    <div style={{ position: 'absolute', top: 16, right: 16 }}>
+                      <span style={{ background: 'rgba(255,255,255,0.9)', color: '#2C1A0E', padding: '6px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>✨ ELITE</span>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Content Area */}
-                  <div style={{ padding: 24, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                      <div>
-                        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: '#F5E6C8', margin: '0 0 4px 0', letterSpacing: '0.5px' }}>{cat.name}</h3>
-                        <div style={{ color: '#C97D0E', fontSize: 14, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{cat.breed}</div>
-                      </div>
-                      <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 800, color: '#fff' }}>
-                        ₹{cat.price.toLocaleString('en-IN')}
-                      </div>
-                    </div>
-
-                    <p style={{ color: 'rgba(245,230,200,0.6)', fontSize: 14, lineHeight: 1.6, marginBottom: 20, flexGrow: 1, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {cat.description || `Meet ${cat.name}, a stunning ${cat.breed} with a majestic presence and a gentle heart. Perfectly socialized for a loving home.`}
-                    </p>
-
-                    <div style={{ display: 'flex', borderTop: '1px solid rgba(245,230,200,0.1)', paddingTop: 16, gap: 16 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(245,230,200,0.8)', fontSize: 13 }}>
-                        <span style={{ opacity: 0.5 }}>AGE</span>
-                        <span style={{ fontWeight: 600 }}>{cat.age || 'Kitten'}</span>
-                      </div>
-                      <div style={{ width: 1, height: 14, background: 'rgba(245,230,200,0.2)' }} />
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(245,230,200,0.8)', fontSize: 13 }}>
-                        <span style={{ opacity: 0.5 }}>GENDER</span>
-                        <span style={{ fontWeight: 600 }}>{cat.gender || 'Unknown'}</span>
-                      </div>
-                    </div>
+                  {/* Minimalist Name Plate */}
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 24, textAlign: 'center' }}>
+                    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 600, color: '#FDF6EC', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.8)', letterSpacing: '0.5px' }}>{cat.name}</h3>
                   </div>
                 </div>
               </Link>
