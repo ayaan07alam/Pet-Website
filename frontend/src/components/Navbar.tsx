@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin, PawPrint } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const navLinks = [
@@ -89,21 +89,23 @@ export default function Navbar() {
                 <div className={`container ${styles.inner}`}>
                     {/* Logo */}
                     <Link href="/" className={styles.logo}>
-                        <img
-                            src="/logo.png"
-                            alt="Rumzee's Exotic"
-                            style={{
-                                width: 56,
-                                height: 56,
-                                objectFit: 'contain',
-                                borderRadius: '50%',
-                                flexShrink: 0,
-                                transition: 'all 0.3s ease',
-                            }}
-                        />
+                        <div className={styles.logoCrest}>
+                            <svg viewBox="0 0 100 100" className={styles.crestSvg}>
+                                {/* Outer Ring */}
+                                <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                                {/* Inner Ring */}
+                                <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4" fill="none" opacity="0.6" />
+                                {/* Elegant Monogram R */}
+                                <text x="47" y="66" fontFamily="'Cormorant Garamond', serif" fontSize="56" fontWeight="600" fill="currentColor" textAnchor="middle" fontStyle="italic">R</text>
+                            </svg>
+                            {/* Overlayed Pet Icon to explicitly denote "Pet Shop" */}
+                            <div className={styles.crestPawWrapper}>
+                                <PawPrint size={14} className={styles.crestPaw} strokeWidth={2.5} />
+                            </div>
+                        </div>
                         <div className={styles.logoText}>
-                            <span className={styles.logoMain}>Rumzee&apos;s</span>
-                            <span className={styles.logoSub}>Exotic</span>
+                            <span className={styles.logoMain}>Rumzee's</span>
+                            <span className={styles.logoSub}>EXOTIC PETS &mdash; QUALITY COMPANIONS</span>
                         </div>
                     </Link>
 

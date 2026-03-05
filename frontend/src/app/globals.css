@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   --cream: #F5E6C8;
@@ -33,7 +33,7 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
   background-color: var(--cream-light);
   color: var(--brown-dark);
   line-height: 1.65;
@@ -41,10 +41,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   line-height: 1.15;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
 }
 
 a {
@@ -61,11 +61,11 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
 input, textarea, select {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
   outline: none;
 }
 
