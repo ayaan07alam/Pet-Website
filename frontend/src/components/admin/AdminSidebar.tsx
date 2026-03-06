@@ -12,6 +12,8 @@ const navItems = [
     { name: 'Categories', href: '/admin/categories', icon: FolderTree },
     { name: 'Site Settings', href: '/admin/settings', icon: Settings },
     { name: 'Content Pages', href: '/admin/pages', icon: FileText },
+    { name: 'Homepage Content', href: '/admin/content', icon: Globe },
+    { name: 'Leads', href: '/admin/leads', icon: FileText },
 ];
 
 export default function AdminSidebar() {

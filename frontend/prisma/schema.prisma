@@ -60,3 +60,117 @@ model ContentPage {
   htmlContent String   @db.Text
   updatedAt   DateTime @updatedAt
 }
+
+model HomepageStat {
+  id        String   @id @default(uuid())
+  value     String   // e.g., "500+", "50+", "8+"
+  label     String   // e.g., "Happy Families", "Exotic Breeds"
+  icon      String   // Icon name from lucide-react (Users, Dna, Heart, etc.)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnimalFact {
+  id        String   @id @default(uuid())
+  species   String   // e.g., "African Grey Parrot"
+  fact      String   @db.Text // The fact description
+  symbol    String   // e.g., "BIRD", "CAT", "REPTILE", "TORTOISE"
+  color     String   @default("#C97D0E") // Hex color
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WhyUsFeature {
+  id        String   @id @default(uuid())
+  title     String   // e.g., "Health Guaranteed"
+  description String   @db.Text // Feature description
+  icon      String   // Icon name from lucide-react (Shield, Heart, Star, Truck)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id       String   @id @default(uuid())
+  name     String   // Customer name
+  location String   // Location/City
+  pet      String   // Pet bought (e.g., "Bearded Dragon")
+  text     String   @db.Text // Review text
+  rating   Int      @default(5) // 1-5 stars
+  avatar   String   @default("K") // Avatar initials
+  order    Int      @default(0)
+  featured Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CompanyStory {
+  id                String   @id @default("main")
+  heading           String   @default("Born from a Love for Exotic Life") // Main heading
+  storyText         String   @db.Text @default("Rumzee's Exotic began as a small bird aviary in 2016, driven by one man's passion for rare and beautiful parrots. Today, we're one of India's most trusted exotic pet destinations...")
+  yearsFounded      String   @default("8+")
+  yearsLabel        String   @default("Years of Love")
+  familiesCount     String   @default("500+")
+  familiesLabel     String   @default("Happy Families")
+  breedsCount       String   @default("50+")
+  breedsLabel       String   @default("Exotic Breeds")
+  ratingValue       String   @default("4.9")
+  ratingLabel       String   @default("Customer Rating")
+  category1         String   @default("BIRDS")
+  category2         String   @default("EXOTIC CATS")
+  category3         String   @default("REPTILES")
+  category4         String   @default("TORTOISES")
+  updatedAt         DateTime @updatedAt
+}
+
+model HomepageCopy {
+  id                     String   @id @default("main")
+  heroKicker             String   @default("Explore the extraordinary")
+  heroPrimaryCtaLabel    String   @default("Discover Pets")
+  heroPrimaryCtaHref     String   @default("/shop")
+  heroSecondaryCtaLabel  String   @default("Contact Us")
+  heroSecondaryCtaHref   String   @default("/contact")
+
+  categoriesTitle        String   @default("Find Your Perfect Pet")
+  categoriesSubtitle     String   @db.Text @default("From rare exotic birds to gentle reptiles, we have a wide selection of exotic pets and everything they need.")
+
+  featuredTitle          String   @default("Featured Companions")
+  featuredSubtitle       String   @db.Text @default("Our most loved and sought-after exotic pets")
+
+  royalTitle             String   @default("Royal Felines")
+  royalSubtitle          String   @db.Text @default("Our signature collection of premium, hand-picked exotic cats.")
+
+  newArrivalsTitle       String   @default("New Arrivals")
+  newArrivalsSubtitle    String   @db.Text @default("Fresh faces looking for their forever homes")
+
+  testimonialsTitle      String   @default("What Our Customers Say")
+  testimonialsSubtitle   String   @db.Text @default("Stories from real families who found their perfect companion with us.")
+
+  ctaTitle               String   @default("Ready to Find Your Companion?")
+  ctaSubtitle            String   @db.Text @default("Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.")
+  ctaPrimaryLabel        String   @default("Shop Now")
+  ctaPrimaryHref         String   @default("/shop")
+  ctaSecondaryLabel      String   @default("WhatsApp Us")
+  ctaSecondaryHref       String   @default("https://wa.me/919876543210")
+
+  updatedAt              DateTime @updatedAt
+}
+
+model Lead {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  phone       String?
+  email       String?
+  message     String   @db.Text
+  source      String   @default("pet_inquiry") // pet_inquiry, callback, newsletter, etc.
+  status      String   @default("NEW")         // NEW, IN_PROGRESS, WON, LOST
+  petId       String?
+  pet         Pet?     @relation(fields: [petId], references: [id])
+  pageUrl     String?
+}
+
+

@@ -11,6 +11,12 @@ export default function PetDetailPage() {
     const [fetchedPet, setFetchedPet] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [imgIdx, setImgIdx] = useState(0);
+    const [leadSubmitting, setLeadSubmitting] = useState(false);
+    const [leadSuccess, setLeadSuccess] = useState<string | null>(null);
+    const [leadError, setLeadError] = useState<string | null>(null);
+    const [leadName, setLeadName] = useState('');
+    const [leadPhone, setLeadPhone] = useState('');
+    const [leadMessage, setLeadMessage] = useState('');
 
     useEffect(() => {
         fetch(`/api/pets/${id}`)
@@ -33,6 +39,40 @@ export default function PetDetailPage() {
     const priceText = pet.price > 0 ? `listed at ₹${pet.price.toLocaleString('en-IN')}` : 'listed without a set price';
     const whatsappMsg = encodeURIComponent(`Hi! I'm interested in ${pet.name} (${pet.breed}, ${pet.age}, ${pet.gender}) ${priceText}. Can you share more details?`);
     const whatsappLink = `https://wa.me/918001234567?text=${whatsappMsg}`;
+
+    const submitLead = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLeadSubmitting(true);
+        setLeadSuccess(null);
+        setLeadError(null);
+        try {
+            const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: leadName,
+                    phone: leadPhone,
+                    message: leadMessage || `Enquiry about ${pet.name} (${pet.breed})`,
+                    source: 'pet_inquiry',
+                    petId: pet.id,
+                    pageUrl,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error || 'Failed to submit enquiry');
+            }
+            setLeadSuccess('Thanks, we have received your enquiry. We will contact you shortly.');
+            setLeadName('');
+            setLeadPhone('');
+            setLeadMessage('');
+        } catch (err: any) {
+            setLeadError(err?.message || 'Something went wrong, please try again.');
+        } finally {
+            setLeadSubmitting(false);
+        }
+    };
 
     return (
         <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80 }}>
@@ -109,13 +149,66 @@ export default function PetDetailPage() {
                                 background: 'linear-gradient(135deg, #25D366, #128C7E)', color: '#fff',
                                 padding: '16px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16,
                                 textDecoration: 'none', boxShadow: '0 8px 32px rgba(37,211,102,0.35)',
-                                transition: 'all 0.3s ease', marginBottom: 20
+                                transition: 'all 0.3s ease', marginBottom: 16
                             }}
                             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(37,211,102,0.5)'; }}
                             onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,211,102,0.35)'; }}
                         >
                             <MessageCircle size={20} /> Enquire on WhatsApp
                         </a>
+
+                        {/* Lead Capture Form */}
+                        <div style={{ marginBottom: 24, padding: '16px 18px', borderRadius: 16, background: '#fff', border: '1px solid rgba(44,26,14,0.06)' }}>
+                            <p style={{ fontSize: 14, color: '#6B3A2A', marginBottom: 12 }}>
+                                Prefer a callback instead? Leave your details and we&apos;ll reach out.
+                            </p>
+                            <form onSubmit={submitLead} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                <input
+                                    required
+                                    placeholder="Your name"
+                                    value={leadName}
+                                    onChange={e => setLeadName(e.target.value)}
+                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14 }}
+                                />
+                                <input
+                                    required
+                                    placeholder="WhatsApp or phone number"
+                                    value={leadPhone}
+                                    onChange={e => setLeadPhone(e.target.value)}
+                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14 }}
+                                />
+                                <textarea
+                                    placeholder="Anything specific you would like to ask?"
+                                    value={leadMessage}
+                                    onChange={e => setLeadMessage(e.target.value)}
+                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14, minHeight: 70 }}
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={leadSubmitting}
+                                    style={{
+                                        marginTop: 4,
+                                        alignSelf: 'flex-start',
+                                        padding: '10px 18px',
+                                        borderRadius: 999,
+                                        border: 'none',
+                                        backgroundColor: '#2C1A0E',
+                                        color: '#fff',
+                                        fontSize: 14,
+                                        fontWeight: 600,
+                                        cursor: leadSubmitting ? 'not-allowed' : 'pointer',
+                                    }}
+                                >
+                                    {leadSubmitting ? 'Sending...' : 'Request a callback'}
+                                </button>
+                                {leadSuccess && (
+                                    <p style={{ fontSize: 13, color: '#4A7C2E', marginTop: 4 }}>{leadSuccess}</p>
+                                )}
+                                {leadError && (
+                                    <p style={{ fontSize: 13, color: '#E8601A', marginTop: 4 }}>{leadError}</p>
+                                )}
+                            </form>
+                        </div>
 
                         {/* Guarantees */}
                         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>

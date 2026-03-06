@@ -1,6 +1,20 @@
 'use client';
 import { Award, Heart, Star, Users, Shield, Bike } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+interface CompanyStory {
+    heading: string;
+    storyText: string;
+    yearsFounded: string;
+    yearsLabel: string;
+    familiesCount: string;
+    familiesLabel: string;
+    breedsCount: string;
+    breedsLabel: string;
+    ratingValue: string;
+    ratingLabel: string;
+}
 
 const team = [
     { name: 'Mohammed Rumzee', role: 'Founder & Avian Expert', emoji: '👨‍💼', bio: 'With 8+ years in exotic aviculture, Rumzee founded the shop to share his passion for rare birds with families across India.' },
@@ -18,6 +32,30 @@ const milestones = [
 ];
 
 export default function AboutPage() {
+    const [story, setStory] = useState<CompanyStory | null>(null);
+
+    useEffect(() => {
+        fetch('/api/company-story')
+            .then(r => r.json())
+            .then(data => {
+                if (!data?.error) setStory(data);
+            })
+            .catch(() => {});
+    }, []);
+
+    const displayStory: CompanyStory = story || {
+        heading: 'Born from a Love for Exotic Life',
+        storyText: 'Rumzee\'s Exotic began as a small bird aviary in 2016, driven by one man\'s passion for rare and beautiful parrots. Today, we\'re one of India\'s most trusted exotic pet destinations — offering birds, cats, reptiles, tortoises, accessories, and expert care services.',
+        yearsFounded: '8+',
+        yearsLabel: 'Years of Love',
+        familiesCount: '500+',
+        familiesLabel: 'Happy Families',
+        breedsCount: '50+',
+        breedsLabel: 'Exotic Breeds',
+        ratingValue: '4.9',
+        ratingLabel: 'Customer Rating',
+    };
+
     return (
         <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80 }}>
             {/* Hero */}
@@ -30,10 +68,10 @@ export default function AboutPage() {
                     <div>
                         <div className="section-label" style={{ color: '#C97D0E' }}>Our Story</div>
                         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2.5rem,5vw,3.5rem)', color: '#F5E6C8', fontWeight: 800, marginBottom: 20 }}>
-                            Born from a Love for Exotic Life
+                            {displayStory.heading}
                         </h1>
                         <p style={{ color: 'rgba(245,230,200,0.8)', fontSize: 17, lineHeight: 1.9, marginBottom: 28 }}>
-                            Rumzee&apos;s Exotic began as a small bird aviary in 2016, driven by one man&apos;s passion for rare and beautiful parrots. Today, we&apos;re one of India&apos;s most trusted exotic pet destinations — offering birds, cats, reptiles, tortoises, accessories, and expert care services.
+                            {displayStory.storyText}
                         </p>
                         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 32 }}>
                             {['Birds', 'Exotic Cats', 'Reptiles', 'Tortoises'].map(tag => (
@@ -42,13 +80,13 @@ export default function AboutPage() {
                         </div>
                         <Link href="/shop" className="btn-primary">Meet Our Pets</Link>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                        {[
-                            { value: '500+', label: 'Happy Families' },
-                            { value: '50+', label: 'Exotic Breeds' },
-                            { value: '8+', label: 'Years of Love' },
-                            { value: '4.9', label: 'Customer Rating' },
-                        ].map(s => (
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                            {[
+                                { value: displayStory.familiesCount, label: displayStory.familiesLabel },
+                                { value: displayStory.breedsCount, label: displayStory.breedsLabel },
+                                { value: displayStory.yearsFounded, label: displayStory.yearsLabel },
+                                { value: displayStory.ratingValue, label: displayStory.ratingLabel },
+                            ].map(s => (
                             <div key={s.label} style={{ background: 'rgba(245,230,200,0.07)', borderRadius: 18, padding: '24px', textAlign: 'center', border: '1px solid rgba(245,230,200,0.1)' }}>
                                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 800, color: '#C97D0E', lineHeight: 1 }}>{s.value}</div>
                                 <div style={{ fontSize: 13, color: 'rgba(245,230,200,0.65)', marginTop: 8, letterSpacing: '0.5px' }}>{s.label}</div>

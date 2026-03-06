@@ -9,7 +9,7 @@ import { mockPets, mockCategories, mockTestimonials } from '@/data/mockData';
 import Magnetic from '@/components/animations/Magnetic';
 
 // ─── Hero Section ─────────────────────────────────────────────
-function HeroSection({ settings }: { settings: any }) {
+function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
   const [currentBgSlide, setCurrentBgSlide] = useState(0);
   const [currentCarouselSlide, setCurrentCarouselSlide] = useState(0);
   const [isPlayingCarousel, setIsPlayingCarousel] = useState(true);
@@ -129,7 +129,7 @@ function HeroSection({ settings }: { settings: any }) {
                 <span style={{ padding: '6px 16px', borderRadius: 30, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
                   {activeSlide.label}
                 </span>
-                <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>Explore the extraordinary</span>
+                <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>{copy?.heroKicker || 'Explore the extraordinary'}</span>
               </div>
 
               <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(3rem, 6vw, 5.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1.1, marginBottom: 24, textShadow: '0 4px 30px rgba(0,0,0,0.6)', whiteSpace: 'pre-line' }}>
@@ -142,7 +142,7 @@ function HeroSection({ settings }: { settings: any }) {
 
               <div className="hero-cta-group">
                 <Magnetic strength={0.1}>
-                  <Link href="/shop" style={{
+                    <Link href={copy?.heroPrimaryCtaHref || "/shop"} style={{
                     background: activeSlide.color,
                     color: '#fff', padding: '16px 40px', borderRadius: 50,
                     fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -152,12 +152,12 @@ function HeroSection({ settings }: { settings: any }) {
                     onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.filter = 'brightness(1.1)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.filter = 'none'; }}
                   >
-                    Discover Pets <ArrowRight size={18} />
+                    {copy?.heroPrimaryCtaLabel || 'Discover Pets'} <ArrowRight size={18} />
                   </Link>
                 </Magnetic>
                 <div style={{ display: 'flex', gap: 12 }}>
                   <Magnetic strength={0.1}>
-                    <Link href="/contact" style={{
+                    <Link href={copy?.heroSecondaryCtaHref || "/contact"} style={{
                       background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
                       color: '#fff', padding: '15px 36px', borderRadius: 50,
                       fontWeight: 600, fontSize: 16, border: '2px solid rgba(255,255,255,0.3)',
@@ -166,7 +166,7 @@ function HeroSection({ settings }: { settings: any }) {
                       onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.borderColor = '#fff'; }}
                       onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
                     >
-                      Contact Us
+                      {copy?.heroSecondaryCtaLabel || 'Contact Us'}
                     </Link>
                   </Magnetic>
                 </div>
@@ -286,20 +286,35 @@ function Reveal({ children, delay = 0, className = '' }: { children: React.React
   );
 }
 
-// ─── Stats Strip ────────────────────────────────────────────────
-function StatsStrip() {
-  const stats = [
-    { value: '500+', label: 'Happy Families', Icon: Users },
-    { value: '50+', label: 'Exotic Breeds', Icon: Dna },
-    { value: '8+', label: 'Years of Passion', Icon: Heart },
-    { value: '100%', label: 'Health Certified', Icon: ShieldCheck },
-    { value: '4.9', label: 'Customer Rating', Icon: Star },
-    { value: '24H', label: 'WhatsApp Support', Icon: MessageCircle },
+// ─── Stats Strip (HomepageStat driven) ──────────────────────────
+function StatsStrip({ stats }: { stats: any[] }) {
+  const iconMap: Record<string, any> = {
+    Users,
+    Dna,
+    Heart,
+    ShieldCheck,
+    Star,
+    MessageCircle,
+  };
+
+  const defaultStats = [
+    { value: '500+', label: 'Happy Families', icon: 'Users' },
+    { value: '50+', label: 'Exotic Breeds', icon: 'Dna' },
+    { value: '8+', label: 'Years of Passion', icon: 'Heart' },
+    { value: '100%', label: 'Health Certified', icon: 'ShieldCheck' },
+    { value: '4.9', label: 'Customer Rating', icon: 'Star' },
+    { value: '24H', label: 'WhatsApp Support', icon: 'MessageCircle' },
   ];
+
+  const sourceStats = (stats && stats.length ? stats : defaultStats).map((s: any) => ({
+    ...s,
+    Icon: iconMap[s.icon as string] || Users,
+  }));
+
   return (
     <div style={{ background: 'linear-gradient(135deg, #2C1A0E 0%, #4A2A1A 100%)', overflow: 'hidden' }}>
       <div className="stats-strip">
-        {stats.map((s, i) => (
+        {sourceStats.map((s, i) => (
           <div key={s.label} className="stats-item"
             onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,125,14,0.12)')}
             onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
@@ -316,14 +331,20 @@ function StatsStrip() {
   );
 }
 
-// ─── Animal Facts Banner ─────────────────────────────────────────
-function AnimalFactsBanner() {
-  const facts = [
-    { species: 'African Grey Parrot', fact: 'Can live up to 60+ years and have the intelligence of a 5-year-old child.', symbol: 'BIRD', color: '#E8A020', bg: 'rgba(232,160,32,0.07)' },
-    { species: 'Savannah Cat', fact: 'A hybrid of domestic cats and servals — one of the largest domestic cat breeds in the world.', symbol: 'CAT', color: '#C97D0E', bg: 'rgba(201,125,14,0.07)' },
-    { species: 'Ball Python', fact: 'Can go months without eating and may live for 30+ years with proper care.', symbol: 'REPTILE', color: '#4A7C2E', bg: 'rgba(74,124,46,0.07)' },
-    { species: 'Sulcata Tortoise', fact: 'The third largest tortoise in the world — some reach 100kg and live over 100 years!', symbol: 'TORTOISE', color: '#7A5C3A', bg: 'rgba(122,92,58,0.07)' },
+// ─── Animal Facts Banner (AnimalFact driven) ─────────────────────
+function AnimalFactsBanner({ facts }: { facts: any[] }) {
+  const defaultFacts = [
+    { species: 'African Grey Parrot', fact: 'Can live up to 60+ years and have the intelligence of a 5-year-old child.', symbol: 'BIRD', color: '#E8A020' },
+    { species: 'Savannah Cat', fact: 'A hybrid of domestic cats and servals — one of the largest domestic cat breeds in the world.', symbol: 'CAT', color: '#C97D0E' },
+    { species: 'Ball Python', fact: 'Can go months without eating and may live for 30+ years with proper care.', symbol: 'REPTILE', color: '#4A7C2E' },
+    { species: 'Sulcata Tortoise', fact: 'The third largest tortoise in the world — some reach 100kg and live over 100 years!', symbol: 'TORTOISE', color: '#7A5C3A' },
   ];
+
+  const sourceFacts = (facts && facts.length ? facts : defaultFacts).map((f: any) => ({
+    ...f,
+    bg: f.bg || `${f.color || '#C97D0E'}12`,
+  }));
+
   return (
     <section style={{ padding: '80px 0', background: '#FDF6EC', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(201,125,14,0.04) 1px, transparent 1px)', backgroundSize: '30px 30px', pointerEvents: 'none' }} />
@@ -336,7 +357,7 @@ function AnimalFactsBanner() {
           </div>
         </Reveal>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
-          {facts.map((f, i) => (
+          {sourceFacts.map((f, i) => (
             <Reveal key={f.species} delay={i * 0.1}>
               <div style={{
                 background: f.bg,
@@ -365,7 +386,7 @@ function AnimalFactsBanner() {
 }
 
 // ─── Category Grid ─────────────────────────────────────────────
-function CategoriesSection({ categories }: { categories: any[] }) {
+function CategoriesSection({ categories, copy }: { categories: any[]; copy?: any }) {
   const activeCategories = categories && categories.length > 0 ? categories : mockCategories;
   return (
     <section style={{ padding: '96px 0', background: '#fff' }}>
@@ -373,9 +394,9 @@ function CategoriesSection({ categories }: { categories: any[] }) {
         <Reveal>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
             <div className="section-label" style={{ justifyContent: 'center' }}>Browse by Category</div>
-            <h2 className="section-title">Find Your Perfect Pet</h2>
+            <h2 className="section-title">{copy?.categoriesTitle || 'Find Your Perfect Pet'}</h2>
             <p className="section-subtitle" style={{ margin: '0 auto' }}>
-              From rare exotic birds to gentle reptiles, we have a wide selection of exotic pets and everything they need.
+              {copy?.categoriesSubtitle || 'From rare exotic birds to gentle reptiles, we have a wide selection of exotic pets and everything they need.'}
             </p>
           </div>
         </Reveal>
@@ -421,7 +442,7 @@ function CategoriesSection({ categories }: { categories: any[] }) {
 }
 
 // ─── Featured Pets ──────────────────────────────────────────────
-function FeaturedPets({ pets }: { pets: any[] }) {
+function FeaturedPets({ pets, copy }: { pets: any[]; copy?: any }) {
   const sourcePets = pets && pets.length > 0 ? pets : mockPets;
   const featured = sourcePets.filter(p => p.isFeatured || p.featured).slice(0, 4);
   return (
@@ -431,8 +452,8 @@ function FeaturedPets({ pets }: { pets: any[] }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
             <div>
               <div className="section-label">Hand-picked for you</div>
-              <h2 className="section-title" style={{ marginBottom: 8 }}>Featured Companions</h2>
-              <p style={{ color: '#6B3A2A', fontSize: 16 }}>Our most loved and sought-after exotic pets</p>
+              <h2 className="section-title" style={{ marginBottom: 8 }}>{copy?.featuredTitle || 'Featured Companions'}</h2>
+              <p style={{ color: '#6B3A2A', fontSize: 16 }}>{copy?.featuredSubtitle || 'Our most loved and sought-after exotic pets'}</p>
             </div>
             <Link href="/shop" className="btn-secondary" style={{ flexShrink: 0 }}>
               View All Pets <ArrowRight size={16} />
@@ -453,8 +474,7 @@ function FeaturedPets({ pets }: { pets: any[] }) {
 
 // ─── Royal Felines (Dedicated Cats Section) ─────────────────────
 function RoyalFelines({ pets }: { pets: any[] }) {
-  // Force use of mockPets to display all 16 dummy premium cats as requested
-  const sourcePets = mockPets;
+  const sourcePets = pets && pets.length > 0 ? pets : mockPets;
   const displayCats = sourcePets
     .filter(p => p.species === 'cat')
     .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
@@ -540,14 +560,26 @@ function RoyalFelines({ pets }: { pets: any[] }) {
   );
 }
 
-// ─── Featured Pets ──────────────────────────────────────────────
-function WhyUsSection() {
-  const features = [
-    { icon: <Shield size={28} />, title: 'Health Guaranteed', desc: 'Every pet comes with a vet certificate and 15-day health guarantee. We only sell 100% healthy animals.', emoji: '🩺' },
-    { icon: <Heart size={28} />, title: 'Ethically Sourced', desc: 'All our birds, cats, and reptiles are captive-bred or obtained from licensed ethical breeders.', emoji: '💚' },
-    { icon: <Star size={28} />, title: 'Expert Guidance', desc: 'Our experienced team provides lifelong support, care guides, and dietary advice for every pet.', emoji: '🎓' },
-    { icon: <Truck size={28} />, title: 'Safe Delivery', desc: 'Live animal transport with expert handlers, climate-controlled vehicles, and real-time updates.', emoji: '🚚' },
+// ─── Why Us Section (WhyUsFeature driven) ───────────────────────
+function WhyUsSection({ features }: { features: any[] }) {
+  const iconMap: Record<string, JSX.Element> = {
+    Shield: <Shield size={28} />,
+    Heart: <Heart size={28} />,
+    Star: <Star size={28} />,
+    Truck: <Truck size={28} />,
+  };
+
+  const defaultFeatures = [
+    { title: 'Health Guaranteed', description: 'Every pet comes with a vet certificate and 15-day health guarantee. We only sell 100% healthy animals.', icon: 'Shield' },
+    { title: 'Ethically Sourced', description: 'All our birds, cats, and reptiles are captive-bred or obtained from licensed ethical breeders.', icon: 'Heart' },
+    { title: 'Expert Guidance', description: 'Our experienced team provides lifelong support, care guides, and dietary advice for every pet.', icon: 'Star' },
+    { title: 'Safe Delivery', description: 'Live animal transport with expert handlers, climate-controlled vehicles, and real-time updates.', icon: 'Truck' },
   ];
+
+  const sourceFeatures = (features && features.length ? features : defaultFeatures).map((f: any) => ({
+    ...f,
+    iconElement: iconMap[f.icon as string] || <Shield size={28} />,
+  }));
   return (
     <section style={{ padding: '96px 0', background: '#2C1A0E', position: 'relative', overflow: 'hidden' }}>
       {/* Decorative circles */}
@@ -578,7 +610,7 @@ function WhyUsSection() {
           </div>
         </Reveal>
         <div className="grid-4">
-          {features.map((f, idx) => (
+          {sourceFeatures.map((f, idx) => (
             <Reveal key={f.title} delay={idx * 0.1}>
               <div style={{
                 background: 'rgba(245,230,200,0.05)', borderRadius: 20, padding: 32,
@@ -588,9 +620,9 @@ function WhyUsSection() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,125,14,0.12)'; e.currentTarget.style.borderColor = 'rgba(201,125,14,0.3)'; e.currentTarget.style.transform = 'translateY(-6px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(245,230,200,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.08)'; e.currentTarget.style.transform = 'none'; }}
               >
-                <div style={{ width: 60, height: 60, borderRadius: 16, background: 'rgba(201,125,14,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', marginBottom: 20 }}>{f.icon}</div>
+                <div style={{ width: 60, height: 60, borderRadius: 16, background: 'rgba(201,125,14,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', marginBottom: 20 }}>{f.iconElement}</div>
                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5E6C8', marginBottom: 10 }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.8 }}>{f.desc}</p>
+                <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.8 }}>{f.description}</p>
               </div>
             </Reveal>
           ))}
@@ -601,7 +633,7 @@ function WhyUsSection() {
 }
 
 // ─── New Arrivals ───────────────────────────────────────────────
-function NewArrivals({ pets }: { pets: any[] }) {
+function NewArrivals({ pets, copy }: { pets: any[]; copy?: any }) {
   const sourcePets = pets && pets.length > 0 ? pets : mockPets;
   const newPets = sourcePets.filter(p => p.isNew).slice(0, 3);
   return (
@@ -611,8 +643,8 @@ function NewArrivals({ pets }: { pets: any[] }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
             <div>
               <div className="section-label">Just Arrived</div>
-              <h2 className="section-title" style={{ marginBottom: 8 }}>New Arrivals</h2>
-              <p style={{ color: '#6B3A2A', fontSize: 16 }}>Fresh faces looking for their forever homes</p>
+              <h2 className="section-title" style={{ marginBottom: 8 }}>{copy?.newArrivalsTitle || 'New Arrivals'}</h2>
+              <p style={{ color: '#6B3A2A', fontSize: 16 }}>{copy?.newArrivalsSubtitle || 'Fresh faces looking for their forever homes'}</p>
             </div>
             <Link href="/shop?filter=new" className="btn-secondary">See All New <ArrowRight size={16} /></Link>
           </div>
@@ -629,26 +661,27 @@ function NewArrivals({ pets }: { pets: any[] }) {
   );
 }
 
-// ─── Testimonials ───────────────────────────────────────────────
-function TestimonialsSection() {
+// ─── Testimonials (Testimonial model driven) ────────────────────
+function TestimonialsSection({ testimonials, copy }: { testimonials: any[]; copy?: any }) {
   const [current, setCurrent] = useState(0);
-  const prev = () => setCurrent((p) => (p === 0 ? mockTestimonials.length - 1 : p - 1));
-  const next = () => setCurrent((p) => (p + 1) % mockTestimonials.length);
+  const sourceTestimonials = testimonials && testimonials.length ? testimonials : mockTestimonials;
+  const prev = () => setCurrent((p) => (p === 0 ? sourceTestimonials.length - 1 : p - 1));
+  const next = () => setCurrent((p) => (p + 1) % sourceTestimonials.length);
 
   // Auto-rotate testimonials every 6 seconds
   useEffect(() => {
-    const timer = setInterval(() => setCurrent((p) => (p + 1) % mockTestimonials.length), 6000);
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % sourceTestimonials.length), 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [sourceTestimonials.length]);
 
-  const t = mockTestimonials[current];
+  const t = sourceTestimonials[current];
   return (
     <section style={{ padding: '96px 0', background: '#FDF6EC' }}>
       <div className="container" style={{ maxWidth: 900 }}>
         <Reveal>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
             <div className="section-label" style={{ justifyContent: 'center' }}>Happy Pet Parents</div>
-            <h2 className="section-title">What Our Customers Say</h2>
+            <h2 className="section-title">{copy?.testimonialsTitle || 'What Our Customers Say'}</h2>
           </div>
         </Reveal>
         <Reveal delay={0.15}>
@@ -681,7 +714,7 @@ function TestimonialsSection() {
             {/* Nav */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 32 }}>
               <button onClick={prev} style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(44,26,14,0.06)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2C1A0E', transition: 'all 0.2s' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,125,14,0.15)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(44,26,14,0.06)'}><ChevronLeft size={20} /></button>
-              {mockTestimonials.map((_, i) => (
+              {sourceTestimonials.map((_, i) => (
                 <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 24 : 8, height: 8, borderRadius: 50, border: 'none', cursor: 'pointer', background: i === current ? '#C97D0E' : '#ddd', transition: 'all 0.3s ease' }} />
               ))}
               <button onClick={next} style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(44,26,14,0.06)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2C1A0E', transition: 'all 0.2s' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,125,14,0.15)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(44,26,14,0.06)'}><ChevronRight size={20} /></button>
@@ -694,7 +727,7 @@ function TestimonialsSection() {
 }
 
 // ─── CTA Banner ─────────────────────────────────────────────────
-function CTASection() {
+function CTASection({ copy }: { copy?: any }) {
   return (
     <section className="animated-gradient-bg" style={{ padding: '96px 0', position: 'relative', overflow: 'hidden' }}>
       {/* Decorative abstract circles — no emojis */}
@@ -707,26 +740,26 @@ function CTASection() {
             <Shield size={28} color='rgba(255,255,255,0.9)' />
           </div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', fontWeight: 800, margin: '16px 0 12px' }}>
-            Ready to Find Your Companion?
+            {copy?.ctaTitle || 'Ready to Find Your Companion?'}
           </h2>
           <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginBottom: 36, maxWidth: 520, margin: '0 auto 36px' }}>
-            Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.
+            {copy?.ctaSubtitle || 'Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.'}
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
             <Magnetic strength={0.1}>
-              <Link href="/shop" style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
+              <Link href={copy?.ctaPrimaryHref || "/shop"} style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'; }}
               >
-                Shop Now <ArrowRight size={18} />
+                {copy?.ctaPrimaryLabel || 'Shop Now'} <ArrowRight size={18} />
               </Link>
             </Magnetic>
             <Magnetic strength={0.1}>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
+              <a href={copy?.ctaSecondaryHref || "https://wa.me/919876543210"} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
                 onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
               >
-                <Phone size={18} /> WhatsApp Us
+                <Phone size={18} /> {copy?.ctaSecondaryLabel || 'WhatsApp Us'}
               </a>
             </Magnetic>
           </div>
@@ -799,16 +832,30 @@ function MapSection({ settings }: { settings: any }) {
 
 // ─── Main Export ────────────────────────────────────────────────
 export default function HomePage() {
-  const [data, setData] = useState<any>({ pets: [], categories: [], settings: null });
+  const [data, setData] = useState<any>({
+    pets: [],
+    categories: [],
+    settings: null,
+    stats: [],
+    facts: [],
+    features: [],
+    testimonials: [],
+    copy: null,
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
       fetch('/api/pets').then(r => r.json()).catch(() => []),
       fetch('/api/categories').then(r => r.json()).catch(() => []),
-      fetch('/api/settings').then(r => r.json()).catch(() => null)
-    ]).then(([pets, categories, settings]) => {
-      setData({ pets, categories, settings });
+      fetch('/api/settings').then(r => r.json()).catch(() => null),
+      fetch('/api/homepage-stats').then(r => r.json()).catch(() => []),
+      fetch('/api/animal-facts').then(r => r.json()).catch(() => []),
+      fetch('/api/why-us-features').then(r => r.json()).catch(() => []),
+      fetch('/api/testimonials').then(r => r.json()).catch(() => []),
+      fetch('/api/homepage-copy').then(r => r.json()).catch(() => null),
+    ]).then(([pets, categories, settings, stats, facts, features, testimonials, copy]) => {
+      setData({ pets, categories, settings, stats, facts, features, testimonials, copy });
       setLoading(false);
     });
   }, []);
@@ -817,16 +864,16 @@ export default function HomePage() {
 
   return (
     <>
-      <HeroSection settings={data.settings} />
-      <StatsStrip />
+      <HeroSection settings={data.settings} copy={data.copy} />
+      <StatsStrip stats={data.stats} />
       <RoyalFelines pets={data.pets} />
-      <CategoriesSection categories={data.categories} />
-      <FeaturedPets pets={data.pets} />
-      <AnimalFactsBanner />
-      <WhyUsSection />
-      <NewArrivals pets={data.pets} />
-      <TestimonialsSection />
-      <CTASection />
+      <CategoriesSection categories={data.categories} copy={data.copy} />
+      <FeaturedPets pets={data.pets} copy={data.copy} />
+      <AnimalFactsBanner facts={data.facts} />
+      <WhyUsSection features={data.features} />
+      <NewArrivals pets={data.pets} copy={data.copy} />
+      <TestimonialsSection testimonials={data.testimonials} copy={data.copy} />
+      <CTASection copy={data.copy} />
       <MapSection settings={data.settings} />
     </>
   );
