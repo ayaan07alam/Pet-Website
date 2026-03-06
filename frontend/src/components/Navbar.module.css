@@ -325,24 +325,56 @@
   position: fixed;
   top: 0;
   right: -100%;
-  width: 320px;
+  width: 100vw;
+  max-width: 400px;
   height: 100vh;
-  background: #FDF6EC;
+  background: rgba(26, 14, 6, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 950;
-  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
-  box-shadow: -10px 0 40px rgba(44, 26, 14, 0.15);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(245, 230, 200, 0.08);
 }
 
 .mobileMenu.mobileOpen {
   right: 0;
 }
 
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid rgba(245, 230, 200, 0.1);
+}
+
+.closeBtn {
+  background: rgba(245, 230, 200, 0.05);
+  border: 1px solid rgba(245, 230, 200, 0.15);
+  color: #F5E6C8;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(201, 125, 14, 0.2);
+  border-color: #C97D0E;
+  transform: rotate(90deg);
+}
+
 .mobileInner {
-  padding: 80px 24px 40px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .mobileNavItem {
@@ -354,42 +386,47 @@
   display: flex;
   align-items: center;
   min-height: 48px;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Playfair Display', serif;
-  color: #2C1A0E;
+  font-size: 32px;
+  font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
+  color: #F5E6C8;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(44, 26, 14, 0.08);
+  border-bottom: 1px solid rgba(245, 230, 200, 0.08);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .mobileNavLink:hover {
   color: #C97D0E;
+  transform: translateX(8px);
 }
 
 .mobileDropdown {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
-  padding: 8px 0;
+  padding: 12px 0 12px 16px;
 }
 
 .mobileDropdownItem {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  font-size: 14px;
-  color: #6B3A2A;
-  padding: 8px 12px;
-  border-radius: 8px;
+  min-height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(245, 230, 200, 0.7);
+  padding: 8px 16px;
+  border-radius: 12px;
   text-decoration: none;
   transition: all 0.2s ease;
+  border-left: 1px solid rgba(245, 230, 200, 0.1);
 }
 
 .mobileDropdownItem:hover {
-  color: #C97D0E;
-  background: rgba(201, 125, 14, 0.08);
+  color: #E8A020;
+  background: rgba(245, 230, 200, 0.05);
+  border-left-color: #C97D0E;
+  transform: translateX(4px);
 }
 
 .mobileActions {

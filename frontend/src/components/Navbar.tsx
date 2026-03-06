@@ -163,16 +163,26 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileOpen : ''}`}>
+                <div className={styles.mobileHeader}>
+                    <div className={styles.logoText}>
+                        <span className={styles.logoMain} style={{ fontSize: 24 }}>Rumzee's</span>
+                        <span className={styles.logoSub}>Exotic Pets</span>
+                    </div>
+                    <button className={styles.closeBtn} onClick={() => setMobileOpen(false)} aria-label="Close menu">
+                        <X size={28} />
+                    </button>
+                </div>
+
                 <div className={styles.mobileInner}>
                     {navLinks.map((link) => (
                         <div key={link.href} className={styles.mobileNavItem}>
-                            <Link href={link.href} className={styles.mobileNavLink}>
+                            <Link href={link.href} className={styles.mobileNavLink} onClick={() => setMobileOpen(false)}>
                                 {link.label}
                             </Link>
                             {link.dropdown && (
                                 <div className={styles.mobileDropdown}>
                                     {link.dropdown.map((d) => (
-                                        <Link key={d.href} href={d.href} className={styles.mobileDropdownItem}>
+                                        <Link key={d.href} href={d.href} className={styles.mobileDropdownItem} onClick={() => setMobileOpen(false)}>
                                             {d.label}
                                         </Link>
                                     ))}
