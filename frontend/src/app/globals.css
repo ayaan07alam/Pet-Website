@@ -139,7 +139,7 @@ input, textarea, select {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: clamp(11px, 1vw, 13px);
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -158,14 +158,14 @@ input, textarea, select {
 
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 700;
   color: var(--brown-dark);
   margin-bottom: 16px;
 }
 
 .section-subtitle {
-  font-size: 17px;
+  font-size: clamp(15px, 1.5vw, 17px);
   color: var(--brown-mid);
   max-width: 560px;
   line-height: 1.7;
@@ -350,6 +350,12 @@ input, textarea, select {
 @media (max-width: 640px) {
   .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 0 16px; }
+  .whatsapp-float {
+    width: 65px;
+    height: 65px;
+    bottom: 20px;
+    right: 20px;
+  }
 }
 
 /* ===== WHATSAPP FLOAT BUTTON ===== */
@@ -709,7 +715,13 @@ input, textarea, select {
   .masonry-gallery { column-count: 2; }
 }
 @media (max-width: 480px) {
-  .masonry-gallery { column-count: 1; }
+  .masonry-gallery { 
+    column-count: 2; 
+    column-gap: 12px;
+  }
+  .masonry-item {
+    margin-bottom: 12px;
+  }
 }
 
 

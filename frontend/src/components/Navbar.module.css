@@ -342,7 +342,7 @@
   padding: 80px 24px 40px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 
 .mobileNavItem {
@@ -351,6 +351,9 @@
 }
 
 .mobileNavLink {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
   font-size: 18px;
   font-weight: 600;
   font-family: 'Playfair Display', serif;
@@ -373,9 +376,12 @@
 }
 
 .mobileDropdownItem {
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
   color: #6B3A2A;
-  padding: 6px 8px;
+  padding: 8px 12px;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
