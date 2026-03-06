@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
 import styles from './Navbar.module.css';
+import Magnetic from '@/components/animations/Magnetic';
 
 const navLinks = [
     { label: 'Home', href: '/' },
@@ -88,59 +89,62 @@ export default function Navbar() {
 
                 <div className={`container ${styles.inner}`}>
                     {/* Logo */}
-                    <Link href="/" className={styles.logo}>
-                        <div className={styles.logoIcon}>
-                            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="exoticGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stopColor="#FDF6EC" />
-                                        <stop offset="40%" stopColor="#C97D0E" />
-                                        <stop offset="100%" stopColor="#8B5706" />
-                                    </linearGradient>
-                                </defs>
-                                {/* Luxury Crest Ring */}
-                                <circle cx="50" cy="50" r="46" stroke="url(#exoticGold)" strokeWidth="1.5" strokeDasharray="6 4" />
-                                <circle cx="50" cy="50" r="40" stroke="url(#exoticGold)" strokeWidth="1" />
-                                {/* Panther Profile */}
-                                <path d="M 50 25 C 65 25, 75 35, 75 50 C 75 65, 65 75, 50 75 C 60 70, 65 60, 65 50 C 65 40, 60 30, 50 25 Z" fill="url(#exoticGold)" />
-                                {/* Macaw Wing */}
-                                <path d="M 45 25 C 30 35, 25 50, 35 65 C 25 55, 30 40, 45 25 Z" fill="url(#exoticGold)" />
-                                {/* Central Spark */}
-                                <circle cx="50" cy="50" r="3" fill="url(#exoticGold)" />
-                            </svg>
-                        </div>
-                        <div className={styles.logoText}>
-                            <span className={styles.logoMain}>Rumzee's</span>
-                            <span className={styles.logoSub}>Exotic Pets</span>
-                        </div>
-                    </Link>
+                    <Magnetic strength={0.2}>
+                        <Link href="/" className={styles.logo}>
+                            <div className={styles.logoIcon}>
+                                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="exoticGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stopColor="#FDF6EC" />
+                                            <stop offset="40%" stopColor="#C97D0E" />
+                                            <stop offset="100%" stopColor="#8B5706" />
+                                        </linearGradient>
+                                    </defs>
+                                    {/* Luxury Crest Ring */}
+                                    <circle cx="50" cy="50" r="46" stroke="url(#exoticGold)" strokeWidth="1.5" strokeDasharray="6 4" />
+                                    <circle cx="50" cy="50" r="40" stroke="url(#exoticGold)" strokeWidth="1" />
+                                    {/* Panther Profile */}
+                                    <path d="M 50 25 C 65 25, 75 35, 75 50 C 75 65, 65 75, 50 75 C 60 70, 65 60, 65 50 C 65 40, 60 30, 50 25 Z" fill="url(#exoticGold)" />
+                                    {/* Macaw Wing */}
+                                    <path d="M 45 25 C 30 35, 25 50, 35 65 C 25 55, 30 40, 45 25 Z" fill="url(#exoticGold)" />
+                                    {/* Central Spark */}
+                                    <circle cx="50" cy="50" r="3" fill="url(#exoticGold)" />
+                                </svg>
+                            </div>
+                            <div className={styles.logoText}>
+                                <span className={styles.logoMain}>Rumzee's</span>
+                                <span className={styles.logoSub}>Exotic Pets</span>
+                            </div>
+                        </Link>
+                    </Magnetic>
 
                     {/* Desktop Nav */}
                     <ul className={styles.navLinks}>
                         {navLinks.map((link) => (
-                            <li
-                                key={link.href}
-                                className={styles.navItem}
-                                onMouseEnter={() => link.dropdown && setActiveDropdown(link.href)}
-                                onMouseLeave={() => setActiveDropdown(null)}
-                            >
-                                <Link
-                                    href={link.href}
-                                    className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
+                            <Magnetic strength={0.15} key={link.href}>
+                                <li
+                                    className={styles.navItem}
+                                    onMouseEnter={() => link.dropdown && setActiveDropdown(link.href)}
+                                    onMouseLeave={() => setActiveDropdown(null)}
                                 >
-                                    {link.label}
-                                    {link.dropdown && <ChevronDown size={14} />}
-                                </Link>
-                                {link.dropdown && (
-                                    <div className={`${styles.dropdown} ${activeDropdown === link.href ? styles.dropdownOpen : ''}`}>
-                                        {link.dropdown.map((d) => (
-                                            <Link key={d.href} href={d.href} className={styles.dropdownItem}>
-                                                {d.label}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
-                            </li>
+                                    <Link
+                                        href={link.href}
+                                        className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
+                                    >
+                                        {link.label}
+                                        {link.dropdown && <ChevronDown size={14} />}
+                                    </Link>
+                                    {link.dropdown && (
+                                        <div className={`${styles.dropdown} ${activeDropdown === link.href ? styles.dropdownOpen : ''}`}>
+                                            {link.dropdown.map((d) => (
+                                                <Link key={d.href} href={d.href} className={styles.dropdownItem}>
+                                                    {d.label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </li>
+                            </Magnetic>
                         ))}
                     </ul>
 

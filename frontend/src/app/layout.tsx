@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Toaster } from "react-hot-toast";
+import SmoothScroll from "@/components/animations/SmoothScroll";
+import CustomCursor from "@/components/animations/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Rumzee's Exotic — Premium Exotic Pets & Accessories",
@@ -24,23 +26,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: '#FDF6EC',
-              color: '#2C1A0E',
-              border: '1px solid rgba(44,26,14,0.12)',
-              boxShadow: '0 4px 20px rgba(44,26,14,0.12)',
-              fontFamily: 'DM Sans, sans-serif',
-              fontSize: '14px',
-            },
-          }}
-        />
+        <SmoothScroll>
+          <CustomCursor />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: '#FDF6EC',
+                color: '#2C1A0E',
+                border: '1px solid rgba(44,26,14,0.12)',
+                boxShadow: '0 4px 20px rgba(44,26,14,0.12)',
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: '14px',
+              },
+            }}
+          />
+        </SmoothScroll>
       </body>
     </html>
   );

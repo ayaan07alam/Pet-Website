@@ -3,15 +3,20 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Star, Shield, Truck, Heart, ChevronLeft, ChevronRight, MapPin, Phone, Play, Users, Dna, ShieldCheck, MessageCircle, Feather, Cat, Rabbit } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import PetCard from '@/components/PetCard';
 import { mockPets, mockCategories, mockTestimonials } from '@/data/mockData';
+import Magnetic from '@/components/animations/Magnetic';
 
 // ─── Hero Section ─────────────────────────────────────────────
 function HeroSection({ settings }: { settings: any }) {
   const [currentBgSlide, setCurrentBgSlide] = useState(0);
   const [currentCarouselSlide, setCurrentCarouselSlide] = useState(0);
   const [isPlayingCarousel, setIsPlayingCarousel] = useState(true);
+
+  // Parallax hook
+  const { scrollY } = useScroll();
+  const yBg = useTransform(scrollY, [0, 1000], [0, 300]);
 
   // Validation: Check if there's actually a valid URL string present, not just placeholders.
   const validBgImages = settings?.heroImages?.filter((img: string) => img && img.trim() !== '') || [];
@@ -86,18 +91,19 @@ function HeroSection({ settings }: { settings: any }) {
 
       {/* Background Images - Local files for instant, reliable loading */}
       {bgSlides.map((slide: any, i: number) => (
-        <div
+        <motion.div
           key={slide.id}
           style={{
-            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0,
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '120%', zIndex: 0,
             opacity: i === currentBgSlide ? 1 : 0,
-            transform: i === currentBgSlide ? 'scale(1)' : 'scale(1.05)',
+            scale: i === currentBgSlide ? 1 : 1.05,
             transition: 'opacity 1.5s ease-in-out, transform 1.5s ease-in-out',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            y: yBg
           }}
         >
           <img src={slide.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-        </div>
+        </motion.div>
       ))}
 
       {/* Overlays to ensure text readability */}
@@ -135,30 +141,34 @@ function HeroSection({ settings }: { settings: any }) {
               </p>
 
               <div className="hero-cta-group">
-                <Link href="/shop" style={{
-                  background: activeSlide.color,
-                  color: '#fff', padding: '16px 40px', borderRadius: 50,
-                  fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 10,
-                  textDecoration: 'none', boxShadow: `0 8px 32px ${activeSlide.color}60`,
-                  transition: 'transform 0.2s ease, filter 0.2s ease'
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.filter = 'brightness(1.1)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.filter = 'none'; }}
-                >
-                  Discover Pets <ArrowRight size={18} />
-                </Link>
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <Link href="/contact" style={{
-                    background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
-                    color: '#fff', padding: '15px 36px', borderRadius: 50,
-                    fontWeight: 600, fontSize: 16, border: '2px solid rgba(255,255,255,0.3)',
-                    textDecoration: 'none', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center'
+                <Magnetic strength={0.1}>
+                  <Link href="/shop" style={{
+                    background: activeSlide.color,
+                    color: '#fff', padding: '16px 40px', borderRadius: 50,
+                    fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 10,
+                    textDecoration: 'none', boxShadow: `0 8px 32px ${activeSlide.color}60`,
+                    transition: 'transform 0.2s ease, filter 0.2s ease'
                   }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.borderColor = '#fff'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.filter = 'brightness(1.1)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.filter = 'none'; }}
                   >
-                    Contact Us
+                    Discover Pets <ArrowRight size={18} />
                   </Link>
+                </Magnetic>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <Magnetic strength={0.1}>
+                    <Link href="/contact" style={{
+                      background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)',
+                      color: '#fff', padding: '15px 36px', borderRadius: 50,
+                      fontWeight: 600, fontSize: 16, border: '2px solid rgba(255,255,255,0.3)',
+                      textDecoration: 'none', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center'
+                    }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.borderColor = '#fff'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
+                    >
+                      Contact Us
+                    </Link>
+                  </Magnetic>
                 </div>
               </div>
             </motion.div>
@@ -465,9 +475,11 @@ function RoyalFelines({ pets }: { pets: any[] }) {
               <div className="section-label" style={{ color: '#C97D0E', background: 'rgba(201,125,14,0.1)' }}>Our Specialty</div>
               <h2 className="section-title" style={{ color: '#F5E6C8', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.5)', fontSize: '42px' }}>Royal Felines</h2>
             </div>
-            <Link href="/shop?category=cats" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.05)', color: '#F5E6C8', borderColor: 'rgba(245,230,200,0.2)' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,125,14,0.2)'; e.currentTarget.style.borderColor = '#C97D0E'; }} onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.2)'; }}>
-              Explore Cattery <ArrowRight size={16} />
-            </Link>
+            <Magnetic strength={0.1}>
+              <Link href="/shop?category=cats" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.05)', color: '#F5E6C8', borderColor: 'rgba(245,230,200,0.2)' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,125,14,0.2)'; e.currentTarget.style.borderColor = '#C97D0E'; }} onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.2)'; }}>
+                Explore Cattery <ArrowRight size={16} />
+              </Link>
+            </Magnetic>
           </div>
         </Reveal>
 
@@ -702,18 +714,22 @@ function CTASection() {
             Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <Link href="/shop" style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'; }}
-            >
-              Shop Now <ArrowRight size={18} />
-            </Link>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
-            >
-              <Phone size={18} /> WhatsApp Us
-            </a>
+            <Magnetic strength={0.1}>
+              <Link href="/shop" style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'; }}
+              >
+                Shop Now <ArrowRight size={18} />
+              </Link>
+            </Magnetic>
+            <Magnetic strength={0.1}>
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
+              >
+                <Phone size={18} /> WhatsApp Us
+              </a>
+            </Magnetic>
           </div>
         </Reveal>
       </div>
