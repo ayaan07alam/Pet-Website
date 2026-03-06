@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import styles from './Navbar.module.css';
 import Magnetic from '@/components/animations/Magnetic';
 
@@ -36,11 +37,10 @@ export default function Navbar() {
         fetch('/api/settings').then(r => r.json()).then(setSettings).catch(console.error);
     }, []);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    const { scrollY } = useScroll();
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        setScrolled(latest > 20);
+    });
 
     useEffect(() => {
         setMobileOpen(false);
