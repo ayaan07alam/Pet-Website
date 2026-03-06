@@ -6,60 +6,85 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 export default function CustomCursor() {
     const [isVisible, setIsVisible] = useState(false);
 
-    // High-performance motion values
-    const cursorX = useMotionValue(-100);
-    const cursorY = useMotionValue(-100);
+    // Exact cursor for precision clicking
+    const exactX = useMotionValue(-100);
+    const exactY = useMotionValue(-100);
 
-    // Physics-based spring config for the trailing ring
-    const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
-    const cursorXSpring = useSpring(cursorX, springConfig);
-    const cursorYSpring = useSpring(cursorY, springConfig);
+    // Physics-based spring config for the trailing paw
+    // Slightly heavier mass for a soft, graceful 'cat-like' follow
+    const springConfig = { damping: 25, stiffness: 200, mass: 0.3 };
+    const springX = useSpring(exactX, springConfig);
+    const springY = useSpring(exactY, springConfig);
 
     useEffect(() => {
         // Only show custom cursor on non-touch devices
         if (window.matchMedia('(pointer: coarse)').matches) return;
-
         setIsVisible(true);
 
         const moveCursor = (e: MouseEvent) => {
-            cursorX.set(e.clientX - 16); // Center the 32px ring
-            cursorY.set(e.clientY - 16);
+            exactX.set(e.clientX);
+            exactY.set(e.clientY);
         };
 
         window.addEventListener('mousemove', moveCursor);
         return () => window.removeEventListener('mousemove', moveCursor);
-    }, [cursorX, cursorY]);
+    }, [exactX, exactY]);
 
     if (!isVisible) return null;
 
     return (
-        <motion.div
-            style={{
-                position: 'fixed',
-                left: 0,
-                top: 0,
-                width: 32,
-                height: 32,
-                borderRadius: '50%',
-                border: '1px solid rgba(245, 230, 200, 0.5)',
-                pointerEvents: 'none',
-                zIndex: 9999,
-                x: cursorXSpring,
-                y: cursorYSpring,
-                mixBlendMode: 'difference' // Elegant blending effect on different backgrounds
-            }}
-        >
-            {/* Center dot */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: 6,
-                height: 6,
-                background: '#F5E6C8',
-                borderRadius: '50%'
-            }} />
-        </motion.div>
+        <>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @media (pointer: fine) {
+                    * { cursor: none !important; }
+                }
+            `}} />
+
+            {/* Trailing Luxury Paw Print */}
+            <motion.div
+                style={{
+                    position: 'fixed',
+                    left: -20, // Center the 40px paw
+                    top: -20,
+                    width: 40,
+                    height: 40,
+                    pointerEvents: 'none',
+                    zIndex: 9998,
+                    x: springX,
+                    y: springY,
+                    mixBlendMode: 'difference',
+                    color: '#F5E6C8', // Inverts beautifully
+                }}
+            >
+                <svg viewBox="0 0 100 100" fill="currentColor">
+                    {/* Main Plantar Pad */}
+                    <path d="M49.9 83.2c-15-2.2-22.3-15.4-22.3-15.4-6.4-12.2-0.6-21.2 5.5-23.7 4.5-1.9 10.3 3.5 16.8 6.7 6.4-3.2 12.3-8.6 16.8-6.7 6.1 2.5 11.9 11.5 5.5 23.7 0 0-7.3 13.2-22.3 15.4z" />
+                    {/* Digital Pads (Toes) */}
+                    <ellipse cx="22.5" cy="40" rx="9" ry="14" transform="rotate(-30 22.5 40)" />
+                    <ellipse cx="37" cy="22" rx="9" ry="14" transform="rotate(-10 37 22)" />
+                    <ellipse cx="63" cy="22" rx="9" ry="14" transform="rotate(10 63 22)" />
+                    <ellipse cx="77.5" cy="40" rx="9" ry="14" transform="rotate(30 77.5 40)" />
+                </svg>
+            </motion.div>
+
+            {/* Exact Precision Dot */}
+            <motion.div
+                style={{
+                    position: 'fixed',
+                    left: -2, // Center the 4px dot
+                    top: -2,
+                    width: 4,
+                    height: 4,
+                    borderRadius: '50%',
+                    background: '#C97D0E',
+                    pointerEvents: 'none',
+                    zIndex: 9999,
+                    x: exactX,
+                    y: exactY,
+                    boxShadow: '0 0 12px rgba(201,125,14,0.8)'
+                }}
+            />
+        </>
     );
 }
