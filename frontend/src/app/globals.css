@@ -36,6 +36,11 @@ body {
   line-height: 1.65;
 }
 
+main {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cormorant Garamond', serif;
   line-height: 1.15;
@@ -583,7 +588,8 @@ input, textarea, select {
 /* ===== RESPONSIVE UTILITIES FOR HERO & STATS ===== */
 .hero-wrapper {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -624,6 +630,7 @@ input, textarea, select {
   width: 440px;
   height: 440px;
   z-index: 2;
+  --orbit-radius: 260px;
 }
 
 .stats-strip {
@@ -673,6 +680,7 @@ input, textarea, select {
   .hero-carousel-inner {
     width: 320px;
     height: 320px;
+    --orbit-radius: 190px;
   }
   
   .stats-strip {
@@ -691,6 +699,7 @@ input, textarea, select {
   .hero-carousel-inner {
     width: 260px;
     height: 260px;
+    --orbit-radius: 140px; /* Keep tight to prevent horizontal screen overflow */
   }
   .stats-item {
     flex: 1 1 50%;

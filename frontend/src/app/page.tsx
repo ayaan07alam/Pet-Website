@@ -222,18 +222,21 @@ function HeroSection({ settings }: { settings: any }) {
             {carouselSlides.map((s, i) => {
               // Rotate 90 degrees based on index, shifting backwards to bring active to left/bottom
               return (
-                <button key={i} onClick={() => setCurrentCarouselSlide(i)} style={{
-                  position: 'absolute', top: '50%', left: '50%',
-                  transform: `rotate(${i * 90}deg) translateX(220px) rotate(-${i * 90}deg) translate(-50%, -50%)`,
-                  width: i === currentCarouselSlide ? 72 : 56,
-                  height: i === currentCarouselSlide ? 72 : 56,
-                  borderRadius: '50%',
-                  border: i === currentCarouselSlide ? `3px solid ${s.color}` : '3px solid rgba(255,255,255,0.8)',
-                  boxShadow: i === currentCarouselSlide ? `0 12px 32px ${s.color}80` : '0 8px 24px rgba(0,0,0,0.5)',
-                  overflow: 'hidden', padding: 0, cursor: 'pointer', zIndex: 3,
-                  transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  background: '#000'
-                }}>
+                <button key={i} onClick={() => setCurrentCarouselSlide(i)}
+                  className={`orbit-thumb ${i === currentCarouselSlide ? 'active' : ''}`}
+                  style={{
+                    position: 'absolute', top: '50%', left: '50%',
+                    // Instead of hardcoded 220px, use CSS variable --orbit-radius
+                    transform: `rotate(${i * 90}deg) translateX(var(--orbit-radius, 220px)) rotate(-${i * 90}deg) translate(-50%, -50%)`,
+                    width: i === currentCarouselSlide ? 72 : 56,
+                    height: i === currentCarouselSlide ? 72 : 56,
+                    borderRadius: '50%',
+                    border: i === currentCarouselSlide ? `3px solid ${s.color}` : '3px solid rgba(255,255,255,0.8)',
+                    boxShadow: i === currentCarouselSlide ? `0 12px 32px ${s.color}80` : '0 8px 24px rgba(0,0,0,0.5)',
+                    overflow: 'hidden', padding: 0, cursor: 'pointer', zIndex: 3,
+                    transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    background: '#000'
+                  }}>
                   <img src={s.image} alt={s.label} style={{
                     width: '100%', height: '100%', objectFit: 'cover',
                     filter: i === currentCarouselSlide ? 'none' : 'brightness(0.6) grayscale(40%)',
