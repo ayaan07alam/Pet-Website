@@ -464,10 +464,6 @@ function RoyalFelines({ pets }: { pets: any[] }) {
 
   return (
     <section style={{ padding: '100px 0', position: 'relative', background: 'linear-gradient(to bottom, #1A0E06 0%, #2f1b0c 100%)', overflow: 'hidden' }}>
-      {/* Decorative floating elements */}
-      <div style={{ position: 'absolute', top: '10%', right: '5%', opacity: 0.05, fontSize: '180px', pointerEvents: 'none', transform: 'rotate(15deg)' }}>🐾</div>
-      <div style={{ position: 'absolute', bottom: '5%', left: '2%', opacity: 0.03, fontSize: '240px', pointerEvents: 'none', transform: 'rotate(-20deg)' }}>🐈</div>
-
       {/* Center ambient glow */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', height: '80%', background: 'radial-gradient(circle, rgba(201,125,14,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
