@@ -819,8 +819,8 @@ export default function HomePage() {
     <>
       <HeroSection settings={data.settings} />
       <StatsStrip />
-      <CategoriesSection categories={data.categories} />
       <RoyalFelines pets={data.pets} />
+      <CategoriesSection categories={data.categories} />
       <FeaturedPets pets={data.pets} />
       <AnimalFactsBanner />
       <WhyUsSection />
