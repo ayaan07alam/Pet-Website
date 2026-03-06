@@ -60,7 +60,13 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .headers(h -> h.frameOptions(fo -> fo.disable())) // H2 console
+                .headers(h -> h
+                        .frameOptions(fo -> fo.disable()) // Keep disabled for H2 console if needed in dev, but ideally
+                                                          // DENY in prod
+                        .xssProtection(xss -> xss.disable()) // Spring Security 6+ recommends disabling its built-in
+                                                             // filter and relying on CSP
+                        .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'"))
+                        .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000)))
                 .build();
     }
 

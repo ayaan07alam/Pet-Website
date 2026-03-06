@@ -8,14 +8,55 @@ import SmoothScroll from "@/components/animations/SmoothScroll";
 import CustomCursor from "@/components/animations/CustomCursor";
 
 export const metadata: Metadata = {
-  title: "Rumzee's Exotic — Premium Exotic Pets & Accessories",
-  description: "Discover rare and exotic birds, cats, reptiles, and tortoises at Rumzee's Exotic. Premium quality pets, accessories, and care services.",
-  keywords: "exotic pets, birds, parrots, cats, reptiles, tortoises, pet shop, aviary",
-  openGraph: {
-    title: "Rumzee's Exotic",
-    description: "Your destination for premium exotic pets and accessories",
-    type: "website",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rumzeesexotics.com'),
+  title: {
+    default: "Rumzee's Exotic — Premium Exotic Pets & Accessories",
+    template: "%s | Rumzee's Exotic"
   },
+  description: "Discover rare and exotic birds, cats, reptiles, and tortoises at Rumzee's Exotic. Premium quality pets, accessories, and expert care services.",
+  keywords: ["exotic pets", "buy parrots online", "exotic cats", "reptiles for sale", "pet shop", "macaw breed", "persian cats", "luxury pet boutique"],
+  authors: [{ name: "Rumzee's Exotic" }],
+  creator: "Rumzee's Exotic",
+  publisher: "Rumzee's Exotic",
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "Rumzee's Exotic",
+    title: "Rumzee's Exotic — Premium Exotic Pets",
+    description: "Your destination for premium exotic pets and accessories. Discover rare birds, felines, and reptiles.",
+    images: [{
+      url: "/logo.png",
+      width: 1200,
+      height: 630,
+      alt: "Rumzee's Exotic Logo"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rumzee's Exotic — Premium Exotic Pets",
+    description: "Discover rare and exotic birds, cats, reptiles, and tortoises.",
+    images: ["/logo.png"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "PetStore",
+  "name": "Rumzee's Exotic",
+  "image": "https://rumzeesexotics.com/logo.png",
+  "description": "Premium exotic pet boutique offering rare birds, cats, reptiles, and accessories.",
+  "url": "https://rumzeesexotics.com",
+  "telephone": "+919876543210",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Exotic Pet Lane",
+    "addressLocality": "Paradise City",
+    "addressCountry": "IN"
+  }
 };
 
 export default function RootLayout({
@@ -25,6 +66,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <SmoothScroll>
           <CustomCursor />
