@@ -16,12 +16,22 @@ export default function WhatsAppFloat() {
     const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '9876543210';
     const waLink = `https://wa.me/${cleanWhatsapp.replace(/^\+/, '')}`;
 
+    // Inline style wrapper ensures it floats even if mobile browsers cache globals.css
     return (
-        <div className="float-container">
+        <div style={{
+            position: 'fixed',
+            bottom: 24,
+            right: 24,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 16,
+            zIndex: 9999
+        }}>
+
             {/* Phone Call Float */}
             <a
                 href={`tel:${cleanWhatsapp}`}
-                className="whatsapp-float phone-float"
+                className="lead-action-btn phone-action-btn"
                 aria-label="Call Us"
                 title="Call us directly"
             >
@@ -35,7 +45,7 @@ export default function WhatsAppFloat() {
                 href={`${waLink}?text=Hi%20Rumzee's%20Exotic!%20I'm%20interested%20in%20your%20pets.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="whatsapp-float"
+                className="lead-action-btn"
                 aria-label="Chat on WhatsApp"
                 title="Chat with us on WhatsApp"
             >
