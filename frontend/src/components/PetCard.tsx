@@ -33,8 +33,9 @@ interface PetCardProps {
 const SPECIES_IDENTITY: Record<string, { label: string; abbreviation: string; gradient: string; accent: string; accentLight: string }> = {
     bird: { label: 'Bird', abbreviation: 'AVN', gradient: 'linear-gradient(135deg, #E8A020, #E8601A)', accent: '#E8A020', accentLight: 'rgba(232,160,32,0.12)' },
     cat: { label: 'Exotic Cat', abbreviation: 'FEL', gradient: 'linear-gradient(135deg, #C97D0E, #A85C0A)', accent: '#C97D0E', accentLight: 'rgba(201,125,14,0.12)' },
+    rodent: { label: 'Rodent', abbreviation: 'ROD', gradient: 'linear-gradient(135deg, #A0614A, #7A4030)', accent: '#A0614A', accentLight: 'rgba(160,97,74,0.12)' },
     reptile: { label: 'Reptile', abbreviation: 'REP', gradient: 'linear-gradient(135deg, #4A7C2E, #2E5F1A)', accent: '#4A7C2E', accentLight: 'rgba(74,124,46,0.12)' },
-    tortoise: { label: 'Tortoise', abbreviation: 'TRT', gradient: 'linear-gradient(135deg, #7A5C3A, #5A3E20)', accent: '#7A5C3A', accentLight: 'rgba(122,92,58,0.12)' },
+    tortoise: { label: 'Turtle / Tortoise', abbreviation: 'TRT', gradient: 'linear-gradient(135deg, #7A5C3A, #5A3E20)', accent: '#7A5C3A', accentLight: 'rgba(122,92,58,0.12)' },
 };
 
 export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {

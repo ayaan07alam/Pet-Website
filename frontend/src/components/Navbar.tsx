@@ -14,9 +14,11 @@ const navLinks = [
         href: '/shop',
         dropdown: [
             { label: 'Birds & Parrots', href: '/shop?category=birds' },
+            { label: 'Big Birds', href: '/shop?category=birds' },
             { label: 'Exotic Cats', href: '/shop?category=cats' },
+            { label: 'Rodents', href: '/shop?category=rodents' },
             { label: 'Reptiles', href: '/shop?category=reptiles' },
-            { label: 'Tortoises', href: '/shop?category=tortoises' },
+            { label: 'Turtles', href: '/shop?category=turtles' },
             { label: 'Accessories', href: '/shop?category=accessories' },
             { label: 'Pet Food', href: '/shop?category=food' },
         ],

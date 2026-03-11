@@ -5,8 +5,8 @@ import { Search, SlidersHorizontal, Grid, List, X } from 'lucide-react';
 import PetCard from '@/components/PetCard';
 import { mockPets, mockProducts } from '@/data/mockData';
 
-const SPECIES = ['all', 'bird', 'cat', 'reptile', 'tortoise'];
-const CATEGORY_MAP: Record<string, string> = { birds: 'bird', cats: 'cat', reptiles: 'reptile', tortoises: 'tortoise' };
+const SPECIES = ['all', 'bird', 'cat', 'rodent', 'reptile', 'tortoise'];
+const CATEGORY_MAP: Record<string, string> = { birds: 'bird', cats: 'cat', reptiles: 'reptile', tortoises: 'tortoise', turtles: 'tortoise', rodents: 'rodent' };
 
 function ShopContent() {
     const searchParams = useSearchParams();
@@ -101,8 +101,9 @@ function ShopContent() {
                             { key: 'all', label: 'All Pets', color: '#C97D0E', bg: 'rgba(201,125,14,0.1)' },
                             { key: 'bird', label: 'Birds & Parrots', color: '#E8A020', bg: 'rgba(232,160,32,0.1)' },
                             { key: 'cat', label: 'Exotic Cats', color: '#C97D0E', bg: 'rgba(201,125,14,0.1)' },
+                            { key: 'rodent', label: 'Rodents', color: '#A0614A', bg: 'rgba(160,97,74,0.1)' },
                             { key: 'reptile', label: 'Reptiles', color: '#4A7C2E', bg: 'rgba(74,124,46,0.1)' },
-                            { key: 'tortoise', label: 'Tortoises', color: '#7A5C3A', bg: 'rgba(122,92,58,0.1)' },
+                            { key: 'tortoise', label: 'Turtles & Tortoises', color: '#7A5C3A', bg: 'rgba(122,92,58,0.1)' },
                         ].map(s => {
                             const active = species === s.key;
                             return (
@@ -160,7 +161,7 @@ function ShopContent() {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                     {SPECIES.map(s => (
                                         <button key={s} onClick={() => setSpecies(s)} style={{ textAlign: 'left', padding: '8px 12px', borderRadius: 10, border: 'none', cursor: 'pointer', background: species === s ? 'rgba(201,125,14,0.12)' : 'transparent', color: species === s ? '#C97D0E' : '#2C1A0E', fontWeight: species === s ? 700 : 400, fontSize: 14, transition: 'all 0.2s' }}>
-                                            {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s.charAt(0).toUpperCase() + s.slice(1)}
+                                            {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Turtles & Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
                                         </button>
                                     ))}
                                 </div>
