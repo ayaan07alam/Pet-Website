@@ -125,7 +125,7 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
               exit={{ opacity: 0, x: 30 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, justifyContent: 'center' }}>
                 <span style={{ padding: '6px 16px', borderRadius: 30, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
                   {activeSlide.label}
                 </span>
@@ -140,7 +140,7 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
                 {activeSlide.desc}
               </p>
 
-              <div className="hero-cta-group">
+              <div className="hero-cta-group" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Magnetic strength={0.1}>
                   <Link href={copy?.heroPrimaryCtaHref || "/shop"} style={{
                     background: activeSlide.color,

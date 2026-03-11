@@ -198,7 +198,7 @@ function ShopContent() {
                                 <style>{`@keyframes wiggle { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }`}</style>
                             </div>
                         ) : showProducts ? (
-                            <div className="grid-4">
+                            <div className="pet-card-grid">
                                 {(filtered as typeof mockProducts).map(p => (
                                     <div key={p.id} style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 2px 12px rgba(44,26,14,0.07)', transition: 'all 0.3s ease' }}
                                         onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(44,26,14,0.14)'; }}
@@ -218,7 +218,7 @@ function ShopContent() {
                                 ))}
                             </div>
                         ) : (
-                            <div className={layout === 'grid' ? 'grid-4' : ''} style={layout === 'list' ? { display: 'flex', flexDirection: 'column', gap: 20 } : {}}>
+                            <div className={layout === 'grid' ? 'pet-card-grid' : ''} style={layout === 'list' ? { display: 'flex', flexDirection: 'column', gap: 20 } : {}}>
                                 {(filtered as typeof mockPets).map(pet => <PetCard key={pet.id} pet={pet} layout={layout} />)}
                             </div>
                         )}

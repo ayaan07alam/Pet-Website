@@ -72,17 +72,17 @@ export default function Navbar() {
                 {/* Topbar: Hidden on scroll */}
                 <div className={styles.topbar}>
                     <div className={`container ${styles.topbarInner}`}>
-                        <div className={styles.topbarLeft}>
+                        <div className={styles.topbarLeft} style={{ display: 'none' }}>
                             <a href={mapEmbed || "https://maps.app.goo.gl/A8DbhV3wFJpyLnS37"} target="_blank" rel="noopener noreferrer" className={styles.topbarItem}>
                                 <MapPin size={14} /> {settings?.address || '123 Exotic Pet Lane, Paradise City'}
                             </a>
                         </div>
-                        <div className={styles.topbarRight}>
+                        <div className={styles.topbarRight} style={{ width: '100%', justifyContent: 'center' }}>
                             <a href={`tel:${cleanWhatsapp}`} className={styles.topbarItem}>
                                 <Phone size={14} /> {displayWhatsapp}
                             </a>
-                            <span className={styles.topbarDivider}>|</span>
-                            <a href={`mailto:${settings?.emailAddress || 'info@rumzeesexotic.com'}`} className={styles.topbarItem}>
+                            <span className={styles.topbarDivider} style={{ display: 'none' }}>|</span>
+                            <a href={`mailto:${settings?.emailAddress || 'info@rumzeesexotic.com'}`} className={styles.topbarItem} style={{ display: 'none' }}>
                                 <Mail size={14} /> {settings?.emailAddress || 'info@rumzeesexotic.com'}
                             </a>
                         </div>

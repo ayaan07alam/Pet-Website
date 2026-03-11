@@ -25,7 +25,7 @@ export default function Footer() {
         <footer style={{ background: '#2C1A0E', color: '#F5E6C8' }}>
             {/* Upper Footer */}
             <div className="container" style={{ padding: '64px 24px 48px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '48px' }}>
+                <div className="responsive-footer-grid">
 
                     {/* Brand */}
                     <div>
