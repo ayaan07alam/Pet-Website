@@ -112,7 +112,7 @@ export default function ServicesPage() {
                         </p>
                         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
                             <Link href="/contact" className="btn-primary">Book a Service</Link>
-                            <a href="tel:+919876543210" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 50, border: '2px solid rgba(245,230,200,0.25)', color: '#F5E6C8', fontSize: 15, fontWeight: 600, textDecoration: 'none', transition: 'all 0.25s' }}>
+                            <a href="tel:+918197398357" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 50, border: '2px solid rgba(245,230,200,0.25)', color: '#F5E6C8', fontSize: 15, fontWeight: 600, textDecoration: 'none', transition: 'all 0.25s' }}>
                                 <Phone size={16} /> Call Us
                             </a>
                         </div>

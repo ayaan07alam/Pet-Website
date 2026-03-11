@@ -15,7 +15,7 @@ export default function Footer() {
     const isHiddenRoute = pathname.startsWith('/admin') || pathname === '/login' || pathname === '/register';
     if (isHiddenRoute) return null;
 
-    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '9876543210';
+    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
     const displayWhatsapp = cleanWhatsapp.startsWith('+91') || cleanWhatsapp.startsWith('91') && cleanWhatsapp.length === 12
         ? `+${cleanWhatsapp.replace(/^\+/, '')}`
         : `+91 ${cleanWhatsapp}`;

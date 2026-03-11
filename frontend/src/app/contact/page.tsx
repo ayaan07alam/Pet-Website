@@ -43,7 +43,7 @@ export default function ContactPage() {
 
     const inputStyle = { width: '100%', padding: '13px 16px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 12, background: '#FDF6EC', color: '#2C1A0E', fontSize: 15, transition: 'all 0.25s', outline: 'none' };
 
-    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '9876543210';
+    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
     const displayWhatsapp = cleanWhatsapp.startsWith('+91') || cleanWhatsapp.startsWith('91') && cleanWhatsapp.length === 12
         ? `+${cleanWhatsapp.replace(/^\+/, '')}`
         : `+91 ${cleanWhatsapp}`;
@@ -115,7 +115,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#6B3A2A', marginBottom: 6 }}>Phone</label>
-                                    <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="+91 9876543210" style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
+                                    <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="+91 8197398357" style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                 </div>
                             </div>
                             <div>

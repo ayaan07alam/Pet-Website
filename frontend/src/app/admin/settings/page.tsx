@@ -99,7 +99,7 @@ export default function SettingsManager() {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>WhatsApp Number</label>
-                            <input style={inputStyle} value={form.whatsappNumber} onChange={e => setForm({ ...form, whatsappNumber: e.target.value })} placeholder="919876543210" />
+                            <input style={inputStyle} value={form.whatsappNumber} onChange={e => setForm({ ...form, whatsappNumber: e.target.value })} placeholder="918197398357" />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>Email Address</label>

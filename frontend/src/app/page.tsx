@@ -771,7 +771,7 @@ function CTASection({ copy }: { copy?: any }) {
                   </Link>
                 </Magnetic>
                 <Magnetic strength={0.1}>
-                  <a href={copy?.ctaSecondaryHref || "https://wa.me/919876543210"} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
+                  <a href={copy?.ctaSecondaryHref || "https://wa.me/918197398357"} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
                   >
@@ -852,7 +852,7 @@ function CTASection({ copy }: { copy?: any }) {
 
 // ─── Visit Us Map ───────────────────────────────────────────────
 function MapSection({ settings }: { settings: any }) {
-  const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '9876543210';
+  const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
   const displayWhatsapp = cleanWhatsapp.startsWith('+91') || cleanWhatsapp.startsWith('91') && cleanWhatsapp.length === 12
     ? `+${cleanWhatsapp.replace(/^\+/, '')}`
     : `+91 ${cleanWhatsapp}`;

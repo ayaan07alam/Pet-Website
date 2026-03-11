@@ -13,7 +13,7 @@ export default function WhatsAppFloat() {
     const isHiddenRoute = pathname.startsWith('/admin') || pathname === '/login' || pathname === '/register';
     if (isHiddenRoute) return null;
 
-    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '9876543210';
+    const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
     const waLink = `https://wa.me/${cleanWhatsapp.replace(/^\+/, '')}`;
 
     // Inline style wrapper ensures it floats even if mobile browsers cache globals.css

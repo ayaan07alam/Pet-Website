@@ -51,7 +51,7 @@ const jsonLd = {
   "image": "https://rumzeesexotics.com/logo.png",
   "description": "Premium exotic pet boutique offering rare birds, cats, reptiles, and accessories.",
   "url": "https://rumzeesexotics.com",
-  "telephone": "+919876543210",
+  "telephone": "+918197398357",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "123 Exotic Pet Lane",
