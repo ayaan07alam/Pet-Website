@@ -15,10 +15,30 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        await new Promise(r => setTimeout(r, 1200));
-        toast.success('Message sent! We\'ll get back to you within 24 hours. 🐾');
-        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-        setLoading(false);
+        try {
+            const fullMessage = form.subject
+                ? `[${form.subject}] ${form.message}`
+                : form.message;
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: form.name.trim(),
+                    phone: form.phone.trim() || null,
+                    email: form.email.trim() || null,
+                    message: fullMessage.trim(),
+                    source: 'contact_form',
+                    pageUrl: '/contact',
+                }),
+            });
+            if (!res.ok) throw new Error('Failed');
+            toast.success('Message sent! We\'ll get back to you within 24 hours. 🐾');
+            setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+        } catch {
+            toast.error('Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const inputStyle = { width: '100%', padding: '13px 16px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 12, background: '#FDF6EC', color: '#2C1A0E', fontSize: 15, transition: 'all 0.25s', outline: 'none' };

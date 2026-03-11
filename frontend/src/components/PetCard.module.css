@@ -292,6 +292,29 @@
   color: var(--species-accent, #C97D0E);
 }
 
+.enquireBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #C97D0E, #A85C0A);
+  border: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(201,125,14,0.25);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.enquireBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(201,125,14,0.4);
+  filter: brightness(1.1);
+}
+
 /* ===== LIST LAYOUT ===== */
 .listCard {
   flex-direction: row;

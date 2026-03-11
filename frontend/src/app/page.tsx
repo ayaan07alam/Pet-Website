@@ -142,7 +142,7 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
 
               <div className="hero-cta-group">
                 <Magnetic strength={0.1}>
-                    <Link href={copy?.heroPrimaryCtaHref || "/shop"} style={{
+                  <Link href={copy?.heroPrimaryCtaHref || "/shop"} style={{
                     background: activeSlide.color,
                     color: '#fff', padding: '16px 40px', borderRadius: 50,
                     fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -251,19 +251,6 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
             })}
           </div>
         </div>
-      </div>
-
-      {/* Progress Bar globally over bottom representing Carousel time */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 4, background: 'rgba(255,255,255,0.1)', zIndex: 10 }}>
-        {isPlayingCarousel && (
-          <motion.div
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 6, ease: 'linear' }}
-            key={`progress-${currentCarouselSlide}`}
-            style={{ height: '100%', background: activeSlide.color, boxShadow: `0 0 10px ${activeSlide.color}` }}
-          />
-        )}
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `@keyframes spin { 100% { transform: rotate(360deg); } }` }} />
@@ -728,42 +715,136 @@ function TestimonialsSection({ testimonials, copy }: { testimonials: any[]; copy
 
 // ─── CTA Banner ─────────────────────────────────────────────────
 function CTASection({ copy }: { copy?: any }) {
+  const [cbForm, setCbForm] = useState({ name: '', phone: '' });
+  const [cbLoading, setCbLoading] = useState(false);
+  const [cbSent, setCbSent] = useState(false);
+
+  const handleCallback = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cbForm.name.trim() || !cbForm.phone.trim()) return;
+    setCbLoading(true);
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: cbForm.name.trim(),
+          phone: cbForm.phone.trim(),
+          message: 'Callback request from homepage CTA',
+          source: 'homepage_cta',
+          pageUrl: '/',
+        }),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setCbSent(true);
+    } catch { /* noop */ }
+    finally { setCbLoading(false); }
+  };
+
   return (
     <section className="animated-gradient-bg" style={{ padding: '96px 0', position: 'relative', overflow: 'hidden' }}>
       {/* Decorative abstract circles — no emojis */}
       <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.06)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 600, borderRadius: '50%', background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
-      <div className="container" style={{ textAlign: 'center', position: 'relative' }}>
-        <Reveal>
-          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', marginBottom: 20, backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.25)' }}>
-            <Shield size={28} color='rgba(255,255,255,0.9)' />
-          </div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', fontWeight: 800, margin: '16px 0 12px' }}>
-            {copy?.ctaTitle || 'Ready to Find Your Companion?'}
-          </h2>
-          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginBottom: 36, maxWidth: 520, margin: '0 auto 36px' }}>
-            {copy?.ctaSubtitle || 'Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.'}
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <Magnetic strength={0.1}>
-              <Link href={copy?.ctaPrimaryHref || "/shop"} style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'; }}
-              >
-                {copy?.ctaPrimaryLabel || 'Shop Now'} <ArrowRight size={18} />
-              </Link>
-            </Magnetic>
-            <Magnetic strength={0.1}>
-              <a href={copy?.ctaSecondaryHref || "https://wa.me/919876543210"} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
-              >
-                <Phone size={18} /> {copy?.ctaSecondaryLabel || 'WhatsApp Us'}
-              </a>
-            </Magnetic>
-          </div>
-        </Reveal>
+      <div className="container" style={{ position: 'relative' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center' }}>
+          {/* Left — Heading + Buttons */}
+          <Reveal>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', marginBottom: 20, backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.25)' }}>
+                <Shield size={28} color='rgba(255,255,255,0.9)' />
+              </div>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', fontWeight: 800, margin: '16px 0 12px' }}>
+                {copy?.ctaTitle || 'Ready to Find Your Companion?'}
+              </h2>
+              <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginBottom: 36, maxWidth: 520 }}>
+                {copy?.ctaSubtitle || 'Visit us in-store or browse our full collection online. Our experts are always ready to help you find the perfect exotic pet.'}
+              </p>
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                <Magnetic strength={0.1}>
+                  <Link href={copy?.ctaPrimaryHref || "/shop"} style={{ background: '#fff', color: '#C97D0E', padding: '15px 36px', borderRadius: 50, fontWeight: 700, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', transition: 'all 0.25s ease', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'; }}
+                  >
+                    {copy?.ctaPrimaryLabel || 'Shop Now'} <ArrowRight size={18} />
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.1}>
+                  <a href={copy?.ctaSecondaryHref || "https://wa.me/919876543210"} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '15px 36px', borderRadius: 50, fontWeight: 600, fontSize: 16, display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none', border: '2px solid rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', transition: 'all 0.25s ease' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; e.currentTarget.style.transform = 'none'; }}
+                  >
+                    <Phone size={18} /> {copy?.ctaSecondaryLabel || 'WhatsApp Us'}
+                  </a>
+                </Magnetic>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Right — Callback Form */}
+          <Reveal delay={0.2}>
+            <div style={{
+              background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(16px)',
+              borderRadius: 24, padding: '36px 28px', border: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.15)',
+            }}>
+              {cbSent ? (
+                <div style={{ textAlign: 'center', padding: '16px 0' }}>
+                  <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', boxShadow: '0 6px 24px rgba(37,211,102,0.4)' }}>
+                    <Shield size={26} color="#fff" />
+                  </div>
+                  <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#fff', marginBottom: 6 }}>We&apos;ll Call You!</h4>
+                  <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 14 }}>Our team will reach out within 2 hours during business hours.</p>
+                </div>
+              ) : (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: 22 }}>
+                    <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#fff', marginBottom: 4 }}>
+                      Get a Callback 📞
+                    </h4>
+                    <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>
+                      Leave your details and our pet expert will call you
+                    </p>
+                  </div>
+                  <form onSubmit={handleCallback} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <input type="text" required placeholder="Your Name *"
+                      value={cbForm.name} onChange={e => setCbForm({ ...cbForm, name: e.target.value })}
+                      style={{
+                        width: '100%', padding: '13px 18px', borderRadius: 14,
+                        border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)',
+                        color: '#fff', fontSize: 15, outline: 'none', transition: 'all 0.3s',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}
+                      onFocus={e => e.target.style.borderColor = 'rgba(255,255,255,0.4)'}
+                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.15)'}
+                    />
+                    <input type="tel" required placeholder="Phone Number *"
+                      value={cbForm.phone} onChange={e => setCbForm({ ...cbForm, phone: e.target.value })}
+                      style={{
+                        width: '100%', padding: '13px 18px', borderRadius: 14,
+                        border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)',
+                        color: '#fff', fontSize: 15, outline: 'none', transition: 'all 0.3s',
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}
+                      onFocus={e => e.target.style.borderColor = 'rgba(255,255,255,0.4)'}
+                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.15)'}
+                    />
+                    <button type="submit" disabled={cbLoading} style={{
+                      background: '#fff', color: '#C97D0E', padding: '14px 24px', borderRadius: 50,
+                      border: 'none', fontWeight: 700, fontSize: 16, cursor: cbLoading ? 'not-allowed' : 'pointer',
+                      opacity: cbLoading ? 0.7 : 1, transition: 'all 0.3s',
+                      fontFamily: "'DM Sans', sans-serif", boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                    }}>
+                      {cbLoading ? 'Sending...' : <><Phone size={16} /> Request Callback</>}
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import LeadCapturePopup from "@/components/LeadCapturePopup";
 import { Toaster } from "react-hot-toast";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import CustomCursor from "@/components/animations/CustomCursor";
@@ -79,6 +80,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <WhatsAppFloat />
+          <LeadCapturePopup />
           <Toaster
             position="top-right"
             toastOptions={{

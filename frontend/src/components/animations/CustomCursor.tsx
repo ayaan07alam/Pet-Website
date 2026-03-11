@@ -37,7 +37,9 @@ export default function CustomCursor() {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @media (pointer: fine) {
-                    * { cursor: none !important; }
+                    html:not(:has(.custom-cursor-disabled:hover)) * { 
+                        cursor: none !important; 
+                    }
                 }
             `}} />
 

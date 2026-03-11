@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Heart, Eye, ArrowRight } from 'lucide-react';
+import { Heart, Eye, ArrowRight, MessageCircle } from 'lucide-react';
 import styles from './PetCard.module.css';
+import EnquiryModal from './EnquiryModal';
 
 export interface Pet {
     id: string;
@@ -39,6 +40,7 @@ const SPECIES_IDENTITY: Record<string, { label: string; abbreviation: string; gr
 export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {
     const [imgError, setImgError] = useState(false);
     const [liked, setLiked] = useState(false);
+    const [showEnquiry, setShowEnquiry] = useState(false);
 
     const species = SPECIES_IDENTITY[pet.species] || SPECIES_IDENTITY['bird'];
     const isSold = pet.status === 'Sold' || !pet.available;
@@ -122,8 +124,23 @@ export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {
                     <span className={styles.viewBtn}>
                         <Eye size={13} /> View
                     </span>
+                    <button
+                        className={styles.enquireBtn}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowEnquiry(true); }}
+                    >
+                        <MessageCircle size={13} /> Enquire
+                    </button>
                 </div>
             </Link>
+
+            {/* Enquiry Modal */}
+            <EnquiryModal
+                isOpen={showEnquiry}
+                onClose={() => setShowEnquiry(false)}
+                petId={pet.id}
+                petName={pet.name}
+                source="pet_card_enquiry"
+            />
         </div>
     );
 }

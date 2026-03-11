@@ -153,6 +153,82 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+
+                {/* ─── Newsletter Bar ─── */}
+                <div style={{
+                    marginTop: 48, padding: '32px 28px', borderRadius: 20,
+                    background: 'linear-gradient(135deg, rgba(201,125,14,0.12), rgba(201,125,14,0.04))',
+                    border: '1px solid rgba(201,125,14,0.15)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    gap: 32, flexWrap: 'wrap',
+                }}>
+                    <div style={{ flex: '1 1 280px' }}>
+                        <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5E6C8', marginBottom: 6 }}>
+                            Stay in the Loop 🐾
+                        </h4>
+                        <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.5 }}>
+                            Subscribe for new arrivals, exclusive offers & exotic pet tips.
+                        </p>
+                    </div>
+                    <form
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            const emailInput = (e.currentTarget.elements.namedItem('newsletter_email') as HTMLInputElement);
+                            const email = emailInput?.value?.trim();
+                            if (!email) return;
+                            try {
+                                const res = await fetch('/api/leads', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        name: 'Newsletter Subscriber',
+                                        email,
+                                        message: 'Subscribed via footer newsletter',
+                                        source: 'newsletter',
+                                    }),
+                                });
+                                if (!res.ok) throw new Error('Failed');
+                                emailInput.value = '';
+                                // Use inline alert since toast may not be imported
+                                const btn = e.currentTarget.querySelector('button');
+                                if (btn) {
+                                    const orig = btn.textContent;
+                                    btn.textContent = '✓ Subscribed!';
+                                    btn.style.background = '#25D366';
+                                    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2500);
+                                }
+                            } catch {
+                                alert('Something went wrong. Please try again.');
+                            }
+                        }}
+                        style={{ display: 'flex', gap: 10, flex: '1 1 320px', maxWidth: 440 }}
+                    >
+                        <input
+                            name="newsletter_email"
+                            type="email"
+                            required
+                            placeholder="your@email.com"
+                            style={{
+                                flex: 1, padding: '13px 18px', borderRadius: 50,
+                                border: '1.5px solid rgba(245,230,200,0.15)',
+                                background: 'rgba(245,230,200,0.06)', color: '#F5E6C8',
+                                fontSize: 14, outline: 'none', transition: 'all 0.3s',
+                                fontFamily: "'DM Sans', sans-serif",
+                            }}
+                            onFocus={e => e.target.style.borderColor = 'rgba(201,125,14,0.5)'}
+                            onBlur={e => e.target.style.borderColor = 'rgba(245,230,200,0.15)'}
+                        />
+                        <button type="submit" style={{
+                            background: 'linear-gradient(135deg, #C97D0E, #E8A020)', color: '#fff',
+                            padding: '13px 28px', borderRadius: 50, border: 'none',
+                            fontWeight: 700, fontSize: 14, cursor: 'pointer',
+                            fontFamily: "'DM Sans', sans-serif", whiteSpace: 'nowrap',
+                            transition: 'all 0.3s', boxShadow: '0 4px 16px rgba(201,125,14,0.3)',
+                        }}>
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
             </div>
 
             {/* Lower Footer */}
