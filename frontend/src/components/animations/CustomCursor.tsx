@@ -17,8 +17,15 @@ export default function CustomCursor() {
     const springY = useSpring(exactY, springConfig);
 
     useEffect(() => {
-        // Only show custom cursor on non-touch devices
-        if (window.matchMedia('(pointer: coarse)').matches) return;
+        // Robust touch device detection
+        const isTouchDevice = 
+            'ontouchstart' in window || 
+            navigator.maxTouchPoints > 0 || 
+            // @ts-ignore
+            navigator.msMaxTouchPoints > 0;
+            
+        if (isTouchDevice || window.matchMedia('(pointer: coarse)').matches) return;
+        
         setIsVisible(true);
 
         const moveCursor = (e: MouseEvent) => {

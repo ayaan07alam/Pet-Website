@@ -355,11 +355,14 @@ input, textarea, select {
 @media (max-width: 640px) {
   .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 0 16px; }
-  .whatsapp-float {
-    width: 65px;
-    height: 65px;
+  .float-container {
     bottom: 20px;
     right: 20px;
+    gap: 12px;
+  }
+  .whatsapp-float {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -435,11 +438,18 @@ input, textarea, select {
 
 
 /* ===== WHATSAPP FLOAT BUTTON ===== */
-.whatsapp-float {
+.float-container {
   position: fixed;
   bottom: 28px;
   right: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   z-index: 1000;
+}
+
+.whatsapp-float {
+  position: relative; /* Since it's inside a flex container */
   width: 60px;
   height: 60px;
   background: #25D366;
@@ -449,6 +459,15 @@ input, textarea, select {
   justify-content: center;
   box-shadow: 0 4px 20px rgba(37,211,102,0.4);
   transition: var(--transition);
+}
+
+.phone-float {
+  background: linear-gradient(135deg, var(--amber), var(--orange));
+  box-shadow: 0 4px 14px rgba(201,125,14,0.4);
+}
+
+.phone-float::before {
+  background: var(--amber) !important;
 }
 
 .whatsapp-float:hover {
