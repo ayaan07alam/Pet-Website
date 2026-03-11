@@ -1,7 +1,8 @@
 'use client';
 import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Search, SlidersHorizontal, Grid, List, X } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid, List, X, Flame } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PetCard from '@/components/PetCard';
 import { mockPets, mockProducts } from '@/data/mockData';
 
@@ -127,65 +128,148 @@ function ShopContent() {
                 </div>
             )}
 
-            <div className="container" style={{ padding: '32px 24px' }}>
-                <div style={{ display: 'flex', gap: 8, marginBottom: 24, alignItems: 'center', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-                    <div style={{ display: 'flex', background: '#fff', borderRadius: 50, padding: 4, gap: 4, boxShadow: '0 2px 10px rgba(44,26,14,0.08)', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <button onClick={() => setShowProducts(false)} style={{ padding: '8px 20px', borderRadius: 50, border: 'none', cursor: 'pointer', background: !showProducts ? 'linear-gradient(135deg,#C97D0E,#E8601A)' : 'transparent', color: !showProducts ? '#fff' : '#6B3A2A', fontWeight: 600, fontSize: 14, transition: 'all 0.25s' }}>Live Pets</button>
-                        <button onClick={() => setShowProducts(true)} style={{ padding: '8px 20px', borderRadius: 50, border: 'none', cursor: 'pointer', background: showProducts ? 'linear-gradient(135deg,#C97D0E,#E8601A)' : 'transparent', color: showProducts ? '#fff' : '#6B3A2A', fontWeight: 600, fontSize: 14, transition: 'all 0.25s' }}>Accessories & Food</button>
+            <div className="container shop-container" style={{ padding: '32px 24px' }}>
+                {/* Unified Sticky Actions (Desktop: Toolbar, Mobile: Sticky Split Pill) */}
+                <div className="shop-controls-bar">
+                    <div className="shop-toggle-pill">
+                        <button onClick={() => setShowProducts(false)} className={!showProducts ? 'active' : ''}>
+                            <Flame size={14} className="mobile-icon-only" />
+                            <span className="hide-on-mobile">Live Pets</span>
+                        </button>
+                        <button onClick={() => setShowProducts(true)} className={showProducts ? 'active' : ''}>
+                            <span className="hide-on-mobile">Accessories</span>
+                            <span className="mobile-text-only">Items</span>
+                        </button>
                     </div>
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: '10px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', background: '#fff', fontSize: 14, color: '#2C1A0E', cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" }}>
-                            <option value="featured">Featured First</option>
-                            <option value="new">Newest First</option>
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="rating">Highest Rated</option>
-                        </select>
-                        <button onClick={() => setLayout('grid')} style={{ width: 38, height: 38, borderRadius: 10, border: 'none', cursor: 'pointer', background: layout === 'grid' ? '#2C1A0E' : '#fff', color: layout === 'grid' ? '#fff' : '#2C1A0E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Grid size={16} /></button>
-                        <button onClick={() => setLayout('list')} style={{ width: 38, height: 38, borderRadius: 10, border: 'none', cursor: 'pointer', background: layout === 'list' ? '#2C1A0E' : '#fff', color: layout === 'list' ? '#fff' : '#2C1A0E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><List size={16} /></button>
-                        {!showProducts && <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ padding: '8px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', background: sidebarOpen ? '#2C1A0E' : '#fff', color: sidebarOpen ? '#fff' : '#2C1A0E', fontWeight: 600, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}><SlidersHorizontal size={16} /> Filters</button>}
+
+                    <div className="shop-actions-group">
+                        <div className="mobile-sort-wrapper">
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="shop-sort-select">
+                                <option value="featured">Featured</option>
+                                <option value="new">Newest</option>
+                                <option value="price-asc">Price: Low</option>
+                                <option value="price-desc">Price: High</option>
+                            </select>
+                        </div>
+                        
+                        <div className="desktop-view-toggles hide-on-mobile">
+                            <button onClick={() => setLayout('grid')} className={`view-btn ${layout === 'grid' ? 'active' : ''}`}><Grid size={16} /></button>
+                            <button onClick={() => setLayout('list')} className={`view-btn ${layout === 'list' ? 'active' : ''}`}><List size={16} /></button>
+                        </div>
+                        
+                        {!showProducts && (
+                            <button onClick={() => setSidebarOpen(true)} className="filter-btn">
+                                <SlidersHorizontal size={14} /> 
+                                <span>Filters</span>
+                            </button>
+                        )}
                     </div>
                 </div>
 
-                <div className={sidebarOpen && !showProducts ? "shop-layout" : "shop-layout-full"}>
-                    {/* Filters Sidebar */}
-                    {sidebarOpen && !showProducts && (
-                        <div style={{ background: '#fff', borderRadius: 20, padding: 24, height: 'fit-content', boxShadow: '0 4px 20px rgba(44,26,14,0.08)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: '#2C1A0E' }}>Filters</h3>
-                                <button onClick={() => { setSpecies('all'); setGender('all'); setPriceRange([0, 200000]); }} style={{ fontSize: 12, color: '#C97D0E', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Clear All</button>
-                            </div>
-                            {/* Species */}
-                            <div style={{ marginBottom: 24 }}>
-                                <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Species</p>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                                    {SPECIES.map(s => (
-                                        <button key={s} onClick={() => setSpecies(s)} style={{ textAlign: 'left', padding: '8px 12px', borderRadius: 10, border: 'none', cursor: 'pointer', background: species === s ? 'rgba(201,125,14,0.12)' : 'transparent', color: species === s ? '#C97D0E' : '#2C1A0E', fontWeight: species === s ? 700 : 400, fontSize: 14, transition: 'all 0.2s' }}>
-                                            {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Turtles & Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
-                                        </button>
-                                    ))}
+                <div className={!showProducts ? "shop-layout" : "shop-layout-full"}>
+                    
+                    {/* Desktop Sidebar (Hidden on Mobile) */}
+                    {!showProducts && (
+                        <div className="desktop-sidebar hide-on-mobile">
+                            <div style={{ background: '#fff', borderRadius: 20, padding: 24, boxShadow: '0 4px 20px rgba(44,26,14,0.08)' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: '#2C1A0E' }}>Filters</h3>
+                                    <button onClick={() => { setSpecies('all'); setGender('all'); setPriceRange([0, 200000]); }} style={{ fontSize: 12, color: '#C97D0E', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Clear All</button>
                                 </div>
-                            </div>
-                            {/* Gender */}
-                            <div style={{ marginBottom: 24 }}>
-                                <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Gender</p>
-                                <div style={{ display: 'flex', gap: 8 }}>
-                                    {['all', 'male', 'female'].map(g => (
-                                        <button key={g} onClick={() => setGender(g)} style={{ padding: '8px 14px', borderRadius: 50, border: '1.5px solid', borderColor: gender === g ? '#C97D0E' : 'rgba(44,26,14,0.12)', background: gender === g ? 'rgba(201,125,14,0.1)' : '#fff', color: gender === g ? '#C97D0E' : '#6B3A2A', fontWeight: 600, fontSize: 13, cursor: 'pointer', transition: 'all 0.2s', textTransform: 'capitalize' }}>{g}</button>
-                                    ))}
+                                <div style={{ marginBottom: 24 }}>
+                                    <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Species</p>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                        {SPECIES.map(s => (
+                                            <button key={s} onClick={() => setSpecies(s)} style={{ textAlign: 'left', padding: '8px 12px', borderRadius: 10, border: 'none', cursor: 'pointer', background: species === s ? 'rgba(201,125,14,0.12)' : 'transparent', color: species === s ? '#C97D0E' : '#2C1A0E', fontWeight: species === s ? 700 : 400, fontSize: 14, transition: 'all 0.2s' }}>
+                                                {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Turtles & Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                            {/* Price Range */}
-                            <div>
-                                <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Price Range</p>
-                                <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-                                    <input type="number" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} placeholder="Min" style={{ width: '50%', padding: '8px 12px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 10, fontSize: 13, color: '#2C1A0E' }} />
-                                    <input type="number" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} placeholder="Max" style={{ width: '50%', padding: '8px 12px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 10, fontSize: 13, color: '#2C1A0E' }} />
+                                <div style={{ marginBottom: 24 }}>
+                                    <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Gender</p>
+                                    <div style={{ display: 'flex', gap: 8 }}>
+                                        {['all', 'male', 'female'].map(g => (
+                                            <button key={g} onClick={() => setGender(g)} style={{ padding: '8px 14px', borderRadius: 50, border: '1.5px solid', borderColor: gender === g ? '#C97D0E' : 'rgba(44,26,14,0.12)', background: gender === g ? 'rgba(201,125,14,0.1)' : '#fff', color: gender === g ? '#C97D0E' : '#6B3A2A', fontWeight: 600, fontSize: 13, cursor: 'pointer', transition: 'all 0.2s', textTransform: 'capitalize' }}>{g}</button>
+                                        ))}
+                                    </div>
                                 </div>
-                                <p style={{ fontSize: 13, color: '#A0614A' }}>₹{priceRange[0].toLocaleString('en-IN')} — ₹{priceRange[1].toLocaleString('en-IN')}</p>
+                                <div>
+                                    <p style={{ fontSize: 13, fontWeight: 700, color: '#6B3A2A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>Price Range</p>
+                                    <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+                                        <input type="number" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} placeholder="Min" style={{ width: '50%', padding: '8px 12px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 10, fontSize: 13, color: '#2C1A0E' }} />
+                                        <input type="number" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} placeholder="Max" style={{ width: '50%', padding: '8px 12px', border: '1.5px solid rgba(44,26,14,0.12)', borderRadius: 10, fontSize: 13, color: '#2C1A0E' }} />
+                                    </div>
+                                    <p style={{ fontSize: 13, color: '#A0614A' }}>₹{priceRange[0].toLocaleString('en-IN')} — ₹{priceRange[1].toLocaleString('en-IN')}</p>
+                                </div>
                             </div>
                         </div>
                     )}
+
+                    {/* Mobile Bottom Sheet Menu */}
+                    <AnimatePresence>
+                        {sidebarOpen && !showProducts && (
+                            <>
+                                <motion.div 
+                                    className="mobile-filter-overlay"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    onClick={() => setSidebarOpen(false)}
+                                />
+                                <motion.div 
+                                    className="mobile-bottom-sheet"
+                                    initial={{ y: '100%' }}
+                                    animate={{ y: 0 }}
+                                    exit={{ y: '100%' }}
+                                    transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+                                >
+                                    <div className="bottom-sheet-drag-handle" />
+                                    <div className="bottom-sheet-header">
+                                        <h3>Filters</h3>
+                                        <button onClick={() => { setSpecies('all'); setGender('all'); setPriceRange([0, 200000]); }} className="clear-btn">Clear All</button>
+                                    </div>
+                                    
+                                    <div className="bottom-sheet-content">
+                                        <div className="filter-group">
+                                            <p className="filter-label">Species</p>
+                                            <div className="filter-chips-grid">
+                                                {SPECIES.map(s => (
+                                                    <button key={s} onClick={() => setSpecies(s)} className={`filter-chip ${species === s ? 'active' : ''}`}>
+                                                        {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="filter-group">
+                                            <p className="filter-label">Gender</p>
+                                            <div className="filter-chips-row">
+                                                {['all', 'male', 'female'].map(g => (
+                                                    <button key={g} onClick={() => setGender(g)} className={`filter-chip-pill ${gender === g ? 'active' : ''}`}>{g}</button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="filter-group">
+                                            <p className="filter-label">Price Range</p>
+                                            <div className="price-inputs">
+                                                <input type="number" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} placeholder="Min ₹" />
+                                                <span>to</span>
+                                                <input type="number" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} placeholder="Max ₹" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bottom-sheet-footer">
+                                        <button className="apply-btn" onClick={() => setSidebarOpen(false)}>
+                                            Show {filtered.length} Results
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </>
+                        )}
+                    </AnimatePresence>
 
                     {/* Results */}
                     <div>
