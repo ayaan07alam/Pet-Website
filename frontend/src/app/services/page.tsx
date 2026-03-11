@@ -89,7 +89,8 @@ export default function ServicesPage() {
 
             {/* Timing + CTA */}
             <section style={{ padding: '64px 0', background: '#2C1A0E' }}>
-                <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
+                <div className="container">
+                    <div className="page-two-col-equal">
                     <div>
                         <div className="section-label" style={{ color: '#C97D0E', justifyContent: 'flex-start' }}>Store Hours</div>
                         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.2rem', color: '#F5E6C8', marginBottom: 24 }}>Visit Us Anytime</h2>
@@ -116,7 +117,8 @@ export default function ServicesPage() {
                             </a>
                         </div>
                     </div>
-                </div>
+                    </div>{/* end page-two-col-equal */}
+                </div>{/* end container */}
             </section>
         </div>
     );

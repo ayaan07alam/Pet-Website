@@ -69,7 +69,7 @@ export default function ContactPage() {
             </section>
 
             <div className="container" style={{ padding: '64px 24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 56, alignItems: 'start' }}>
+                <div className="page-two-col">
                     {/* Info */}
                     <div>
                         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: '#2C1A0E', marginBottom: 28 }}>Visit or Reach Us</h2>

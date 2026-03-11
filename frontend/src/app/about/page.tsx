@@ -64,7 +64,7 @@ export default function AboutPage() {
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(201,125,14,0.06) 1px, transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none' }} />
                 {/* Amber glow top-right */}
                 <div style={{ position: 'absolute', top: -100, right: -50, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(201,125,14,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-                <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+                    <div className="about-hero-grid">
                     <div>
                         <div className="section-label" style={{ color: '#C97D0E' }}>Our Story</div>
                         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2.5rem,5vw,3.5rem)', color: '#F5E6C8', fontWeight: 800, marginBottom: 20 }}>
@@ -74,7 +74,7 @@ export default function AboutPage() {
                             {displayStory.storyText}
                         </p>
                         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 32 }}>
-                            {['Birds', 'Exotic Cats', 'Reptiles', 'Tortoises'].map(tag => (
+                            {['Birds', 'Exotic Cats', 'Rodents', 'Reptiles', 'Turtles'].map(tag => (
                                 <span key={tag} style={{ padding: '6px 16px', borderRadius: 50, background: 'rgba(201,125,14,0.12)', color: '#E8A020', fontSize: 12, fontWeight: 700, border: '1px solid rgba(201,125,14,0.25)', letterSpacing: '1px', textTransform: 'uppercase' }}>{tag}</span>
                             ))}
                         </div>
@@ -104,7 +104,7 @@ export default function AboutPage() {
                     <p style={{ color: '#6B3A2A', fontSize: 17, lineHeight: 1.9, marginBottom: 48 }}>
                         We believe every exotic animal deserves a loving, knowledgeable home. Our mission is to ethically connect rare and beautiful creatures with families who are truly prepared to care for them — while providing ongoing support every step of the way.
                     </p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+                    <div className="three-col-responsive">
                         {[
                             { icon: <Shield size={24} />, title: 'Ethical Sourcing', desc: 'All animals are captive-bred from licensed breeders — never wild-caught.' },
                             { icon: <Heart size={24} />, title: 'Lifelong Support', desc: 'We stay with you beyond the purchase — diet guides, vet referrals, and more.' },

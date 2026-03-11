@@ -48,19 +48,19 @@ export default function CheckoutPage() {
                 </div>
             </div>
             <div className="container" style={{ padding: '40px 24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32 }}>
+                <div className="checkout-grid">
                     <form onSubmit={handleOrder} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                         {/* Delivery Info */}
                         <div style={{ background: '#fff', borderRadius: 20, padding: 28, boxShadow: '0 2px 12px rgba(44,26,14,0.07)' }}>
                             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: '#2C1A0E', marginBottom: 20 }}>Delivery Information</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                                <div className="grid-2">
                                     <input required placeholder="Full Name*" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                     <input type="tel" required placeholder="Phone*" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                 </div>
                                 <input type="email" required placeholder="Email*" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                 <textarea required placeholder="Full Address*" rows={3} value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 12 }}>
                                     <input required placeholder="City*" value={form.city} onChange={e => setForm({ ...form, city: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                     <input required placeholder="State*" value={form.state} onChange={e => setForm({ ...form, state: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />
                                     <input required placeholder="Pincode*" maxLength={6} value={form.pincode} onChange={e => setForm({ ...form, pincode: e.target.value })} style={inputStyle} onFocus={e => e.target.style.borderColor = '#C97D0E'} onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'} />

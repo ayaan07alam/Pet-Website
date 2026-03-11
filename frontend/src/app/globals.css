@@ -363,6 +363,77 @@ input, textarea, select {
   }
 }
 
+/* ===== PAGE-LEVEL RESPONSIVE LAYOUTS ===== */
+
+/* Contact / About hero: left info + right form */
+.page-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* Services CTA: 1fr 1fr */
+.page-two-col-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Checkout: form + sticky sidebar */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* About: mission 3-col */
+.three-col-responsive {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* About: hero 2-col */
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .page-two-col,
+  .page-two-col-equal,
+  .about-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .three-col-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .three-col-responsive {
+    grid-template-columns: 1fr;
+  }
+
+  .page-two-col,
+  .about-hero-grid {
+    gap: 24px;
+  }
+}
+
+
 /* ===== WHATSAPP FLOAT BUTTON ===== */
 .whatsapp-float {
   position: fixed;

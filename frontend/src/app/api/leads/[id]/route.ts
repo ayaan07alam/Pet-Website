@@ -3,15 +3,12 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
-export async function PATCH(request: Request, { params }: Params) {
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     const { status } = body || {};
 
@@ -30,4 +27,3 @@ export async function PATCH(request: Request, { params }: Params) {
     return NextResponse.json({ error: 'Failed to update lead' }, { status: 500 });
   }
 }
-
