@@ -96,7 +96,7 @@ function ShopContent() {
             {/* Species Selector Cards */}
             {!showProducts && (
                 <div style={{ background: '#fff', borderBottom: '1px solid rgba(44,26,14,0.06)', padding: '16px 0' }}>
-                    <div className="container" style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 4 }}>
+                    <div className="container mobile-horizontal-scroll" style={{ display: 'flex', gap: 10, paddingBottom: 4 }}>
                         {[
                             { key: 'all', label: 'All Pets', color: '#C97D0E', bg: 'rgba(201,125,14,0.1)' },
                             { key: 'bird', label: 'Birds & Parrots', color: '#E8A020', bg: 'rgba(232,160,32,0.1)' },
@@ -129,11 +129,11 @@ function ShopContent() {
 
             <div className="container" style={{ padding: '32px 24px' }}>
                 <div style={{ display: 'flex', gap: 8, marginBottom: 24, alignItems: 'center', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-                    <div style={{ display: 'flex', background: '#fff', borderRadius: 50, padding: 4, gap: 4, boxShadow: '0 2px 10px rgba(44,26,14,0.08)' }}>
+                    <div style={{ display: 'flex', background: '#fff', borderRadius: 50, padding: 4, gap: 4, boxShadow: '0 2px 10px rgba(44,26,14,0.08)', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <button onClick={() => setShowProducts(false)} style={{ padding: '8px 20px', borderRadius: 50, border: 'none', cursor: 'pointer', background: !showProducts ? 'linear-gradient(135deg,#C97D0E,#E8601A)' : 'transparent', color: !showProducts ? '#fff' : '#6B3A2A', fontWeight: 600, fontSize: 14, transition: 'all 0.25s' }}>Live Pets</button>
                         <button onClick={() => setShowProducts(true)} style={{ padding: '8px 20px', borderRadius: 50, border: 'none', cursor: 'pointer', background: showProducts ? 'linear-gradient(135deg,#C97D0E,#E8601A)' : 'transparent', color: showProducts ? '#fff' : '#6B3A2A', fontWeight: 600, fontSize: 14, transition: 'all 0.25s' }}>Accessories & Food</button>
                     </div>
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: '10px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', background: '#fff', fontSize: 14, color: '#2C1A0E', cursor: 'pointer', fontFamily: "'DM Sans',sans-serif" }}>
                             <option value="featured">Featured First</option>
                             <option value="new">Newest First</option>

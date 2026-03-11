@@ -748,7 +748,7 @@ function CTASection({ copy }: { copy?: any }) {
       <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 600, borderRadius: '50%', background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
       <div className="container" style={{ position: 'relative' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center' }}>
+        <div className="page-two-col" style={{ alignItems: 'center' }}>
           {/* Left — Heading + Buttons */}
           <Reveal>
             <div>
@@ -867,7 +867,7 @@ function MapSection({ settings }: { settings: any }) {
   return (
     <section style={{ padding: '96px 0', background: '#fff' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+        <div className="page-two-col" style={{ alignItems: 'center' }}>
           <Reveal>
             <div>
               <div className="section-label">Come Visit Us</div>
