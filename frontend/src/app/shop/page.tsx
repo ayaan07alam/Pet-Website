@@ -200,11 +200,14 @@ function ShopContent() {
                         ) : showProducts ? (
                             <div className="pet-card-grid">
                                 {(filtered as typeof mockProducts).map(p => (
-                                    <div key={p.id} style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 2px 12px rgba(44,26,14,0.07)', transition: 'all 0.3s ease' }}
-                                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(44,26,14,0.14)'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 2px 12px rgba(44,26,14,0.07)'; }}>
-                                        <div style={{ paddingTop: '70%', position: 'relative', background: '#F5E6C8', overflow: 'hidden' }}>
-                                            <img src={p.image} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { e.currentTarget.style.display = 'none'; }} />
+                                    <div key={p.id} style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 4px 16px rgba(44,26,14,0.05), 0 1px 4px rgba(44,26,14,0.02)', transition: 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)', cursor: 'pointer' }}
+                                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px) scale(1.01)'; e.currentTarget.style.boxShadow = '0 20px 48px rgba(44,26,14,0.12), 0 8px 24px rgba(44,26,14,0.06)'; }}
+                                        onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(44,26,14,0.05), 0 1px 4px rgba(44,26,14,0.02)'; }}>
+                                        <div style={{ paddingTop: '70%', position: 'relative', background: '#FDF6EC', overflow: 'hidden' }}>
+                                            <img src={p.image} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)' }} onError={e => { e.currentTarget.style.display = 'none'; }} 
+                                              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+                                              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                            />
                                         </div>
                                         <div style={{ padding: '16px' }}>
                                             <p style={{ fontSize: 11, color: '#A0614A', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>{p.category}</p>

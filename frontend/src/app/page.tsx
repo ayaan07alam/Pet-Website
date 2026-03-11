@@ -600,16 +600,33 @@ function WhyUsSection({ features }: { features: any[] }) {
           {sourceFeatures.map((f, idx) => (
             <Reveal key={f.title} delay={idx * 0.1}>
               <div style={{
-                background: 'rgba(245,230,200,0.05)', borderRadius: 20, padding: 32,
-                border: '1px solid rgba(245,230,200,0.08)', transition: 'all 0.4s cubic-bezier(0.2,0.8,0.2,1)',
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)', 
+                borderRadius: 24, padding: '40px 32px',
+                border: '1px solid rgba(255,255,255,0.04)', 
+                borderTop: '1px solid rgba(255,255,255,0.12)', /* 3D Bevel effect */
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.2)',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.5s cubic-bezier(0.2,0.8,0.2,1)',
                 height: '100%',
               }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,125,14,0.12)'; e.currentTarget.style.borderColor = 'rgba(201,125,14,0.3)'; e.currentTarget.style.transform = 'translateY(-6px)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(245,230,200,0.05)'; e.currentTarget.style.borderColor = 'rgba(245,230,200,0.08)'; e.currentTarget.style.transform = 'none'; }}
+                onMouseEnter={(e) => { 
+                  e.currentTarget.style.background = 'linear-gradient(180deg, rgba(201,125,14,0.15) 0%, rgba(201,125,14,0.02) 100%)'; 
+                  e.currentTarget.style.borderColor = 'rgba(201,125,14,0.3)'; 
+                  e.currentTarget.style.borderTopColor = 'rgba(201,125,14,0.5)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(201,125,14,0.1)';
+                  e.currentTarget.style.transform = 'translateY(-6px)'; 
+                }}
+                onMouseLeave={(e) => { 
+                  e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%)'; 
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)'; 
+                  e.currentTarget.style.borderTopColor = 'rgba(255,255,255,0.12)';
+                  e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.2)';
+                  e.currentTarget.style.transform = 'none'; 
+                }}
               >
-                <div style={{ width: 60, height: 60, borderRadius: 16, background: 'rgba(201,125,14,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', marginBottom: 20 }}>{f.iconElement}</div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5E6C8', marginBottom: 10 }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.8 }}>{f.description}</p>
+                <div style={{ width: 64, height: 64, borderRadius: 18, background: 'linear-gradient(135deg, rgba(201,125,14,0.2), rgba(201,125,14,0.05))', border: '1px solid rgba(201,125,14,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', marginBottom: 24, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>{f.iconElement}</div>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#FDF6EC', marginBottom: 12, letterSpacing: '0.5px' }}>{f.title}</h3>
+                <p style={{ fontSize: 15, color: 'rgba(245,230,200,0.7)', lineHeight: 1.7 }}>{f.description}</p>
               </div>
             </Reveal>
           ))}
@@ -785,58 +802,70 @@ function CTASection({ copy }: { copy?: any }) {
           {/* Right — Callback Form */}
           <Reveal delay={0.2}>
             <div style={{
-              background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(16px)',
-              borderRadius: 24, padding: '36px 28px', border: '1px solid rgba(255,255,255,0.2)',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.15)',
+              background: 'linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)', 
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              borderRadius: 32, padding: '48px 32px', 
+              border: '1px solid rgba(255,255,255,0.15)',
+              borderTop: '1px solid rgba(255,255,255,0.3)', /* Glossy top edge */
+              boxShadow: '0 24px 48px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2)',
             }}>
               {cbSent ? (
                 <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                  <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', boxShadow: '0 6px 24px rgba(37,211,102,0.4)' }}>
-                    <Shield size={26} color="#fff" />
+                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #25D366, #128C7E)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 8px 30px rgba(37,211,102,0.4)', border: '2px solid rgba(255,255,255,0.2)' }}>
+                    <Shield size={28} color="#fff" />
                   </div>
-                  <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#fff', marginBottom: 6 }}>We&apos;ll Call You!</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 14 }}>Our team will reach out within 2 hours during business hours.</p>
+                  <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#fff', marginBottom: 8 }}>We&apos;ll Call You!</h4>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 15 }}>Our team will reach out within 2 hours during business hours.</p>
                 </div>
               ) : (
                 <>
-                  <div style={{ textAlign: 'center', marginBottom: 22 }}>
-                    <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#fff', marginBottom: 4 }}>
+                  <div style={{ textAlign: 'center', marginBottom: 28 }}>
+                    <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, color: '#fff', marginBottom: 8, textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
                       Get a Callback 📞
                     </h4>
-                    <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>
+                    <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14, letterSpacing: '0.3px' }}>
                       Leave your details and our pet expert will call you
                     </p>
                   </div>
-                  <form onSubmit={handleCallback} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <form onSubmit={handleCallback} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <input type="text" required placeholder="Your Name *"
                       value={cbForm.name} onChange={e => setCbForm({ ...cbForm, name: e.target.value })}
                       style={{
-                        width: '100%', padding: '13px 18px', borderRadius: 14,
-                        border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)',
+                        width: '100%', padding: '16px 20px', borderRadius: 16,
+                        border: '1px solid rgba(255,255,255,0.2)', 
+                        background: 'rgba(0,0,0,0.15)',
                         color: '#fff', fontSize: 15, outline: 'none', transition: 'all 0.3s',
                         fontFamily: "'DM Sans', sans-serif",
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
                       }}
-                      onFocus={e => e.target.style.borderColor = 'rgba(255,255,255,0.4)'}
-                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.15)'}
+                      onFocus={e => { e.target.style.borderColor = 'rgba(255,255,255,0.6)'; e.target.style.background = 'rgba(0,0,0,0.25)'; e.target.style.boxShadow = '0 0 0 4px rgba(255,255,255,0.1), inset 0 2px 4px rgba(0,0,0,0.1)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.2)'; e.target.style.background = 'rgba(0,0,0,0.15)'; e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.1)'; }}
                     />
                     <input type="tel" required placeholder="Phone Number *"
                       value={cbForm.phone} onChange={e => setCbForm({ ...cbForm, phone: e.target.value })}
                       style={{
-                        width: '100%', padding: '13px 18px', borderRadius: 14,
-                        border: '1.5px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)',
+                        width: '100%', padding: '16px 20px', borderRadius: 16,
+                        border: '1px solid rgba(255,255,255,0.2)', 
+                        background: 'rgba(0,0,0,0.15)',
                         color: '#fff', fontSize: 15, outline: 'none', transition: 'all 0.3s',
                         fontFamily: "'DM Sans', sans-serif",
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
                       }}
-                      onFocus={e => e.target.style.borderColor = 'rgba(255,255,255,0.4)'}
-                      onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.15)'}
+                      onFocus={e => { e.target.style.borderColor = 'rgba(255,255,255,0.6)'; e.target.style.background = 'rgba(0,0,0,0.25)'; e.target.style.boxShadow = '0 0 0 4px rgba(255,255,255,0.1), inset 0 2px 4px rgba(0,0,0,0.1)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.2)'; e.target.style.background = 'rgba(0,0,0,0.15)'; e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.1)'; }}
                     />
                     <button type="submit" disabled={cbLoading} style={{
-                      background: '#fff', color: '#C97D0E', padding: '14px 24px', borderRadius: 50,
+                      marginTop: 8,
+                      background: '#fff', color: '#C97D0E', padding: '16px 24px', borderRadius: 50,
                       border: 'none', fontWeight: 700, fontSize: 16, cursor: cbLoading ? 'not-allowed' : 'pointer',
-                      opacity: cbLoading ? 0.7 : 1, transition: 'all 0.3s',
-                      fontFamily: "'DM Sans', sans-serif", boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                    }}>
+                      opacity: cbLoading ? 0.7 : 1, transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                      fontFamily: "'DM Sans', sans-serif", boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)'; }}
+                    >
                       {cbLoading ? 'Sending...' : <><Phone size={16} /> Request Callback</>}
                     </button>
                   </form>
