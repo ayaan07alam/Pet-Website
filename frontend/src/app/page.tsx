@@ -343,7 +343,7 @@ function AnimalFactsBanner({ facts }: { facts: any[] }) {
             <p className="section-subtitle" style={{ margin: '0 auto' }}>Every exotic pet in our family has an incredible story. These aren&apos;t just pets — they&apos;re living wonders.</p>
           </div>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
+        <div className="mobile-horizontal-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
           {sourceFacts.map((f, i) => (
             <Reveal key={f.species} delay={i * 0.1}>
               <div style={{
@@ -376,7 +376,7 @@ function AnimalFactsBanner({ facts }: { facts: any[] }) {
 function CategoriesSection({ categories, copy }: { categories: any[]; copy?: any }) {
   const activeCategories = categories && categories.length > 0 ? categories : mockCategories;
   return (
-    <section style={{ padding: '96px 0', background: '#fff' }}>
+    <section className="section-py" style={{ background: '#fff' }}>
       <div className="container">
         <Reveal>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -387,7 +387,7 @@ function CategoriesSection({ categories, copy }: { categories: any[]; copy?: any
             </p>
           </div>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
+        <div className="mobile-horizontal-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
           {activeCategories.map((cat, idx) => (
             <Reveal key={cat.id} delay={idx * 0.1}>
               <Link href={`/shop?category=${cat.id}`} style={{
@@ -433,7 +433,7 @@ function FeaturedPets({ pets, copy }: { pets: any[]; copy?: any }) {
   const sourcePets = pets && pets.length > 0 ? pets : mockPets;
   const featured = sourcePets.filter(p => p.isFeatured || p.featured).slice(0, 4);
   return (
-    <section style={{ padding: '96px 0', background: '#FDF6EC' }}>
+    <section className="section-py" style={{ background: '#FDF6EC' }}>
       <div className="container">
         <Reveal>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
@@ -447,7 +447,7 @@ function FeaturedPets({ pets, copy }: { pets: any[]; copy?: any }) {
             </Link>
           </div>
         </Reveal>
-        <div className="grid-4">
+        <div className="mobile-horizontal-scroll pet-card-grid">
           {featured.map((pet, idx) => (
             <Reveal key={pet.id} delay={idx * 0.12}>
               <PetCard pet={pet} />
@@ -568,7 +568,7 @@ function WhyUsSection({ features }: { features: any[] }) {
     iconElement: iconMap[f.icon as string] || <Shield size={28} />,
   }));
   return (
-    <section style={{ padding: '96px 0', background: '#2C1A0E', position: 'relative', overflow: 'hidden' }}>
+    <section className="section-py" style={{ background: '#2C1A0E', position: 'relative', overflow: 'hidden' }}>
       {/* Decorative circles */}
       <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'rgba(201,125,14,0.08)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -120, left: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(201,125,14,0.05)', pointerEvents: 'none' }} />
@@ -596,7 +596,7 @@ function WhyUsSection({ features }: { features: any[] }) {
             </p>
           </div>
         </Reveal>
-        <div className="grid-4">
+        <div className="mobile-horizontal-scroll pet-card-grid">
           {sourceFeatures.map((f, idx) => (
             <Reveal key={f.title} delay={idx * 0.1}>
               <div style={{
@@ -624,7 +624,7 @@ function NewArrivals({ pets, copy }: { pets: any[]; copy?: any }) {
   const sourcePets = pets && pets.length > 0 ? pets : mockPets;
   const newPets = sourcePets.filter(p => p.isNew).slice(0, 3);
   return (
-    <section style={{ padding: '96px 0', background: '#fff' }}>
+    <section className="section-py" style={{ background: '#fff' }}>
       <div className="container">
         <Reveal>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
@@ -636,7 +636,7 @@ function NewArrivals({ pets, copy }: { pets: any[]; copy?: any }) {
             <Link href="/shop?filter=new" className="btn-secondary">See All New <ArrowRight size={16} /></Link>
           </div>
         </Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24 }}>
+        <div className="mobile-horizontal-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
           {newPets.map((pet, idx) => (
             <Reveal key={pet.id} delay={idx * 0.12}>
               <PetCard pet={pet} />
@@ -663,7 +663,7 @@ function TestimonialsSection({ testimonials, copy }: { testimonials: any[]; copy
 
   const t = sourceTestimonials[current];
   return (
-    <section style={{ padding: '96px 0', background: '#FDF6EC' }}>
+    <section className="section-py" style={{ background: '#FDF6EC' }}>
       <div className="container" style={{ maxWidth: 900 }}>
         <Reveal>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -742,7 +742,7 @@ function CTASection({ copy }: { copy?: any }) {
   };
 
   return (
-    <section className="animated-gradient-bg" style={{ padding: '96px 0', position: 'relative', overflow: 'hidden' }}>
+    <section className="animated-gradient-bg section-py" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Decorative abstract circles — no emojis */}
       <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.06)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
