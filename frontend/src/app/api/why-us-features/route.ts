@@ -7,6 +7,8 @@ const defaultFeatures = [
   { title: 'Safe Delivery', description: 'Live animal transport with expert handlers, climate-controlled vehicles, and real-time updates.', icon: 'Truck', order: 3 },
 ];
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let features = await prisma.whyUsFeature.findMany({

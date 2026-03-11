@@ -39,6 +39,8 @@ const defaultTestimonials = [
   },
 ];
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let testimonials = await prisma.testimonial.findMany({

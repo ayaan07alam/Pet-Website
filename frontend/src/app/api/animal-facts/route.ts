@@ -7,6 +7,8 @@ const defaultFacts = [
   { species: 'Sulcata Tortoise', fact: 'The third largest tortoise in the world — some reach 100kg and live over 100 years!', symbol: 'TORTOISE', color: '#7A5C3A', order: 3 },
 ];
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let facts = await prisma.animalFact.findMany({

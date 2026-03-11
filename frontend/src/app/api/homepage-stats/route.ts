@@ -9,6 +9,8 @@ const defaultStats = [
   { value: '24H', label: 'WhatsApp Support', icon: 'MessageCircle', order: 5 },
 ];
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let stats = await prisma.homepageStat.findMany({
