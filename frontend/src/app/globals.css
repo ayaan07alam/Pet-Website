@@ -278,6 +278,26 @@ input, textarea, select {
   }
 }
 
+@media (max-width: 768px) {
+  .mobile-horizontal-scroll {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+    scrollbar-width: none; /* Firefox */
+    gap: 16px !important;
+  }
+  .mobile-horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  .mobile-horizontal-scroll > * {
+    min-width: 80vw; /* Take up most of screen but peek the next item */
+    scroll-snap-align: center;
+  }
+}
+
 /* ===== CARDS ===== */
 .card {
   background: #fff;

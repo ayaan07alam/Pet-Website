@@ -24,14 +24,21 @@ export default function PetsManager() {
 
     const fetchData = async () => {
         setLoading(true);
-        const [petsRes, catRes] = await Promise.all([
-            fetch('/api/pets'), fetch('/api/categories')
-        ]);
-        const pData = await petsRes.json();
-        const cData = await catRes.json();
-        setPets(pData);
-        setCategories(cData);
-        setLoading(false);
+        try {
+            const [petsRes, catRes] = await Promise.all([
+                fetch('/api/pets'), fetch('/api/categories')
+            ]);
+            const pData = await petsRes.json();
+            const cData = await catRes.json();
+            setPets(Array.isArray(pData) ? pData : []);
+            setCategories(Array.isArray(cData) ? cData : []);
+        } catch (error) {
+            console.error(error);
+            setPets([]);
+            setCategories([]);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSave = async (e: React.FormEvent) => {
@@ -39,7 +46,7 @@ export default function PetsManager() {
         const method = editingId ? 'PUT' : 'POST';
         const url = editingId ? `/api/pets/${editingId}` : '/api/pets';
 
-        await fetch(url, {
+        const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -47,6 +54,12 @@ export default function PetsManager() {
                 images: form.images.filter(i => i.trim() !== '') // remove empty string images
             })
         });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert(err.error || 'Failed to save pet');
+            return;
+        }
 
         setShowModal(false);
         setEditingId(null);

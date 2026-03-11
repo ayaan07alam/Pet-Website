@@ -333,3 +333,40 @@
   flex-direction: column;
   justify-content: center;
 }
+
+/* ===== MOBILE TOUCH-FIRST INTERACTIONS ===== */
+@media (max-width: 768px) {
+  .likeBtn {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .hoverOverlay {
+    opacity: 1 !important;
+    background: linear-gradient(to top, rgba(15,8,2,0.9) 0%, rgba(15,8,2,0) 40%) !important;
+    padding: 12px !important;
+    align-items: flex-end !important;
+  }
+
+  .hoverCta {
+    transform: translateY(0) !important;
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.15); /* Frosted on mobile */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .hoverCta:active {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* Keep single badge visible but push it up slightly */
+  .singleBadge {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}

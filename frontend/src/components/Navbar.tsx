@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
 import styles from './Navbar.module.css';
 import Magnetic from '@/components/animations/Magnetic';
 
@@ -164,37 +164,63 @@ export default function Navbar() {
             </nav>
 
             {/* Mobile Menu */}
-            <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileOpen : ''}`}>
-                <div className={styles.mobileHeader}>
-                    <div className={styles.logoText}>
-                        <span className={styles.logoMain} style={{ fontSize: 24 }}>Rumzee's</span>
-                        <span className={styles.logoSub}>Exotic Pets</span>
-                    </div>
-                    <button className={styles.closeBtn} onClick={() => setMobileOpen(false)} aria-label="Close menu">
-                        <X size={28} />
-                    </button>
-                </div>
-
-                <div className={styles.mobileInner}>
-                    {navLinks.map((link) => (
-                        <div key={link.href} className={styles.mobileNavItem}>
-                            <Link href={link.href} className={styles.mobileNavLink} onClick={() => setMobileOpen(false)}>
-                                {link.label}
-                            </Link>
-                            {link.dropdown && (
-                                <div className={styles.mobileDropdown}>
-                                    {link.dropdown.map((d) => (
-                                        <Link key={d.href} href={d.href} className={styles.mobileDropdownItem} onClick={() => setMobileOpen(false)}>
-                                            {d.label}
-                                        </Link>
-                                    ))}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <>
+                        <motion.div 
+                            className={styles.mobileMenu}
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+                        >
+                            <div className={styles.mobileHeader}>
+                                <div className={styles.logoText}>
+                                    <span className={styles.logoMain} style={{ fontSize: 24, textShadow: 'none' }}>Rumzee's</span>
+                                    <span className={styles.logoSub} style={{ color: '#A0614A' }}>Exotic Pets</span>
                                 </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-            {mobileOpen && <div className={styles.overlay} onClick={() => setMobileOpen(false)} />}
+                                <button className={styles.closeBtn} onClick={() => setMobileOpen(false)} aria-label="Close menu">
+                                    <X size={28} />
+                                </button>
+                            </div>
+
+                            <div className={styles.mobileInner}>
+                                {navLinks.map((link, i) => (
+                                    <motion.div 
+                                        key={link.href} 
+                                        className={styles.mobileNavItem}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: 20 }}
+                                        transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
+                                    >
+                                        <Link href={link.href} className={styles.mobileNavLink} onClick={() => setMobileOpen(false)}>
+                                            {link.label}
+                                        </Link>
+                                        {link.dropdown && (
+                                            <div className={styles.mobileDropdown}>
+                                                {link.dropdown.map((d) => (
+                                                    <Link key={d.href} href={d.href} className={styles.mobileDropdownItem} onClick={() => setMobileOpen(false)}>
+                                                        {d.label}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
+                        <motion.div 
+                            className={styles.overlay} 
+                            onClick={() => setMobileOpen(false)}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                        />
+                    </>
+                )}
+            </AnimatePresence>
         </>
     );
 }

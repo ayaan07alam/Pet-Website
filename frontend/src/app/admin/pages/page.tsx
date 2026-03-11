@@ -18,10 +18,16 @@ export default function PagesManager() {
 
     const fetchData = async () => {
         setLoading(true);
-        const res = await fetch('/api/pages');
-        const data = await res.json();
-        setPages(data);
-        setLoading(false);
+        try {
+            const res = await fetch('/api/pages');
+            const data = await res.json();
+            setPages(Array.isArray(data) ? data : []);
+        } catch (error) {
+            console.error(error);
+            setPages([]);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSave = async (e: React.FormEvent) => {
@@ -29,11 +35,17 @@ export default function PagesManager() {
         const method = editingSlug ? 'PUT' : 'POST';
         const url = editingSlug ? `/api/pages/${editingSlug}` : '/api/pages';
 
-        await fetch(url, {
+        const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
         });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert(err.error || 'Failed to save page');
+            return;
+        }
 
         setShowModal(false);
         setEditingSlug(null);
@@ -49,7 +61,12 @@ export default function PagesManager() {
 
     const handleDelete = async (slug: string) => {
         if (!confirm('Are you sure you want to delete this content page?')) return;
-        await fetch(`/api/pages/${slug}`, { method: 'DELETE' });
+        const res = await fetch(`/api/pages/${slug}`, { method: 'DELETE' });
+        if (!res.ok) {
+             const err = await res.json().catch(() => ({}));
+             alert(err.error || 'Failed to delete page');
+             return;
+        }
         fetchData();
     };
 

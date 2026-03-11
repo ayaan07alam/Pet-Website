@@ -19,10 +19,16 @@ export default function CategoriesManager() {
 
     const fetchData = async () => {
         setLoading(true);
-        const res = await fetch('/api/categories');
-        const data = await res.json();
-        setCategories(data);
-        setLoading(false);
+        try {
+            const res = await fetch('/api/categories');
+            const data = await res.json();
+            setCategories(Array.isArray(data) ? data : []);
+        } catch (error) {
+            console.error(error);
+            setCategories([]);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSave = async (e: React.FormEvent) => {
@@ -30,11 +36,17 @@ export default function CategoriesManager() {
         const method = editingId ? 'PUT' : 'POST';
         const url = editingId ? `/api/categories/${editingId}` : '/api/categories';
 
-        await fetch(url, {
+        const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
         });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert(err.error || 'Failed to save category');
+            return;
+        }
 
         setShowModal(false);
         setEditingId(null);
@@ -50,7 +62,12 @@ export default function CategoriesManager() {
 
     const handleDelete = async (id: string) => {
         if (!confirm('Are you sure you want to delete this category? Ensure no pets are assigned to it first.')) return;
-        await fetch(`/api/categories/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/categories/${id}`, { method: 'DELETE' });
+        if (!res.ok) {
+             const err = await res.json().catch(() => ({}));
+             alert(err.error || 'Failed to delete category. It might have pets assigned.');
+             return;
+        }
         fetchData();
     };
 

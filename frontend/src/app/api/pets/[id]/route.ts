@@ -22,17 +22,26 @@ export async function PUT(request: Request, context: { params: Promise<{ id: str
         const { id } = await context.params;
         const data = await request.json();
 
-        // Convert string price to float if needed
-        if (data.price !== undefined && typeof data.price === 'string') {
-            data.price = parseFloat(data.price) || 0;
-        }
-
         const pet = await prisma.pet.update({
             where: { id },
-            data,
+            data: {
+                name: data.name,
+                species: data.species,
+                breed: data.breed,
+                age: data.age,
+                gender: data.gender,
+                price: data.price !== undefined ? (typeof data.price === 'string' ? parseFloat(data.price) || 0 : data.price) : undefined,
+                status: data.status,
+                images: data.images,
+                description: data.description,
+                isNew: data.isNew,
+                isFeatured: data.isFeatured,
+                categoryId: data.categoryId || null,
+            },
         });
         return NextResponse.json(pet);
     } catch (error) {
+        console.error(error);
         return NextResponse.json({ error: 'Failed to update pet' }, { status: 500 });
     }
 }
