@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion';
@@ -93,29 +94,19 @@ export default function Navbar() {
                     {/* Logo */}
                     <Magnetic strength={0.2}>
                         <Link href="/" className={styles.logo}>
-                            <div className={styles.logoIcon}>
-                                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <linearGradient id="exoticGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stopColor="#FDF6EC" />
-                                            <stop offset="40%" stopColor="#C97D0E" />
-                                            <stop offset="100%" stopColor="#8B5706" />
-                                        </linearGradient>
-                                    </defs>
-                                    {/* Luxury Crest Ring */}
-                                    <circle cx="50" cy="50" r="46" stroke="url(#exoticGold)" strokeWidth="1.5" strokeDasharray="6 4" />
-                                    <circle cx="50" cy="50" r="40" stroke="url(#exoticGold)" strokeWidth="1" />
-                                    {/* Panther Profile */}
-                                    <path d="M 50 25 C 65 25, 75 35, 75 50 C 75 65, 65 75, 50 75 C 60 70, 65 60, 65 50 C 65 40, 60 30, 50 25 Z" fill="url(#exoticGold)" />
-                                    {/* Macaw Wing */}
-                                    <path d="M 45 25 C 30 35, 25 50, 35 65 C 25 55, 30 40, 45 25 Z" fill="url(#exoticGold)" />
-                                    {/* Central Spark */}
-                                    <circle cx="50" cy="50" r="3" fill="url(#exoticGold)" />
-                                </svg>
-                            </div>
+                            <Image
+                                src="/logo.png"
+                                alt="Rumzee's Exotics"
+                                width={44}
+                                height={44}
+                                quality={100}
+                                priority
+                                className={styles.logoImage}
+                                style={{ borderRadius: '50%', border: '1px solid rgba(201,125,14,0.3)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}
+                            />
                             <div className={styles.logoText}>
-                                <span className={styles.logoMain}>Rumzee's</span>
-                                <span className={styles.logoSub}>Exotic Pets</span>
+                                <span className={styles.logoMain}>RUMZEE&apos;S</span>
+                                <span className={styles.logoSub} style={{ letterSpacing: '4px' }}>EXOTICS</span>
                             </div>
                         </Link>
                     </Magnetic>

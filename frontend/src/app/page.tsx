@@ -596,7 +596,7 @@ function WhyUsSection({ features }: { features: any[] }) {
             </p>
           </div>
         </Reveal>
-        <div className="mobile-horizontal-scroll pet-card-grid">
+        <div className="mobile-horizontal-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
           {sourceFeatures.map((f, idx) => (
             <Reveal key={f.title} delay={idx * 0.1}>
               <div style={{

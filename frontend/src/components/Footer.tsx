@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
@@ -31,12 +32,12 @@ export default function Footer() {
                     <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
                             <div style={{ background: '#FDF6EC', borderRadius: '50%', padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <img
+                                <Image
                                     src="/logo.png"
                                     alt="Rumzee's Exotic Logo"
+                                    width={56}
+                                    height={56}
                                     style={{
-                                        width: 56,
-                                        height: 56,
                                         objectFit: 'contain',
                                         borderRadius: '50%',
                                         flexShrink: 0,

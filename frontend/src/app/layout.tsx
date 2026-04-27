@@ -12,8 +12,6 @@ import CustomCursor from "@/components/animations/CustomCursor";
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false, // Prevents input zoom for a native app feel
 };
 
 export const metadata: Metadata = {

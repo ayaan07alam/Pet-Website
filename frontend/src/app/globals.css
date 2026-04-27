@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
   --cream: #F5E6C8;
@@ -485,6 +485,31 @@ input, textarea, select {
   }
 }
 
+/* ===== MOBILE HORIZONTAL SCROLL ===== */
+@media (max-width: 768px) {
+  .mobile-horizontal-scroll {
+    display: flex !important;
+    gap: 16px !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .mobile-horizontal-scroll > * {
+    flex: 0 0 calc(100% - 32px); /* Leaves peeking space for the next item */
+    min-width: 0; 
+    scroll-snap-align: start;
+  }
+  /* Optional: hide scrollbar for a cleaner look */
+  .mobile-horizontal-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-horizontal-scroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
 
 /* ===== WHATSAPP FLOAT BUTTON ===== */
 .float-container {
@@ -838,7 +863,13 @@ input, textarea, select {
   .hero-carousel-inner {
     width: 260px;
     height: 260px;
-    --orbit-radius: 140px; /* Keep tight to prevent horizontal screen overflow */
+    --orbit-radius: 140px;
+  }
+  .orbit-thumb {
+    display: none !important;
+  }
+  .hero-carousel-inner > div:nth-child(2) {
+    display: none !important; /* Hide the dashed ring */
   }
   .stats-item {
     flex: 1 1 50%;
@@ -872,4 +903,411 @@ input, textarea, select {
   }
 }
 
+/* ===== MISSING UTILITY: VERTICAL SECTION PADDING ===== */
+.section-py {
+  padding: 96px 0;
+}
 
+@media (max-width: 768px) {
+  .section-py { padding: 64px 0; }
+}
+
+@media (max-width: 480px) {
+  .section-py { padding: 48px 0; }
+}
+
+/* ===== PET CARD GRID ===== */
+@media (min-width: 769px) {
+  .pet-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .pet-card-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+  .pet-card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+
+/* ===== SHOP PAGE — Controls Bar ===== */
+.shop-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(44,26,14,0.06);
+  flex-wrap: wrap;
+}
+
+.shop-toggle-pill {
+  display: flex;
+  background: rgba(44,26,14,0.06);
+  border-radius: 50px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.shop-toggle-pill button {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  color: #6B3A2A;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.shop-toggle-pill button.active {
+  background: #fff;
+  color: #C97D0E;
+  box-shadow: 0 2px 8px rgba(44,26,14,0.1);
+}
+
+.shop-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-sort-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.shop-sort-select {
+  padding: 9px 14px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(44,26,14,0.12);
+  background: #fff;
+  color: #2C1A0E;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.shop-sort-select:focus { border-color: #C97D0E; }
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(44,26,14,0.12);
+  background: #fff;
+  color: #2C1A0E;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: #C97D0E;
+  color: #C97D0E;
+  background: rgba(201,125,14,0.06);
+}
+
+.desktop-view-toggles {
+  display: flex;
+  gap: 4px;
+}
+
+.view-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1.5px solid rgba(44,26,14,0.12);
+  background: #fff;
+  color: #6B3A2A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn.active {
+  background: rgba(201,125,14,0.1);
+  border-color: #C97D0E;
+  color: #C97D0E;
+}
+
+/* ===== SHOP PAGE — Desktop Sidebar ===== */
+.desktop-sidebar {
+  position: sticky;
+  top: 90px;
+  align-self: start;
+}
+
+/* ===== SHOP PAGE — Mobile Filter Overlay ===== */
+.mobile-filter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44,26,14,0.5);
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+/* ===== SHOP PAGE — Mobile Bottom Sheet ===== */
+.mobile-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  z-index: 1001;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -8px 40px rgba(44,26,14,0.15);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.bottom-sheet-drag-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(44,26,14,0.15);
+  margin: 14px auto 0;
+  flex-shrink: 0;
+}
+
+.bottom-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(44,26,14,0.06);
+  flex-shrink: 0;
+}
+
+.bottom-sheet-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #2C1A0E;
+  font-weight: 700;
+}
+
+.bottom-sheet-content {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.bottom-sheet-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(44,26,14,0.06);
+  flex-shrink: 0;
+}
+
+/* ===== SHOP PAGE — Filter Groups ===== */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B3A2A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.filter-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.filter-chip {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(44,26,14,0.1);
+  background: #fff;
+  color: #2C1A0E;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.filter-chip.active {
+  background: rgba(201,125,14,0.1);
+  border-color: #C97D0E;
+  color: #C97D0E;
+}
+
+.filter-chips-row {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-chip-pill {
+  padding: 9px 20px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(44,26,14,0.12);
+  background: #fff;
+  color: #6B3A2A;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: all 0.2s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.filter-chip-pill.active {
+  background: rgba(201,125,14,0.1);
+  border-color: #C97D0E;
+  color: #C97D0E;
+}
+
+/* ===== SHOP PAGE — Price Inputs ===== */
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-inputs input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1.5px solid rgba(44,26,14,0.12);
+  border-radius: 12px;
+  font-size: 14px;
+  color: #2C1A0E;
+  font-family: 'Outfit', sans-serif;
+  transition: border-color 0.2s ease;
+  background: #FDF6EC;
+}
+
+.price-inputs input:focus {
+  outline: none;
+  border-color: #C97D0E;
+}
+
+.price-inputs span {
+  font-size: 14px;
+  color: #6B3A2A;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* ===== SHOP PAGE — Action Buttons ===== */
+.clear-btn {
+  font-size: 13px;
+  color: #C97D0E;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  padding: 6px 0;
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #C97D0E, #E8601A);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(201,125,14,0.3);
+}
+
+.apply-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* ===== SHOP PAGE — Container mobile padding ===== */
+.shop-container {
+  padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .shop-container {
+    padding-bottom: 80px;
+  }
+}
+
+/* ===== VISIBILITY UTILITIES ===== */
+.hide-on-mobile {
+  display: flex;
+}
+
+.mobile-text-only {
+  display: none;
+}
+
+.mobile-icon-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .mobile-text-only {
+    display: inline;
+  }
+  .mobile-icon-only {
+    display: inline-flex;
+  }
+  .shop-controls-bar {
+    padding: 10px 14px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+  .shop-toggle-pill button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ===== CONTACT FORM — Responsive Grid ===== */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

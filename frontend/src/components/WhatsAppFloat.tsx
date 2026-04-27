@@ -16,17 +16,25 @@ export default function WhatsAppFloat() {
     const cleanWhatsapp = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
     const waLink = `https://wa.me/${cleanWhatsapp.replace(/^\+/, '')}`;
 
-    // Inline style wrapper ensures it floats even if mobile browsers cache globals.css
     return (
-        <div style={{
+        <div className="whatsapp-float-container" style={{
             position: 'fixed',
-            bottom: 24,
             right: 24,
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
             zIndex: 9999
         }}>
+            <style jsx>{`
+                .whatsapp-float-container {
+                    bottom: 24px;
+                }
+                @media (max-width: 768px) {
+                    .whatsapp-float-container {
+                        bottom: 90px;
+                    }
+                }
+            `}</style>
 
             {/* Phone Call Float */}
             <a
