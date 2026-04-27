@@ -917,20 +917,18 @@ input, textarea, select {
 }
 
 /* ===== PET CARD GRID ===== */
-@media (min-width: 769px) {
+.pet-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  /* On mobile, cards look better side-by-side (2 columns) */
   .pet-card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 12px;
   }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .pet-card-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-}
-
-@media (min-width: 769px) and (max-width: 900px) {
-  .pet-card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }
 
 /* ===== SHOP PAGE — Controls Bar ===== */
