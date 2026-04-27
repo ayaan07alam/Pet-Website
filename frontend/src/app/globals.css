@@ -80,14 +80,14 @@ input, textarea, select {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1536px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .container {
-    padding: 0 16px;
+    padding: 0 20px;
   }
 }
 
@@ -732,14 +732,14 @@ input, textarea, select {
 /* ===== RESPONSIVE SHOP LAYOUT ===== */
 .shop-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
 }
 
 .shop-layout-full {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
 }
 
 @media (max-width: 992px) {
