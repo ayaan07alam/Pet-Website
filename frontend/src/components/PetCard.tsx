@@ -107,29 +107,28 @@ export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {
 
             {/* ─── Info ─── */}
             <Link href={`/shop/${pet.id}`} className={styles.info} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className={styles.metaRow}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, overflow: 'hidden' }}>
-                        {/* Species label moved here — clean, out of image clutter */}
-                        <span className={styles.speciesLabel} style={{ color: species.accent, borderColor: species.accent }}>
-                            {species.label}
-                        </span>
-                        <span className={styles.breed}>{pet.breed}</span>
+                <div className={styles.infoTop}>
+                    <div className={styles.metaRow}>
+                        <div className={styles.metaLeft}>
+                            <span className={styles.speciesLabel} style={{ color: species.accent }}>
+                                {species.label}
+                            </span>
+                        </div>
+                        <span className={styles.agePill}>{pet.age} · {pet.gender}</span>
                     </div>
-                    <span className={styles.agePill}>{pet.age} · {pet.gender}</span>
+                    <h3 className={styles.name}>{pet.name}</h3>
+                    <p className={styles.breedText}>{pet.breed}</p>
                 </div>
-                <h3 className={styles.name}>{pet.name}</h3>
+                
                 <div className={styles.footer}>
                     <span className={styles.price} style={{ color: species.accent }}>
                         {pet.price > 0 ? `₹${pet.price.toLocaleString('en-IN')}` : 'Price on Request'}
-                    </span>
-                    <span className={styles.viewBtn}>
-                        <Eye size={13} /> View
                     </span>
                     <button
                         className={styles.enquireBtn}
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowEnquiry(true); }}
                     >
-                        <MessageCircle size={13} /> Enquire
+                        Enquire
                     </button>
                 </div>
             </Link>
