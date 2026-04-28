@@ -93,21 +93,17 @@ export default function Navbar() {
                 <div className={`container ${styles.inner}`}>
                     {/* Logo */}
                     <Magnetic strength={0.2}>
-                        <Link href="/" className={styles.logo}>
+                        <Link href="/" className={styles.logo} style={{ gap: 0 }}>
                             <Image
                                 src="/logo.png"
                                 alt="Rumzee's Exotics"
-                                width={44}
-                                height={44}
+                                width={60}
+                                height={60}
                                 quality={100}
                                 priority
                                 className={styles.logoImage}
-                                style={{ borderRadius: '50%', border: '1px solid rgba(201,125,14,0.3)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}
+                                style={{ borderRadius: '50%', border: '2px solid rgba(201,125,14,0.35)', boxShadow: '0 4px 20px rgba(201,125,14,0.2)' }}
                             />
-                            <div className={styles.logoText}>
-                                <span className={styles.logoMain}>RUMZEE&apos;S</span>
-                                <span className={styles.logoSub} style={{ letterSpacing: '4px' }}>EXOTICS</span>
-                            </div>
                         </Link>
                     </Magnetic>
 
@@ -166,9 +162,15 @@ export default function Navbar() {
                             transition={{ type: 'spring', damping: 28, stiffness: 220 }}
                         >
                             <div className={styles.mobileHeader}>
-                                <div className={styles.logoText}>
-                                    <span className={styles.logoMain} style={{ fontSize: 24, textShadow: 'none' }}>Rumzee's</span>
-                                    <span className={styles.logoSub} style={{ color: '#A0614A' }}>Exotic Pets</span>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Image
+                                        src="/logo.png"
+                                        alt="Rumzee's Exotics"
+                                        width={52}
+                                        height={52}
+                                        quality={100}
+                                        style={{ borderRadius: '50%', border: '2px solid rgba(232,160,32,0.4)', boxShadow: '0 4px 24px rgba(232,160,32,0.2)' }}
+                                    />
                                 </div>
                                 <button className={styles.closeBtn} onClick={() => setMobileOpen(false)} aria-label="Close menu">
                                     <X size={28} />

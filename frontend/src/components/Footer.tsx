@@ -30,24 +30,20 @@ export default function Footer() {
 
                     {/* Brand */}
                     <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
-                            <div style={{ background: '#FDF6EC', borderRadius: '50%', padding: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Image
-                                    src="/logo.png"
-                                    alt="Rumzee's Exotic Logo"
-                                    width={56}
-                                    height={56}
-                                    style={{
-                                        objectFit: 'contain',
-                                        borderRadius: '50%',
-                                        flexShrink: 0,
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700 }}>Rumzee&apos;s Exotic</div>
-                                <div style={{ fontSize: 11, letterSpacing: 3, textTransform: 'uppercase', color: '#C97D0E', fontFamily: "'DM Sans', sans-serif" }}>Premium Pet Shop</div>
-                            </div>
+                        <div style={{ marginBottom: 24 }}>
+                            <Image
+                                src="/logo.png"
+                                alt="Rumzee's Exotic Logo"
+                                width={96}
+                                height={96}
+                                quality={100}
+                                style={{
+                                    objectFit: 'contain',
+                                    borderRadius: '50%',
+                                    border: '2px solid rgba(255,255,255,0.05)',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(201,125,14,0.3)',
+                                }}
+                            />
                         </div>
                         <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(245,230,200,0.7)', marginBottom: 24 }}>
                             Your trusted destination for rare and exotic birds, cats, reptiles, and tortoises. Premium quality, ethically sourced, loved for life.

@@ -1,7 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Home, ShoppingBag, Grid, Phone } from 'lucide-react';
+import { Home, ShoppingBag, Heart, Phone } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import styles from './MobileBottomNav.module.css';
 
@@ -30,9 +30,9 @@ export default function MobileBottomNav() {
                     <ShoppingBag size={22} className={styles.icon} />
                     <span>Shop</span>
                 </Link>
-                <Link href="/shop?category=cats" className={`${styles.navItem} ${pathname.includes('category=cats') ? styles.active : ''}`}>
-                    <Grid size={22} className={styles.icon} />
-                    <span>Categories</span>
+                <Link href="/wishlist" className={`${styles.navItem} ${pathname === '/wishlist' ? styles.active : ''}`}>
+                    <Heart size={22} className={styles.icon} />
+                    <span>Wishlist</span>
                 </Link>
                 <a href={waLink} target="_blank" rel="noopener noreferrer" className={styles.navItem}>
                     <Phone size={22} className={styles.icon} />
