@@ -57,7 +57,7 @@ export default function EnquiryModal({ isOpen, onClose, petId, petName, source =
             });
             if (!res.ok) throw new Error('Failed');
             setSuccess(true);
-            toast.success('Enquiry sent! We\'ll reach out shortly 🐾');
+            toast.success("Enquiry sent! We'll reach out shortly.");
         } catch {
             toast.error('Something went wrong. Please try again.');
         } finally {

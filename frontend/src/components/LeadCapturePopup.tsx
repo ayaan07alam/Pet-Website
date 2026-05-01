@@ -89,7 +89,7 @@ export default function LeadCapturePopup() {
             });
             if (!res.ok) throw new Error('Failed');
             setSuccess(true);
-            toast.success('Welcome to the Rumzee\'s family! 🐾');
+            toast.success("Welcome to the Rumzee's family!");
             try { localStorage.setItem(STORAGE_KEY, Date.now().toString()); } catch { /* noop */ }
         } catch {
             toast.error('Something went wrong. Please try again.');
@@ -239,7 +239,7 @@ export default function LeadCapturePopup() {
                                     </button>
                                 </form>
                                 <p style={{ fontSize: 11, color: 'rgba(245,230,200,0.35)', textAlign: 'center', marginTop: 12 }}>
-                                    No spam, ever. Only exotic pet goodness 🐾
+                                    No spam, ever. Only exotic pet updates.
                                 </p>
                             </div>
                         )}

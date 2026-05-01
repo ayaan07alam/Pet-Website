@@ -50,11 +50,11 @@ export default function CartPage() {
                                             <span style={{ width: 32, textAlign: 'center', fontWeight: 700, color: '#2C1A0E' }}>{item.quantity}</span>
                                             <button onClick={() => updateQuantity(item.id, item.quantity + 1)} style={{ width: 36, height: 36, border: 'none', background: 'none', cursor: 'pointer', fontSize: 16, color: '#2C1A0E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Plus size={14} /></button>
                                         </div>
-                                        <button onClick={() => { removeFromCart(item.id); toast('Item removed', { icon: '🗑️' }); }} style={{ width: 36, height: 36, borderRadius: 10, border: 'none', background: 'rgba(232,96,26,0.1)', color: '#E8601A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Trash2 size={16} /></button>
+                                        <button onClick={() => { removeFromCart(item.id); toast('Item removed from cart'); }} style={{ width: 36, height: 36, borderRadius: 10, border: 'none', background: 'rgba(232,96,26,0.1)', color: '#E8601A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Trash2 size={16} /></button>
                                     </div>
                                 </div>
                             ))}
-                            <button onClick={() => { clearCart(); toast('Cart cleared', { icon: '🗑️' }); }} style={{ alignSelf: 'flex-end', background: 'none', border: '1.5px solid rgba(44,26,14,0.2)', borderRadius: 12, padding: '10px 20px', color: '#6B3A2A', fontSize: 14, cursor: 'pointer', fontWeight: 600, transition: 'all 0.2s' }}>Clear Cart</button>
+                            <button onClick={() => { clearCart(); toast('Cart cleared'); }} style={{ alignSelf: 'flex-end', background: 'none', border: '1.5px solid rgba(44,26,14,0.2)', borderRadius: 12, padding: '10px 20px', color: '#6B3A2A', fontSize: 14, cursor: 'pointer', fontWeight: 600, transition: 'all 0.2s' }}>Clear Cart</button>
                         </div>
 
                         {/* Order Summary */}

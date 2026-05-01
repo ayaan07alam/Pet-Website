@@ -32,7 +32,7 @@ export default function ContactPage() {
                 }),
             });
             if (!res.ok) throw new Error('Failed');
-            toast.success('Message sent! We\'ll get back to you within 24 hours. 🐾');
+            toast.success("Message sent! We'll get back to you within 24 hours.");
             setForm({ name: '', email: '', phone: '', subject: '', message: '' });
         } catch {
             toast.error('Something went wrong. Please try again.');

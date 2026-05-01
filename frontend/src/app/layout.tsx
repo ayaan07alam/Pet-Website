@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import MobileBottomNav from "@/components/MobileBottomNav";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import LeadCapturePopup from "@/components/LeadCapturePopup";
@@ -86,7 +85,6 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
-          <MobileBottomNav />
           <WhatsAppFloat />
           <LeadCapturePopup />
           <ScrollToTop />

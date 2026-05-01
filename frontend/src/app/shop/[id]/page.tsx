@@ -117,9 +117,9 @@ export default function PetDetailPage() {
                     {/* Info */}
                     <div>
                         <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-                            {pet.isNew && <span className="badge badge-new">✨ New</span>}
-                            {pet.featured && <span className="badge badge-featured">⭐ Featured</span>}
-                            <span className={`badge ${pet.available ? 'badge-available' : 'badge-sold'}`}>{pet.available ? '✓ Available' : 'Sold Out'}</span>
+                            {pet.isNew && <span className="badge badge-new">New Arrival</span>}
+                            {pet.featured && <span className="badge badge-featured">Featured</span>}
+                            <span className={`badge ${pet.available ? 'badge-available' : 'badge-sold'}`}>{pet.available ? 'Available' : 'Sold Out'}</span>
                         </div>
                         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem,4vw,2.8rem)', fontWeight: 800, color: '#2C1A0E', marginBottom: 8 }}>{pet.name}</h1>
                         <p style={{ fontSize: 16, color: '#6B3A2A', marginBottom: 16, textTransform: 'capitalize' }}>{pet.breed} • {pet.species}</p>

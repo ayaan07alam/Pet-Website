@@ -16,7 +16,7 @@ export default function RegisterPage() {
         if (form.password !== form.confirm) { toast.error('Passwords do not match'); return; }
         setLoading(true);
         await new Promise(r => setTimeout(r, 1200));
-        toast.success('Account created! Welcome to Rumzee\'s Exotic 🐾');
+        toast.success("Account created! Welcome to Rumzee's Exotic.");
         router.push('/dashboard');
         setLoading(false);
     };
@@ -29,7 +29,7 @@ export default function RegisterPage() {
                 <div style={{ textAlign: 'center', marginBottom: 36 }}>
                     <img src="/logo.png" alt="Rumzee's Exotic" style={{ width: 88, height: 88, objectFit: 'contain', mixBlendMode: 'multiply', filter: 'contrast(1.1) drop-shadow(0 4px 12px rgba(201,125,14,0.3))', borderRadius: '50%', margin: '0 auto 16px', display: 'block', boxShadow: '0 8px 28px rgba(44,26,14,0.18)' }} />
                     <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: '#2C1A0E', marginBottom: 6 }}>Create Account</h1>
-                    <p style={{ color: '#6B3A2A', fontSize: 15 }}>Join the Rumzee&apos;s Exotic family 🐾</p>
+                    <p style={{ color: '#6B3A2A', fontSize: 15 }}>Join the Rumzee&apos;s Exotic family</p>
                 </div>
                 <div style={{ background: '#fff', borderRadius: 24, padding: 36, boxShadow: '0 8px 40px rgba(44,26,14,0.1)' }}>
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

@@ -24,7 +24,7 @@ export default function LoginPage() {
 
             if (result.error) throw new Error(result.error);
 
-            toast.success('Access Granted 🐾');
+            toast.success('Access Granted — Welcome back.');
             router.push('/admin');
             router.refresh(); // Refresh router to clear middleware cache
         } catch (error: any) {

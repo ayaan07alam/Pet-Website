@@ -161,7 +161,7 @@ export default function Footer() {
                 }}>
                     <div style={{ flex: '1 1 280px' }}>
                         <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5E6C8', marginBottom: 6 }}>
-                            Stay in the Loop 🐾
+                            Stay in the Loop
                         </h4>
                         <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.5 }}>
                             Subscribe for new arrivals, exclusive offers & exotic pet tips.

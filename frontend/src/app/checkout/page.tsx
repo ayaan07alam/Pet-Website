@@ -29,7 +29,7 @@ export default function CheckoutPage() {
         <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ textAlign: 'center', padding: 48 }}>
                 <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(74,124,46,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: '#4A7C2E' }}><Check size={48} /></div>
-                <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: '#2C1A0E', marginBottom: 12 }}>Order Placed! 🐾</h1>
+                <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700, color: '#2C1A0E', marginBottom: 12 }}>Order Placed Successfully</h1>
                 <p style={{ color: '#6B3A2A', fontSize: 16, marginBottom: 32, maxWidth: 480 }}>Thank you for your order! We&apos;ll contact you within 24 hours to confirm delivery details. Our team will ensure your exotic pet arrives safely.</p>
                 <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
                     <Link href="/" className="btn-primary">Go Home</Link>
@@ -72,9 +72,9 @@ export default function CheckoutPage() {
                             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: '#2C1A0E', marginBottom: 20 }}>Payment Method</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                 {[
-                                    { value: 'cod', label: '💵 Cash on Delivery', desc: 'Pay when your pet arrives' },
-                                    { value: 'upi', label: '📱 UPI Payment', desc: 'GPay, PhonePe, Paytm' },
-                                    { value: 'bank', label: '🏦 Bank Transfer', desc: 'Direct bank transfer' },
+                                    { value: 'cod', label: 'Cash on Delivery', desc: 'Pay when your pet arrives' },
+                                    { value: 'upi', label: 'UPI Payment', desc: 'GPay, PhonePe, Paytm' },
+                                    { value: 'bank', label: 'Bank Transfer', desc: 'Direct bank transfer' },
                                 ].map(p => (
                                     <label key={p.value} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: `1.5px solid ${form.payment === p.value ? '#C97D0E' : 'rgba(44,26,14,0.12)'}`, background: form.payment === p.value ? 'rgba(201,125,14,0.06)' : '#fff', cursor: 'pointer', transition: 'all 0.2s' }}>
                                         <input type="radio" name="payment" value={p.value} checked={form.payment === p.value} onChange={e => setForm({ ...form, payment: e.target.value })} style={{ accentColor: '#C97D0E', width: 18, height: 18 }} />

@@ -529,7 +529,7 @@ function RoyalFelines({ pets }: { pets: any[] }) {
                   {/* Elite Badge */}
                   {(cat.featured || cat.isNew) && (
                     <div style={{ position: 'absolute', top: 16, right: 16 }}>
-                      <span style={{ background: 'rgba(255,255,255,0.9)', color: '#2C1A0E', padding: '6px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>✨ ELITE</span>
+                      <span style={{ background: 'rgba(255,255,255,0.9)', color: '#2C1A0E', padding: '6px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0,0,0,0.2)', letterSpacing: '1px' }}>ELITE</span>
                     </div>
                   )}
 
@@ -822,7 +822,7 @@ function CTASection({ copy }: { copy?: any }) {
                 <>
                   <div style={{ textAlign: 'center', marginBottom: 28 }}>
                     <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, color: '#fff', marginBottom: 8, textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
-                      Get a Callback 📞
+                      Get a Callback
                     </h4>
                     <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14, letterSpacing: '0.3px' }}>
                       Leave your details and our pet expert will call you
@@ -910,7 +910,7 @@ function MapSection({ settings }: { settings: any }) {
                   onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
                   <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(201,125,14,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', flexShrink: 0 }}><MapPin size={22} /></div>
-                  <div><div style={{ fontWeight: 600, marginBottom: 2 }}>{settings?.address || 'Our Location'}</div><div style={{ fontSize: 14, color: '#6B3A2A' }}>Click to open in Google Maps 📍</div></div>
+                  <div><div style={{ fontWeight: 600, marginBottom: 2 }}>{settings?.address || 'Our Location'}</div><div style={{ fontSize: 14, color: '#6B3A2A' }}>Click to view on Google Maps</div></div>
                 </a>
                 <a href={`tel:${cleanWhatsapp}`} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, textDecoration: 'none', color: '#2C1A0E', padding: '16px 20px', background: '#FDF6EC', borderRadius: 14, transition: 'all 0.3s ease' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(4px)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(44,26,14,0.1)'; }}

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Search, SlidersHorizontal, Grid, List, X, Flame } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid, List, X, Flame, SearchX } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PetCard from '@/components/PetCard';
 import { mockPets, mockProducts } from '@/data/mockData';
@@ -181,7 +181,7 @@ function ShopContent() {
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                         {SPECIES.map(s => (
                                             <button key={s} onClick={() => setSpecies(s)} style={{ textAlign: 'left', padding: '8px 12px', borderRadius: 10, border: 'none', cursor: 'pointer', background: species === s ? 'rgba(201,125,14,0.12)' : 'transparent', color: species === s ? '#C97D0E' : '#2C1A0E', fontWeight: species === s ? 700 : 400, fontSize: 14, transition: 'all 0.2s' }}>
-                                                {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Turtles & Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
+                                            {s === 'tortoise' ? 'Turtles & Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
                                             </button>
                                         ))}
                                     </div>
@@ -236,7 +236,7 @@ function ShopContent() {
                                             <div className="filter-chips-grid">
                                                 {SPECIES.map(s => (
                                                     <button key={s} onClick={() => setSpecies(s)} className={`filter-chip ${species === s ? 'active' : ''}`}>
-                                                        {s === 'bird' ? '🦜' : s === 'cat' ? '🐱' : s === 'rodent' ? '🐹' : s === 'reptile' ? '🦎' : s === 'tortoise' ? '🐢' : '🔍'} {s === 'tortoise' ? 'Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
+                                                        {s === 'tortoise' ? 'Tortoises' : s.charAt(0).toUpperCase() + s.slice(1)}
                                                     </button>
                                                 ))}
                                             </div>
@@ -275,7 +275,7 @@ function ShopContent() {
                     <div>
                         {filtered.length === 0 ? (
                             <div style={{ textAlign: 'center', padding: '80px 20px', color: '#6B3A2A' }}>
-                                <div style={{ fontSize: 80, marginBottom: 16, animation: 'wiggle 2s ease-in-out infinite' }}>🐾</div>
+                                <SearchX size={64} style={{ color: 'rgba(201,125,14,0.25)', margin: '0 auto 20px', display: 'block' }} />
                                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, marginBottom: 12, color: '#2C1A0E' }}>No exotic companions found</h3>
                                 <p style={{ fontSize: 16, marginBottom: 24, color: '#6B3A2A' }}>Try adjusting your filters or search term. Our exotic family is always growing!</p>
                                 <button onClick={() => { setSearch(''); setSpecies('all'); setGender('all'); setPriceRange([0, 200000]); }} style={{ padding: '12px 32px', background: 'linear-gradient(135deg, #C97D0E, #E8601A)', color: '#fff', border: 'none', borderRadius: 50, fontWeight: 700, fontSize: 15, cursor: 'pointer', boxShadow: '0 4px 20px rgba(201,125,14,0.3)' }}>Clear All Filters</button>

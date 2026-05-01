@@ -17,10 +17,10 @@ interface CompanyStory {
 }
 
 const team = [
-    { name: 'Mohammed Rumzee', role: 'Founder & Avian Expert', emoji: '👨‍💼', bio: 'With 8+ years in exotic aviculture, Rumzee founded the shop to share his passion for rare birds with families across India.' },
-    { name: 'Aaliya Khan', role: 'Vet & Cat Specialist', emoji: '👩‍⚕️', bio: 'Licensed veterinarian specializing in exotic cats and small mammals. Ensures every cat is healthy and vaccinated before adoption.' },
-    { name: 'Rajan Shetty', role: 'Reptile Handler', emoji: '🦎', bio: 'Expert in reptile care and enclosure design. Has successfully raised and rehomed over 200+ reptiles.' },
-    { name: 'Preethi Nair', role: 'Customer Care', emoji: '💛', bio: 'Always the first to greet you with a smile. Preethi ensures every pet parent leaves happy and well-informed.' },
+    { name: 'Mohammed Rumzee', role: 'Founder & Avian Expert', bio: 'With 8+ years in exotic aviculture, Rumzee founded the shop to share his passion for rare birds with families across India.' },
+    { name: 'Aaliya Khan', role: 'Vet & Cat Specialist', bio: 'Licensed veterinarian specializing in exotic cats and small mammals. Ensures every cat is healthy and vaccinated before adoption.' },
+    { name: 'Rajan Shetty', role: 'Reptile Handler', bio: 'Expert in reptile care and enclosure design. Has successfully raised and rehomed over 200+ reptiles.' },
+    { name: 'Preethi Nair', role: 'Customer Care', bio: 'Always the first to greet you with a smile. Preethi ensures every pet parent leaves happy and well-informed.' },
 ];
 
 const milestones = [
@@ -153,8 +153,8 @@ export default function AboutPage() {
 
             {/* Timeline */}
             <section style={{ padding: '80px 0', background: '#fff', position: 'relative', overflow: 'hidden' }}>
-                {/* Faint jungle silhouette */}
-                <div style={{ position: 'absolute', right: 0, bottom: 0, fontSize: 200, opacity: 0.025, lineHeight: 1, pointerEvents: 'none' }}>🌿</div>
+                {/* Subtle geometric background accent */}
+                <div style={{ position: 'absolute', right: -60, bottom: -60, width: 300, height: 300, borderRadius: '50%', border: '1px solid rgba(201,125,14,0.06)', pointerEvents: 'none' }} />
                 <div className="container" style={{ maxWidth: 760 }}>
                     <div style={{ textAlign: 'center', marginBottom: 56 }}>
                         <div className="section-label" style={{ justifyContent: 'center' }}>Our Journey</div>

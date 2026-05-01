@@ -10,7 +10,7 @@ export default function WishlistPage() {
     const moveToCart = (item: typeof wishlist[0]) => {
         addToCart({ id: item.id, name: item.name, price: item.price, image: item.image, type: item.type, quantity: 1 });
         removeFromWishlist(item.id);
-        toast.success(`Moved to cart! 🛒`);
+        toast.success('Moved to cart!');
     };
 
     return (
@@ -42,7 +42,7 @@ export default function WishlistPage() {
                                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 2px 12px rgba(44,26,14,0.08)'; }}>
                                 <div style={{ height: 200, background: '#F5E6C8', overflow: 'hidden', position: 'relative' }}>
                                     <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => e.currentTarget.style.display = 'none'} />
-                                    <button onClick={() => { removeFromWishlist(item.id); toast('Removed from wishlist', { icon: '💔' }); }} style={{ position: 'absolute', top: 12, right: 12, width: 36, height: 36, borderRadius: '50%', background: 'rgba(253,246,236,0.9)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#E8601A' }}>
+                                    <button onClick={() => { removeFromWishlist(item.id); toast('Removed from wishlist'); }} style={{ position: 'absolute', top: 12, right: 12, width: 36, height: 36, borderRadius: '50%', background: 'rgba(253,246,236,0.9)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#E8601A' }}>
                                         <Trash2 size={16} />
                                     </button>
                                 </div>
