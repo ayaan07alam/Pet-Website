@@ -109,12 +109,12 @@ export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {
             <Link href={`/shop/${pet.id}`} className={styles.info} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className={styles.infoTop}>
                     <div className={styles.metaRow}>
-                        <div className={styles.metaLeft}>
-                            <span className={styles.speciesLabel} style={{ color: species.accent }}>
-                                {species.label}
+                        <div className={styles.metaInner}>
+                            <span className={styles.speciesLabel} style={{ color: species.accent, borderColor: species.accent }}>
+                                {species.abbreviation}
                             </span>
+                            <span className={styles.agePill}>{pet.age} · {pet.gender}</span>
                         </div>
-                        <span className={styles.agePill}>{pet.age} · {pet.gender}</span>
                     </div>
                     <h3 className={styles.name}>{pet.name}</h3>
                     <p className={styles.breedText}>{pet.breed}</p>

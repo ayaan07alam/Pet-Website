@@ -100,16 +100,30 @@ input, textarea, select {
   color: #fff;
   padding: 14px 32px;
   border-radius: 50px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
   transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(232,96,26,0.3);
+  box-shadow:
+    0 4px 15px rgba(232,96,26,0.28),
+    0 1px 3px rgba(44,26,14,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(232,96,26,0.4);
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 30px rgba(232,96,26,0.38),
+    0 4px 10px rgba(44,26,14,0.15);
   background: linear-gradient(135deg, var(--amber-light) 0%, var(--orange) 100%);
 }
 
@@ -158,37 +172,41 @@ input, textarea, select {
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: clamp(11px, 1vw, 13px);
-  font-weight: 600;
-  letter-spacing: 2px;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--amber);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  font-family: 'Outfit', sans-serif;
 }
 
 .section-label::before {
   content: '';
   display: block;
-  width: 32px;
-  height: 2px;
-  background: var(--amber);
+  width: 28px;
+  height: 1.5px;
+  background: linear-gradient(to right, var(--amber), var(--orange));
   border-radius: 2px;
 }
 
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
   color: var(--brown-dark);
   margin-bottom: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
   font-size: clamp(15px, 1.5vw, 17px);
   color: var(--brown-mid);
-  max-width: 560px;
-  line-height: 1.7;
+  max-width: 540px;
+  line-height: 1.75;
+  font-weight: 400;
 }
 
 /* ===== BADGE ===== */
@@ -251,17 +269,17 @@ input, textarea, select {
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--cream-light);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--brown-light);
-  border-radius: 4px;
+  background: rgba(107,58,42,0.25);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--brown-mid);
+  background: rgba(107,58,42,0.45);
 }
 
 /* ===== MOBILE UTILITIES ===== */
@@ -401,8 +419,12 @@ input, textarea, select {
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* On mobile: keep 2-col for pet cards (grid-4 → 2 col is correct)
+   Only collapse to 1-col on very small screens or for grid-2 */
 @media (max-width: 640px) {
-  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  /* grid-4 stays 2-col on mobile for pet card browsing */
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .container { padding: 0 16px; }
   .float-container {
     bottom: 20px;
