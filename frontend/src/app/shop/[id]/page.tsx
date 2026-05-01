@@ -9,6 +9,7 @@ import PetCard from '@/components/PetCard';
 export default function PetDetailPage() {
     const { id } = useParams<{ id: string }>();
     const [fetchedPet, setFetchedPet] = useState<any>(null);
+    const [settings, setSettings] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [imgIdx, setImgIdx] = useState(0);
     const [leadSubmitting, setLeadSubmitting] = useState(false);
@@ -19,16 +20,23 @@ export default function PetDetailPage() {
     const [leadMessage, setLeadMessage] = useState('');
 
     useEffect(() => {
-        fetch(`/api/pets/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data && !data.error) setFetchedPet(data);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
+        Promise.all([
+            fetch(`/api/pets/${id}`).then(r => r.json()).catch(() => null),
+            fetch('/api/settings').then(r => r.json()).catch(() => null),
+        ]).then(([petData, settingsData]) => {
+            if (petData && !petData.error) setFetchedPet(petData);
+            if (settingsData && !settingsData.error) setSettings(settingsData);
+            setLoading(false);
+        });
     }, [id]);
 
-    if (loading) return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FDF6EC', color: '#6B3A2A', fontSize: 18 }}>Loading companion details...</div>;
+    if (loading) return (
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FDF6EC', flexDirection: 'column', gap: 16 }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', border: '3px solid rgba(201,125,14,0.15)', borderTop: '3px solid #C97D0E', animation: 'spin 0.8s linear infinite' }} />
+            <p style={{ color: '#6B3A2A', fontSize: 16, fontWeight: 500, fontFamily: "'Outfit', sans-serif" }}>Loading companion details...</p>
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+    );
 
     const pet = fetchedPet || mockPets.find(p => p.id === id);
     if (!pet) return notFound();
@@ -36,9 +44,10 @@ export default function PetDetailPage() {
     const images = pet.images?.length ? pet.images : (pet.image ? [pet.image, pet.image, pet.image] : ['/images/hero/bg_forest.png']);
     const related = mockPets.filter(p => p.species === pet.species && p.id !== pet.id).slice(0, 4);
 
+    const cleanWa = settings?.whatsappNumber?.replace(/[^\d+]/g, '') || '918197398357';
     const priceText = pet.price > 0 ? `listed at ₹${pet.price.toLocaleString('en-IN')}` : 'listed without a set price';
     const whatsappMsg = encodeURIComponent(`Hi! I'm interested in ${pet.name} (${pet.breed}, ${pet.age}, ${pet.gender}) ${priceText}. Can you share more details?`);
-    const whatsappLink = `https://wa.me/918001234567?text=${whatsappMsg}`;
+    const whatsappLink = `https://wa.me/${cleanWa.replace(/^\+/, '')}?text=${whatsappMsg}`;
 
     const submitLead = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -84,7 +93,7 @@ export default function PetDetailPage() {
                     <ArrowLeft size={16} /> Back to Shop
                 </Link>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, marginBottom: 80 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', gap: 56, marginBottom: 80 }}>
                     {/* Gallery */}
                     <div>
                         <div style={{ borderRadius: 24, overflow: 'hidden', marginBottom: 16, position: 'relative', background: '#F5E6C8', paddingTop: '75%', boxShadow: '0 8px 40px rgba(44,26,14,0.12)' }}>
@@ -157,31 +166,36 @@ export default function PetDetailPage() {
                             <MessageCircle size={20} /> Enquire on WhatsApp
                         </a>
 
-                        {/* Lead Capture Form */}
-                        <div style={{ marginBottom: 24, padding: '16px 18px', borderRadius: 16, background: '#fff', border: '1px solid rgba(44,26,14,0.06)' }}>
-                            <p style={{ fontSize: 14, color: '#6B3A2A', marginBottom: 12 }}>
-                                Prefer a callback instead? Leave your details and we&apos;ll reach out.
+                        <div style={{ marginBottom: 24, padding: '20px 22px', borderRadius: 18, background: '#fff', border: '1px solid rgba(44,26,14,0.07)', boxShadow: '0 4px 20px rgba(44,26,14,0.06)' }}>
+                            <p style={{ fontSize: 14, color: '#6B3A2A', marginBottom: 14, fontFamily: "'Outfit', sans-serif" }}>
+                                Prefer a callback? Leave your details and we&apos;ll reach out.
                             </p>
-                            <form onSubmit={submitLead} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                            <form onSubmit={submitLead} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                 <input
                                     required
-                                    placeholder="Your name"
+                                    placeholder="Your name *"
                                     value={leadName}
                                     onChange={e => setLeadName(e.target.value)}
-                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14 }}
+                                    style={{ padding: '12px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', fontSize: 14, background: '#FDF6EC', color: '#2C1A0E', outline: 'none', fontFamily: "'Outfit', sans-serif", transition: 'border-color 0.2s' }}
+                                    onFocus={e => e.target.style.borderColor = '#C97D0E'}
+                                    onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'}
                                 />
                                 <input
                                     required
-                                    placeholder="WhatsApp or phone number"
+                                    placeholder="WhatsApp / Phone *"
                                     value={leadPhone}
                                     onChange={e => setLeadPhone(e.target.value)}
-                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14 }}
+                                    style={{ padding: '12px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', fontSize: 14, background: '#FDF6EC', color: '#2C1A0E', outline: 'none', fontFamily: "'Outfit', sans-serif", transition: 'border-color 0.2s' }}
+                                    onFocus={e => e.target.style.borderColor = '#C97D0E'}
+                                    onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'}
                                 />
                                 <textarea
-                                    placeholder="Anything specific you would like to ask?"
+                                    placeholder="Any specific questions? (optional)"
                                     value={leadMessage}
                                     onChange={e => setLeadMessage(e.target.value)}
-                                    style={{ padding: '10px 12px', borderRadius: 8, border: '1px solid #DDD', fontSize: 14, minHeight: 70 }}
+                                    style={{ padding: '12px 16px', borderRadius: 12, border: '1.5px solid rgba(44,26,14,0.12)', fontSize: 14, background: '#FDF6EC', color: '#2C1A0E', outline: 'none', fontFamily: "'Outfit', sans-serif", minHeight: 72, resize: 'vertical', transition: 'border-color 0.2s' }}
+                                    onFocus={e => e.target.style.borderColor = '#C97D0E'}
+                                    onBlur={e => e.target.style.borderColor = 'rgba(44,26,14,0.12)'}
                                 />
                                 <button
                                     type="submit"
@@ -189,20 +203,26 @@ export default function PetDetailPage() {
                                     style={{
                                         marginTop: 4,
                                         alignSelf: 'flex-start',
-                                        padding: '10px 18px',
-                                        borderRadius: 999,
+                                        padding: '12px 24px',
+                                        borderRadius: 50,
                                         border: 'none',
-                                        backgroundColor: '#2C1A0E',
+                                        background: 'linear-gradient(135deg, #2C1A0E, #4A2A1A)',
                                         color: '#fff',
                                         fontSize: 14,
-                                        fontWeight: 600,
+                                        fontWeight: 700,
+                                        fontFamily: "'Outfit', sans-serif",
                                         cursor: leadSubmitting ? 'not-allowed' : 'pointer',
+                                        opacity: leadSubmitting ? 0.7 : 1,
+                                        transition: 'all 0.25s ease',
+                                        boxShadow: '0 4px 16px rgba(44,26,14,0.2)',
                                     }}
+                                    onMouseEnter={e => { if (!leadSubmitting) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(44,26,14,0.3)'; } }}
+                                    onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(44,26,14,0.2)'; }}
                                 >
-                                    {leadSubmitting ? 'Sending...' : 'Request a callback'}
+                                    {leadSubmitting ? 'Sending...' : 'Request a Callback'}
                                 </button>
                                 {leadSuccess && (
-                                    <p style={{ fontSize: 13, color: '#4A7C2E', marginTop: 4 }}>{leadSuccess}</p>
+                                    <p style={{ fontSize: 13, color: '#4A7C2E', marginTop: 4, fontWeight: 600 }}>{leadSuccess}</p>
                                 )}
                                 {leadError && (
                                     <p style={{ fontSize: 13, color: '#E8601A', marginTop: 4 }}>{leadError}</p>

@@ -31,7 +31,7 @@ export default function CartPage() {
                         <Link href="/shop" className="btn-primary">Shop Now <ArrowRight size={16} /></Link>
                     </div>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32 }}>
+                    <div className="checkout-grid">
                         {/* Cart items */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             {cart.map((item) => (

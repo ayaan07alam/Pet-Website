@@ -689,7 +689,7 @@ function TestimonialsSection({ testimonials, copy }: { testimonials: any[]; copy
           </div>
         </Reveal>
         <Reveal delay={0.15}>
-          <div style={{ background: '#fff', borderRadius: 28, padding: '48px 56px', boxShadow: '0 8px 40px rgba(44,26,14,0.1)', position: 'relative', textAlign: 'center', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', borderRadius: 28, padding: 'clamp(24px, 5vw, 48px) clamp(20px, 5vw, 56px)', boxShadow: '0 8px 40px rgba(44,26,14,0.1)', position: 'relative', textAlign: 'center', overflow: 'hidden' }}>
             {/* Decorative quote bg */}
             <div style={{ position: 'absolute', top: -10, left: 30, fontSize: 180, color: 'rgba(201,125,14,0.06)', fontFamily: 'Georgia', lineHeight: 1, pointerEvents: 'none' }}>&ldquo;</div>
             <AnimatePresence mode="wait">
@@ -970,7 +970,72 @@ export default function HomePage() {
     });
   }, []);
 
-  if (loading) return null; // Or a subtle loader to prevent hydration flicker
+  if (loading) return (
+    <div style={{ minHeight: '100vh', background: '#FDF6EC', overflow: 'hidden' }}>
+      {/* Hero skeleton */}
+      <div style={{
+        height: '100vh', width: '100%', position: 'relative',
+        background: 'linear-gradient(135deg, #1A0E06 0%, #2C1A0E 60%, #3A1F0A 100%)',
+        display: 'flex', alignItems: 'center', overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(201,125,14,0.04) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr)', gap: 64, alignItems: 'center', paddingTop: 80 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {/* Label shimmer */}
+            <div style={{ width: 140, height: 28, borderRadius: 50, background: 'rgba(201,125,14,0.15)', animation: 'shimmer 1.5s infinite', backgroundSize: '200% 100%' }} className="skeleton" />
+            {/* Title shimmer */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ width: '85%', height: 56, borderRadius: 8, background: 'rgba(255,255,255,0.07)' }} className="skeleton" />
+              <div style={{ width: '65%', height: 56, borderRadius: 8, background: 'rgba(255,255,255,0.07)' }} className="skeleton" />
+            </div>
+            {/* Desc shimmer */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
+              <div style={{ width: '100%', height: 18, borderRadius: 4, background: 'rgba(255,255,255,0.05)' }} className="skeleton" />
+              <div style={{ width: '80%', height: 18, borderRadius: 4, background: 'rgba(255,255,255,0.05)' }} className="skeleton" />
+            </div>
+            {/* CTA buttons */}
+            <div style={{ display: 'flex', gap: 16, marginTop: 12 }}>
+              <div style={{ width: 160, height: 52, borderRadius: 50, background: 'rgba(201,125,14,0.2)' }} className="skeleton" />
+              <div style={{ width: 140, height: 52, borderRadius: 50, background: 'rgba(255,255,255,0.07)' }} className="skeleton" />
+            </div>
+          </div>
+          {/* Carousel skeleton */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 440 }}>
+            <div style={{ width: 320, height: 320, borderRadius: '50%', background: 'rgba(201,125,14,0.1)', position: 'relative' }} className="skeleton">
+              <div style={{ position: 'absolute', inset: -40, borderRadius: '50%', border: '1px dashed rgba(255,255,255,0.1)' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Stats strip skeleton */}
+      <div style={{ background: 'linear-gradient(135deg, #2C1A0E, #4A2A1A)', padding: '24px 0' }}>
+        <div className="container" style={{ display: 'flex', gap: 0 }}>
+          {[...Array(6)].map((_, i) => (
+            <div key={i} style={{ flex: 1, padding: '20px 16px', textAlign: 'center', borderRight: i < 5 ? '1px solid rgba(245,230,200,0.06)' : 'none' }}>
+              <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(201,125,14,0.12)', margin: '0 auto 10px' }} className="skeleton" />
+              <div style={{ width: 60, height: 24, borderRadius: 4, background: 'rgba(201,125,14,0.12)', margin: '0 auto 8px' }} className="skeleton" />
+              <div style={{ width: 72, height: 12, borderRadius: 4, background: 'rgba(255,255,255,0.04)', margin: '0 auto' }} className="skeleton" />
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Section skeleton */}
+      <div style={{ padding: '80px 0', background: '#fff' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div style={{ width: 120, height: 16, borderRadius: 4, background: '#F5E6C8', margin: '0 auto 16px' }} className="skeleton" />
+            <div style={{ width: 320, height: 42, borderRadius: 8, background: '#F5E6C8', margin: '0 auto 16px' }} className="skeleton" />
+            <div style={{ width: 280, height: 18, borderRadius: 4, background: '#F5E6C8', margin: '0 auto' }} className="skeleton" />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
+            {[...Array(4)].map((_, i) => (
+              <div key={i} style={{ borderRadius: 24, overflow: 'hidden', background: '#F5E6C8', height: 320 }} className="skeleton" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>

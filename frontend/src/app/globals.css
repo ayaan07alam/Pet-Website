@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
 
 :root {
   --cream: #F5E6C8;
@@ -405,13 +405,13 @@ input, textarea, select {
   .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 0 16px; }
   .float-container {
-    bottom: 20px;
-    right: 20px;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    right: 12px;
     gap: 12px;
   }
   .lead-action-btn {
-    width: 60px;
-    height: 60px;
+    width: 54px;
+    height: 54px;
   }
 }
 
@@ -519,7 +519,15 @@ input, textarea, select {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  z-index: 1000;
+  z-index: 9999;
+}
+
+/* On mobile, lift float buttons above the bottom nav bar */
+@media (max-width: 768px) {
+  .float-container {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+  }
 }
 
 .lead-action-btn {

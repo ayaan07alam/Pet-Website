@@ -43,7 +43,7 @@ const services = [
 
 export default function ServicesPage() {
     return (
-        <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80 }}>
+        <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80, paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
             {/* Hero */}
             <section style={{ background: 'linear-gradient(135deg, #2C1A0E, #6B3A2A)', padding: '80px 0 64px', textAlign: 'center' }}>
                 <div className="container">

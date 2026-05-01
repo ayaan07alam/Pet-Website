@@ -64,7 +64,7 @@ export default function AboutPage() {
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(201,125,14,0.06) 1px, transparent 1px)', backgroundSize: '28px 28px', pointerEvents: 'none' }} />
                 {/* Amber glow top-right */}
                 <div style={{ position: 'absolute', top: -100, right: -50, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(201,125,14,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-                    <div className="about-hero-grid">
+                    <div className="container about-hero-grid">
                     <div>
                         <div className="section-label" style={{ color: '#C97D0E' }}>Our Story</div>
                         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2.5rem,5vw,3.5rem)', color: '#F5E6C8', fontWeight: 800, marginBottom: 20 }}>
@@ -128,16 +128,25 @@ export default function AboutPage() {
                         <h2 className="section-title">Meet Our Team</h2>
                     </div>
                     <div className="grid-4">
-                        {team.map(m => (
+                        {team.map(m => {
+                            const initials = m.name.split(' ').map((n: string) => n[0]).slice(0, 2).join('');
+                            const colors = [
+                                'linear-gradient(135deg, #C97D0E, #E8A020)',
+                                'linear-gradient(135deg, #4A7C2E, #6AAA44)',
+                                'linear-gradient(135deg, #6B3A2A, #A0614A)',
+                                'linear-gradient(135deg, #E8601A, #C97D0E)',
+                            ];
+                            const idx = team.indexOf(m);
+                            return (
                             <div key={m.name} style={{ background: '#fff', borderRadius: 20, padding: 28, textAlign: 'center', boxShadow: '0 4px 20px rgba(44,26,14,0.07)', transition: 'all 0.3s' }}
                                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(44,26,14,0.12)'; }}
                                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(44,26,14,0.07)'; }}>
-                                <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(201,125,14,0.15), rgba(232,96,26,0.1))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, margin: '0 auto 16px' }}>{m.emoji}</div>
+                                <div style={{ width: 80, height: 80, borderRadius: '50%', background: colors[idx % colors.length], display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 800, color: '#fff', margin: '0 auto 16px', fontFamily: "'Cormorant Garamond', serif", letterSpacing: '1px', boxShadow: '0 4px 16px rgba(44,26,14,0.15)' }}>{initials}</div>
                                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, fontWeight: 700, color: '#2C1A0E', marginBottom: 4 }}>{m.name}</h3>
                                 <p style={{ fontSize: 12, color: '#C97D0E', fontWeight: 600, letterSpacing: 0.5, marginBottom: 12 }}>{m.role}</p>
                                 <p style={{ fontSize: 13, color: '#6B3A2A', lineHeight: 1.7 }}>{m.bio}</p>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>

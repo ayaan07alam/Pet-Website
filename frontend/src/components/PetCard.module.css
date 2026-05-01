@@ -353,7 +353,7 @@
     display: none !important;
   }
 
-  /* Keep single badge visible but push it up slightly */
+  /* Keep single badge visible */
   .singleBadge {
     opacity: 1 !important;
     transform: translateY(0) !important;
@@ -376,11 +376,27 @@
 
   .footer {
     padding-top: 14px;
-    flex-wrap: wrap; /* Allows Enquire button to shift down safely if screen is mega small */
+    flex-wrap: wrap;
   }
 
   .enquireBtn {
     padding: 6px 12px;
     font-size: 12px;
+  }
+
+  /* List card collapses to vertical on mobile */
+  .listCard {
+    flex-direction: column;
+  }
+
+  .listCard .imageWrap {
+    width: 100%;
+    min-width: unset;
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+
+  .listCard .info {
+    flex: unset;
   }
 }

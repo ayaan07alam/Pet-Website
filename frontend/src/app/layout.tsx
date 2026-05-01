@@ -8,6 +8,7 @@ import LeadCapturePopup from "@/components/LeadCapturePopup";
 import { Toaster } from "react-hot-toast";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import CustomCursor from "@/components/animations/CustomCursor";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -88,6 +89,7 @@ export default function RootLayout({
           <MobileBottomNav />
           <WhatsAppFloat />
           <LeadCapturePopup />
+          <ScrollToTop />
           <Toaster
             position="top-right"
             toastOptions={{

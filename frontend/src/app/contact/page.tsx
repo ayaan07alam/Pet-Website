@@ -145,7 +145,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Map embed */}
-                <div style={{ marginTop: 64, borderRadius: 24, overflow: 'hidden', height: 420, boxShadow: '0 8px 40px rgba(44,26,14,0.1)', position: 'relative', background: '#e5e3df' }}>
+                <div style={{ marginTop: 64, borderRadius: 24, overflow: 'hidden', height: 'clamp(280px, 50vw, 420px)', boxShadow: '0 8px 40px rgba(44,26,14,0.1)', position: 'relative', background: '#e5e3df' }}>
                     {mapEmbed ? (
                         <iframe src={mapEmbed} width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Rumzee's Exotic Location" />
                     ) : (

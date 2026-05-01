@@ -34,10 +34,10 @@ export default function MobileBottomNav() {
                     <Heart size={22} className={styles.icon} />
                     <span>Wishlist</span>
                 </Link>
-                <a href={waLink} target="_blank" rel="noopener noreferrer" className={styles.navItem}>
+                <Link href="/contact" className={`${styles.navItem} ${pathname === '/contact' ? styles.active : ''}`}>
                     <Phone size={22} className={styles.icon} />
                     <span>Contact</span>
-                </a>
+                </Link>
             </nav>
 
             {/* Safe area padding for iPhones with Home Indicator */}

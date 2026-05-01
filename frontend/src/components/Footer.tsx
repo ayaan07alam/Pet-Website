@@ -210,7 +210,7 @@ export default function Footer() {
                                 border: '1.5px solid rgba(245,230,200,0.15)',
                                 background: 'rgba(245,230,200,0.06)', color: '#F5E6C8',
                                 fontSize: 14, outline: 'none', transition: 'all 0.3s',
-                                fontFamily: "'DM Sans', sans-serif",
+                                fontFamily: "'Outfit', sans-serif",
                             }}
                             onFocus={e => e.target.style.borderColor = 'rgba(201,125,14,0.5)'}
                             onBlur={e => e.target.style.borderColor = 'rgba(245,230,200,0.15)'}
@@ -219,7 +219,7 @@ export default function Footer() {
                             background: 'linear-gradient(135deg, #C97D0E, #E8A020)', color: '#fff',
                             padding: '13px 28px', borderRadius: 50, border: 'none',
                             fontWeight: 700, fontSize: 14, cursor: 'pointer',
-                            fontFamily: "'DM Sans', sans-serif", whiteSpace: 'nowrap',
+                            fontFamily: "'Outfit', sans-serif", whiteSpace: 'nowrap',
                             transition: 'all 0.3s', boxShadow: '0 4px 16px rgba(201,125,14,0.3)',
                         }}>
                             Subscribe
@@ -228,13 +228,12 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Lower Footer */}
             <div style={{ borderTop: '1px solid rgba(245,230,200,0.08)', padding: '20px 24px' }}>
-                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+                <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, textAlign: 'center' }}>
                     <p style={{ fontSize: 13, color: 'rgba(245,230,200,0.5)' }}>
                         © 2025 Rumzee&apos;s Exotic. All rights reserved.
                     </p>
-                    <div style={{ display: 'flex', gap: 20 }}>
+                    <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
                         {['Privacy Policy', 'Terms of Service', 'Refund Policy'].map((t) => (
                             <Link key={t} href="#" style={{ fontSize: 13, color: 'rgba(245,230,200,0.5)', textDecoration: 'none' }}>{t}</Link>
                         ))}

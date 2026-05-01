@@ -17,25 +17,7 @@ export default function WhatsAppFloat() {
     const waLink = `https://wa.me/${cleanWhatsapp.replace(/^\+/, '')}`;
 
     return (
-        <div className="whatsapp-float-container" style={{
-            position: 'fixed',
-            right: 24,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 16,
-            zIndex: 9999
-        }}>
-            <style jsx>{`
-                .whatsapp-float-container {
-                    bottom: 24px;
-                }
-                @media (max-width: 768px) {
-                    .whatsapp-float-container {
-                        bottom: 90px;
-                    }
-                }
-            `}</style>
-
+        <div className="float-container">
             {/* Phone Call Float */}
             <a
                 href={`tel:${cleanWhatsapp}`}
