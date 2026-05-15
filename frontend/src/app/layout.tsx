@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import CustomCursor from "@/components/animations/CustomCursor";
 import ScrollToTop from "@/components/ScrollToTop";
+import GlobalPreloader from "@/components/animations/GlobalPreloader";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -81,6 +82,7 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScroll>
+          <GlobalPreloader />
           <CustomCursor />
           <Navbar />
           <main>{children}</main>

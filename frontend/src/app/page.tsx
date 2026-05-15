@@ -120,27 +120,45 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentCarouselSlide}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+                exit: { opacity: 0, transition: { duration: 0.3 } }
+              }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, justifyContent: 'center' }}>
+              <motion.div 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, justifyContent: 'center' }}
+              >
                 <span style={{ padding: '6px 16px', borderRadius: 30, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
                   {activeSlide.label}
                 </span>
                 <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>{copy?.heroKicker || 'Explore the extraordinary'}</span>
+              </motion.div>
+
+              <div style={{ overflow: 'hidden' }}>
+                <motion.h1 
+                  variants={{ hidden: { y: '100%' }, visible: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+                  style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 800, color: '#fff', lineHeight: 1.05, marginBottom: 24, letterSpacing: '-0.02em', textShadow: '0 4px 30px rgba(0,0,0,0.6)', whiteSpace: 'pre-line' }}
+                >
+                  {activeSlide.title}
+                </motion.h1>
               </div>
 
-              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(3rem, 6vw, 5.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1.1, marginBottom: 24, textShadow: '0 4px 30px rgba(0,0,0,0.6)', whiteSpace: 'pre-line' }}>
-                {activeSlide.title}
-              </h1>
-
-              <p style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: 40, maxWidth: 520, textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
+              <motion.p 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.1rem, 1.3vw, 1.25rem)', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: 40, maxWidth: 520, textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}
+              >
                 {activeSlide.desc}
-              </p>
+              </motion.p>
 
-              <div className="hero-cta-group" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <motion.div 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+                className="hero-cta-group" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}
+              >
                 <Magnetic strength={0.1}>
                   <Link href={copy?.heroPrimaryCtaHref || "/shop"} style={{
                     background: activeSlide.color,
@@ -170,7 +188,7 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
                     </Link>
                   </Magnetic>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -309,7 +327,7 @@ function StatsStrip({ stats }: { stats: any[] }) {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
               <s.Icon size={20} color='rgba(201,125,14,0.7)' />
             </div>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 800, color: '#C97D0E', lineHeight: 1 }}>{s.value}</div>
+            <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 28, fontWeight: 800, color: '#C97D0E', lineHeight: 1 }}>{s.value}</div>
             <div style={{ fontSize: 11, color: 'rgba(245,230,200,0.5)', fontWeight: 500, letterSpacing: '0.8px', textTransform: 'uppercase', marginTop: 6 }}>{s.label}</div>
           </div>
         ))}
@@ -416,8 +434,8 @@ function CategoriesSection({ categories, copy }: { categories: any[]; copy?: any
                   </div>
                 </div>
                 <div style={{ padding: '24px', background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(10px)' }}>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 800, marginBottom: 8, color: '#2C1A0E' }}>{cat.name}</h3>
-                  <p style={{ fontSize: 14, color: '#6B3A2A', margin: 0, lineHeight: 1.5 }}>{cat.description}</p>
+                  <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#2C1A0E', letterSpacing: '-0.01em' }}>{cat.name}</h3>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#6B3A2A', margin: 0, lineHeight: 1.5 }}>{cat.description}</p>
                 </div>
               </Link>
             </Reveal>
@@ -535,7 +553,7 @@ function RoyalFelines({ pets }: { pets: any[] }) {
 
                   {/* Minimalist Name Plate */}
                   <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 24, textAlign: 'center' }}>
-                    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, fontWeight: 600, color: '#FDF6EC', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.8)', letterSpacing: '0.5px' }}>{cat.name}</h3>
+                    <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 28, fontWeight: 700, color: '#FDF6EC', margin: 0, textShadow: '0 2px 10px rgba(0,0,0,0.8)', letterSpacing: '-0.01em' }}>{cat.name}</h3>
                   </div>
                 </div>
               </Link>
@@ -588,7 +606,7 @@ function WhyUsSection({ features }: { features: any[] }) {
             <div className="section-label" style={{ justifyContent: 'center', color: '#C97D0E' }}>
               Why Rumzee&apos;s Exotic?
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: '#F5E6C8', marginBottom: 16 }}>
+            <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.5rem, 4.5vw, 3.5rem)', fontWeight: 800, letterSpacing: '-0.02em', color: '#F5E6C8', marginBottom: 16 }}>
               More Than Just a Pet Shop
             </h2>
             <p style={{ color: 'rgba(245,230,200,0.7)', fontSize: 17, maxWidth: 520, margin: '0 auto' }}>
@@ -625,8 +643,8 @@ function WhyUsSection({ features }: { features: any[] }) {
                 }}
               >
                 <div style={{ width: 64, height: 64, borderRadius: 18, background: 'linear-gradient(135deg, rgba(201,125,14,0.2), rgba(201,125,14,0.05))', border: '1px solid rgba(201,125,14,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C97D0E', marginBottom: 24, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>{f.iconElement}</div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#FDF6EC', marginBottom: 12, letterSpacing: '0.5px' }}>{f.title}</h3>
-                <p style={{ fontSize: 15, color: 'rgba(245,230,200,0.7)', lineHeight: 1.7 }}>{f.description}</p>
+                <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 24, fontWeight: 700, color: '#FDF6EC', marginBottom: 12, letterSpacing: '-0.01em' }}>{f.title}</h3>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: 'rgba(245,230,200,0.7)', lineHeight: 1.7 }}>{f.description}</p>
               </div>
             </Reveal>
           ))}
@@ -700,7 +718,7 @@ function TestimonialsSection({ testimonials, copy }: { testimonials: any[]; copy
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <p style={{ fontSize: 20, color: '#2C1A0E', lineHeight: 1.8, fontStyle: 'italic', marginBottom: 32, fontFamily: "'Playfair Display', serif", position: 'relative', zIndex: 1 }}>
+                <p style={{ fontSize: 22, color: '#2C1A0E', lineHeight: 1.8, marginBottom: 32, fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: '-0.01em', position: 'relative', zIndex: 1 }}>
                   {t.text}
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 4, marginBottom: 20 }}>
@@ -772,7 +790,7 @@ function CTASection({ copy }: { copy?: any }) {
               <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', marginBottom: 20, backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.25)' }}>
                 <Shield size={28} color='rgba(255,255,255,0.9)' />
               </div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', fontWeight: 800, margin: '16px 0 12px' }}>
+              <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.5rem, 4.5vw, 3.5rem)', color: '#fff', fontWeight: 800, margin: '16px 0 12px', letterSpacing: '-0.02em' }}>
                 {copy?.ctaTitle || 'Ready to Find Your Companion?'}
               </h2>
               <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', marginBottom: 36, maxWidth: 520 }}>

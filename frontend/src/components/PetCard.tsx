@@ -61,9 +61,6 @@ export default function PetCard({ pet, layout = 'grid' }: PetCardProps) {
             className={`${styles.card} ${layout === 'list' ? styles.listCard : ''}`}
             style={{ '--species-accent': species.accent, '--species-light': species.accentLight } as React.CSSProperties}
         >
-            {/* Species accent bar — left edge */}
-            <div className={styles.speciesBar} style={{ background: species.gradient }} />
-
             {/* ─── Image Zone ─── */}
             <Link href={`/shop/${pet.id}`} className={styles.imageWrap}>
                 {!imgError ? (
