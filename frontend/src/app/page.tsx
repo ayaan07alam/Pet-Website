@@ -969,6 +969,8 @@ export default function HomePage() {
     features: [],
     testimonials: [],
     copy: null,
+    layout: null,
+    customSections: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -982,8 +984,10 @@ export default function HomePage() {
       fetch('/api/why-us-features').then(r => r.json()).catch(() => []),
       fetch('/api/testimonials').then(r => r.json()).catch(() => []),
       fetch('/api/homepage-copy').then(r => r.json()).catch(() => null),
-    ]).then(([pets, categories, settings, stats, facts, features, testimonials, copy]) => {
-      setData({ pets, categories, settings, stats, facts, features, testimonials, copy });
+      fetch('/api/layout').then(r => r.json()).catch(() => null),
+      fetch('/api/custom-sections').then(r => r.json()).catch(() => []),
+    ]).then(([pets, categories, settings, stats, facts, features, testimonials, copy, layout, customSections]) => {
+      setData({ pets, categories, settings, stats, facts, features, testimonials, copy, layout, customSections });
       setLoading(false);
     });
   }, []);
@@ -1037,36 +1041,31 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-      {/* Section skeleton */}
-      <div style={{ padding: '80px 0', background: '#fff' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div style={{ width: 120, height: 16, borderRadius: 4, background: '#F5E6C8', margin: '0 auto 16px' }} className="skeleton" />
-            <div style={{ width: 320, height: 42, borderRadius: 8, background: '#F5E6C8', margin: '0 auto 16px' }} className="skeleton" />
-            <div style={{ width: 280, height: 18, borderRadius: 4, background: '#F5E6C8', margin: '0 auto' }} className="skeleton" />
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
-            {[...Array(4)].map((_, i) => (
-              <div key={i} style={{ borderRadius: 24, overflow: 'hidden', background: '#F5E6C8', height: 320 }} className="skeleton" />
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 
+  const { layout, customSections } = data;
+
   return (
     <>
-      <HeroSection settings={data.settings} copy={data.copy} />
-      <StatsStrip stats={data.stats} />
-      <RoyalFelines pets={data.pets} />
-      <CategoriesSection categories={data.categories} copy={data.copy} />
-      <FeaturedPets pets={data.pets} copy={data.copy} />
-      <AnimalFactsBanner facts={data.facts} />
-      <WhyUsSection features={data.features} />
-      <NewArrivals pets={data.pets} copy={data.copy} />
-      <TestimonialsSection testimonials={data.testimonials} copy={data.copy} />
-      <CTASection copy={data.copy} />
+      {layout?.showHero !== false && <HeroSection settings={data.settings} copy={data.copy} />}
+      {layout?.showStats !== false && <StatsStrip stats={data.stats} />}
+      
+      {/* Render Custom Sections that are active */}
+      {customSections?.filter((s: any) => s.isActive).map((section: any) => (
+        <section key={section.id} dangerouslySetInnerHTML={{ __html: section.content }} />
+      ))}
+
+      {layout?.showRoyalFelines !== false && <RoyalFelines pets={data.pets} />}
+      {layout?.showCategories !== false && <CategoriesSection categories={data.categories} copy={data.copy} />}
+      {layout?.showFeaturedPets !== false && <FeaturedPets pets={data.pets} copy={data.copy} />}
+      {layout?.showAnimalFacts !== false && <AnimalFactsBanner facts={data.facts} />}
+      {layout?.showWhyUs !== false && <WhyUsSection features={data.features} />}
+      {layout?.showNewArrivals !== false && <NewArrivals pets={data.pets} copy={data.copy} />}
+      {layout?.showTestimonials !== false && <TestimonialsSection testimonials={data.testimonials} copy={data.copy} />}
+      {layout?.showCta !== false && <CTASection copy={data.copy} />}
+      
+      {/* Map is always shown for now, or you could add it to layout manager too */}
       <MapSection settings={data.settings} />
     </>
   );

@@ -173,5 +173,54 @@ model Lead {
   pet         Pet?     @relation(fields: [petId], references: [id])
   pageUrl     String?
 }
+// Navigation Models
+model NavigationMenu {
+  id        String   @id @default(uuid())
+  name      String   // e.g., "Main Navbar", "Footer Column 1"
+  location  String   @unique // e.g., "navbar", "footer_1", "footer_2"
+  items     NavigationItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
+model NavigationItem {
+  id          String   @id @default(uuid())
+  label       String
+  href        String
+  order       Int      @default(0)
+  menuId      String
+  menu        NavigationMenu @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  parentId    String?  // For dropdowns
+  parent      NavigationItem? @relation("Dropdown", fields: [parentId], references: [id])
+  children    NavigationItem[] @relation("Dropdown")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
 
+// Global Layout & Section Toggles
+model LayoutSettings {
+  id                    String   @id @default("global")
+  showHero              Boolean  @default(true)
+  showStats             Boolean  @default(true)
+  showAnimalFacts       Boolean  @default(true)
+  showCategories        Boolean  @default(true)
+  showFeaturedPets      Boolean  @default(true)
+  showRoyalFelines      Boolean  @default(true)
+  showWhyUs             Boolean  @default(true)
+  showNewArrivals       Boolean  @default(true)
+  showTestimonials      Boolean  @default(true)
+  showCta               Boolean  @default(true)
+  updatedAt             DateTime @updatedAt
+}
+
+// Custom Sections
+model CustomSection {
+  id          String   @id @default(uuid())
+  title       String?
+  type        String   // "text", "html", "hero_banner", "image_gallery"
+  content     String   @db.Text // HTML or JSON
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

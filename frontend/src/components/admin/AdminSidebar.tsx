@@ -8,6 +8,9 @@ import { useRouter } from 'next/navigation';
 
 const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'Menu Builder', href: '/admin/navigation', icon: FolderTree },
+    { name: 'Layout Manager', href: '/admin/layout', icon: LayoutDashboard },
+    { name: 'Custom Sections', href: '/admin/sections', icon: FileText },
     { name: 'Manage Pets', href: '/admin/pets', icon: PawPrint },
     { name: 'Categories', href: '/admin/categories', icon: FolderTree },
     { name: 'Site Settings', href: '/admin/settings', icon: Settings },

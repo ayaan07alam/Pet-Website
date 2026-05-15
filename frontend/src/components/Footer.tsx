@@ -8,9 +8,22 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
     const pathname = usePathname();
     const [settings, setSettings] = useState<any>(null);
+    const [footerLinks, setFooterLinks] = useState<any[]>([
+        { label: 'Shop All Pets', href: '/shop' },
+        { label: 'Bird Aviary', href: '/shop?category=birds' },
+        { label: 'Exotic Cats', href: '/shop?category=cats' },
+        { label: 'Reptiles', href: '/shop?category=reptiles' },
+        { label: 'Accessories', href: '/shop?category=accessories' },
+    ]);
 
     useEffect(() => {
         fetch('/api/settings').then(r => r.json()).then(setSettings).catch(console.error);
+        fetch('/api/navigation').then(r => r.json()).then(data => {
+            const footerMenu = data.find((m: any) => m.location === 'footer');
+            if (footerMenu && footerMenu.items.length > 0) {
+                setFooterLinks(footerMenu.items);
+            }
+        }).catch(console.error);
     }, []);
 
     const isHiddenRoute = pathname.startsWith('/admin') || pathname === '/login' || pathname === '/register';
@@ -81,14 +94,7 @@ export default function Footer() {
                     <div>
                         <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, marginBottom: 20, color: '#F5E6C8' }}>Quick Links</h4>
                         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                            {[
-                                { label: 'Shop All Pets', href: '/shop' },
-                                { label: 'Bird Aviary', href: '/shop?category=birds' },
-                                { label: 'Exotic Cats', href: '/shop?category=cats' },
-                                { label: 'Reptiles', href: '/shop?category=reptiles' },
-                                { label: 'Accessories', href: '/shop?category=accessories' },
-                                { label: 'Pet Food', href: '/shop?category=food' },
-                            ].map((l) => (
+                            {footerLinks.map((l) => (
                                 <li key={l.href}>
                                     <Link href={l.href} style={{ color: 'rgba(245,230,200,0.7)', fontSize: 14, textDecoration: 'none', transition: 'color 0.2s ease', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                                         <span style={{ color: '#C97D0E' }}>→</span> {l.label}

@@ -8,24 +8,17 @@ import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-
 import styles from './Navbar.module.css';
 import Magnetic from '@/components/animations/Magnetic';
 
-const navLinks = [
+const defaultNavLinks = [
     { label: 'Home', href: '/' },
     {
         label: 'Shop',
         href: '/shop',
         dropdown: [
             { label: 'Birds & Parrots', href: '/shop?category=birds' },
-            { label: 'Big Birds', href: '/shop?category=birds&type=big' },
             { label: 'Exotic Cats', href: '/shop?category=cats' },
-            { label: 'Rodents', href: '/shop?category=rodents' },
             { label: 'Reptiles', href: '/shop?category=reptiles' },
-            { label: 'Turtles & Tortoises', href: '/shop?category=turtles' },
-            { label: 'Accessories', href: '/shop?category=accessories' },
-            { label: 'Pet Food', href: '/shop?category=food' },
         ],
     },
-    { label: 'Services', href: '/services' },
-    { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
 ];
 
@@ -35,9 +28,22 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const pathname = usePathname();
     const [settings, setSettings] = useState<any>(null);
+    const [navLinks, setNavLinks] = useState<any[]>(defaultNavLinks);
 
     useEffect(() => {
         fetch('/api/settings').then(r => r.json()).then(setSettings).catch(console.error);
+        fetch('/api/navigation').then(r => r.json()).then(data => {
+            const navbarMenu = data.find((m: any) => m.location === 'navbar');
+            if (navbarMenu && navbarMenu.items.length > 0) {
+                const formattedLinks = navbarMenu.items.map((item: any) => ({
+                    label: item.label,
+                    href: item.href,
+                    // If you added child support in DB, map them here:
+                    // dropdown: item.children?.length > 0 ? item.children : undefined
+                }));
+                setNavLinks(formattedLinks);
+            }
+        }).catch(console.error);
     }, []);
 
     const { scrollY } = useScroll();
@@ -125,7 +131,7 @@ export default function Navbar() {
                                     </Link>
                                     {link.dropdown && (
                                         <div className={`${styles.dropdown} ${activeDropdown === link.href ? styles.dropdownOpen : ''}`}>
-                                            {link.dropdown.map((d) => (
+                                            {link.dropdown.map((d: any) => (
                                                 <Link key={d.href} href={d.href} className={styles.dropdownItem}>
                                                     {d.label}
                                                 </Link>
@@ -192,7 +198,7 @@ export default function Navbar() {
                                         </Link>
                                         {link.dropdown && (
                                             <div className={styles.mobileDropdown}>
-                                                {link.dropdown.map((d) => (
+                                                {link.dropdown.map((d: any) => (
                                                     <Link key={d.href} href={d.href} className={styles.mobileDropdownItem} onClick={() => setMobileOpen(false)}>
                                                         {d.label}
                                                     </Link>
