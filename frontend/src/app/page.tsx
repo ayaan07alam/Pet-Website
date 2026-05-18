@@ -141,16 +141,16 @@ function HeroSection({ settings, copy }: { settings: any; copy?: any }) {
 
               <div style={{ overflow: 'hidden' }}>
                 <motion.h1 
-                  variants={{ hidden: { y: '100%' }, visible: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                  style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 800, color: '#fff', lineHeight: 1.05, marginBottom: 24, letterSpacing: '-0.02em', textShadow: '0 4px 30px rgba(0,0,0,0.6)', whiteSpace: 'pre-line' }}
+                  variants={{ hidden: { y: '100%' }, visible: { y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
+                  style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.6rem, 5.5vw, 4.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1.08, marginBottom: 20, letterSpacing: '-0.025em', textShadow: '0 2px 20px rgba(0,0,0,0.4)', whiteSpace: 'pre-line' }}
                 >
                   {activeSlide.title}
                 </motion.h1>
               </div>
 
               <motion.p 
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1.1rem, 1.3vw, 1.25rem)', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: 40, maxWidth: 520, textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}
+                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } } }}
+                style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65, marginBottom: 32, maxWidth: 480, textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}
               >
                 {activeSlide.desc}
               </motion.p>
@@ -321,14 +321,14 @@ function StatsStrip({ stats }: { stats: any[] }) {
       <div className="stats-strip">
         {sourceStats.map((s, i) => (
           <div key={s.label} className="stats-item"
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,125,14,0.12)')}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(201,125,14,0.1)')}
             onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
           >
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
-              <s.Icon size={20} color='rgba(201,125,14,0.7)' />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 6 }}>
+              <s.Icon size={18} color='rgba(201,125,14,0.65)' />
             </div>
-            <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 28, fontWeight: 800, color: '#C97D0E', lineHeight: 1 }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: 'rgba(245,230,200,0.5)', fontWeight: 500, letterSpacing: '0.8px', textTransform: 'uppercase', marginTop: 6 }}>{s.label}</div>
+            <div style={{ fontFamily: "'Outfit', sans-serif", fontSize: 26, fontWeight: 800, color: '#C97D0E', lineHeight: 1 }}>{s.value}</div>
+            <div style={{ fontSize: 10.5, color: 'rgba(245,230,200,0.45)', fontWeight: 500, letterSpacing: '0.6px', textTransform: 'uppercase', marginTop: 5 }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -606,10 +606,10 @@ function WhyUsSection({ features }: { features: any[] }) {
             <div className="section-label" style={{ justifyContent: 'center', color: '#C97D0E' }}>
               Why Rumzee&apos;s Exotic?
             </div>
-            <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.5rem, 4.5vw, 3.5rem)', fontWeight: 800, letterSpacing: '-0.02em', color: '#F5E6C8', marginBottom: 16 }}>
+            <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.022em', color: '#F5E6C8', marginBottom: 14 }}>
               More Than Just a Pet Shop
             </h2>
-            <p style={{ color: 'rgba(245,230,200,0.7)', fontSize: 17, maxWidth: 520, margin: '0 auto' }}>
+            <p style={{ color: 'rgba(245,230,200,0.65)', fontSize: 16, maxWidth: 480, margin: '0 auto' }}>
               We go beyond selling pets — we create lasting bonds between families and their exotic companions.
             </p>
           </div>

@@ -36,7 +36,7 @@ export default function Footer() {
     const waLink = `https://wa.me/${cleanWhatsapp.replace(/^\+/, '')}`;
 
     return (
-        <footer style={{ background: '#2C1A0E', color: '#F5E6C8' }}>
+        <footer style={{ background: '#1E1108', color: '#F5E6C8', borderTop: '2px solid rgba(201,125,14,0.2)' }}>
             {/* Upper Footer */}
             <div className="container" style={{ padding: '64px 24px 48px' }}>
                 <div className="responsive-footer-grid">
@@ -92,7 +92,7 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, marginBottom: 20, color: '#F5E6C8' }}>Quick Links</h4>
+                        <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 20, color: 'rgba(245,230,200,0.5)' }}>Quick Links</h4>
                         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {footerLinks.map((l) => (
                                 <li key={l.href}>
@@ -106,7 +106,7 @@ export default function Footer() {
 
                     {/* Company */}
                     <div>
-                        <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, marginBottom: 20, color: '#F5E6C8' }}>Company</h4>
+                        <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 20, color: 'rgba(245,230,200,0.5)' }}>Company</h4>
                         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {[
                                 { label: 'About Us', href: '/about' },
@@ -124,7 +124,7 @@ export default function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, marginBottom: 20, color: '#F5E6C8' }}>Get in Touch</h4>
+                        <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 20, color: 'rgba(245,230,200,0.5)' }}>Get in Touch</h4>
                         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 16 }}>
                             <li>
                                 <a href={`tel:${cleanWhatsapp}`} style={{ color: 'rgba(245,230,200,0.7)', fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, transition: 'color 0.2s ease' }}
@@ -159,14 +159,14 @@ export default function Footer() {
 
                 {/* ─── Newsletter Bar ─── */}
                 <div style={{
-                    marginTop: 48, padding: '32px 28px', borderRadius: 20,
-                    background: 'linear-gradient(135deg, rgba(201,125,14,0.12), rgba(201,125,14,0.04))',
-                    border: '1px solid rgba(201,125,14,0.15)',
+                    marginTop: 48, padding: '28px 24px', borderRadius: 16,
+                    background: 'rgba(201,125,14,0.07)',
+                    border: '1px solid rgba(201,125,14,0.12)',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    gap: 32, flexWrap: 'wrap',
+                    gap: 24, flexWrap: 'wrap',
                 }}>
-                    <div style={{ flex: '1 1 280px' }}>
-                        <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5E6C8', marginBottom: 6 }}>
+                    <div style={{ flex: '1 1 240px' }}>
+                        <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 17, fontWeight: 700, color: '#F5E6C8', marginBottom: 4 }}>
                             Stay in the Loop
                         </h4>
                         <p style={{ fontSize: 14, color: 'rgba(245,230,200,0.65)', lineHeight: 1.5 }}>

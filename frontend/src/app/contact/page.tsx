@@ -58,21 +58,21 @@ export default function ContactPage() {
     return (
         <div style={{ minHeight: '100vh', background: '#FDF6EC', paddingTop: 80 }}>
             {/* Header */}
-            <section style={{ background: 'linear-gradient(135deg, #2C1A0E, #6B3A2A)', padding: '70px 0 56px' }}>
+            <section style={{ background: 'linear-gradient(135deg, #1E1108, #3A2010)', padding: '64px 0 52px' }}>
                 <div className="container" style={{ textAlign: 'center' }}>
                     <div className="section-label" style={{ justifyContent: 'center', color: '#C97D0E' }}>Get in Touch</div>
-                    <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem,4vw,3rem)', color: '#F5E6C8', fontWeight: 800, marginBottom: 12 }}>Contact Us</h1>
-                    <p style={{ color: 'rgba(245,230,200,0.75)', fontSize: 17, maxWidth: 520, margin: '0 auto' }}>
+                    <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2rem,4vw,2.75rem)', color: '#F5E6C8', fontWeight: 800, marginBottom: 10, letterSpacing: '-0.025em' }}>Contact Us</h1>
+                    <p style={{ color: 'rgba(245,230,200,0.7)', fontSize: 16, maxWidth: 480, margin: '0 auto' }}>
                         Have a question about a pet, booking a service, or just want to say hello? We&apos;re always happy to hear from you!
                     </p>
                 </div>
             </section>
 
-            <div className="container" style={{ padding: '64px 24px' }}>
+            <div className="container" style={{ padding: '56px 24px' }}>
                 <div className="page-two-col">
                     {/* Info */}
                     <div>
-                        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: '#2C1A0E', marginBottom: 28 }}>Visit or Reach Us</h2>
+                        <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 700, color: '#2C1A0E', marginBottom: 24, letterSpacing: '-0.015em' }}>Visit or Reach Us</h2>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 36 }}>
                             {[
                                 { icon: <MapPin size={22} />, title: 'Location', value: settings?.address || 'Click to open in Google Maps', href: mapEmbed || 'https://maps.app.goo.gl/A8DbhV3wFJpyLnS37', target: '_blank' },
@@ -105,8 +105,8 @@ export default function ContactPage() {
                     </div>
 
                     {/* Form */}
-                    <div style={{ background: '#fff', borderRadius: 24, padding: 40, boxShadow: '0 8px 40px rgba(44,26,14,0.1)' }}>
-                        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: '#2C1A0E', marginBottom: 28 }}>Send a Message</h2>
+                    <div style={{ background: '#fff', borderRadius: 20, padding: '36px 32px', boxShadow: '0 4px 24px rgba(44,26,14,0.08)', border: '1px solid rgba(44,26,14,0.05)' }}>
+                        <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 700, color: '#2C1A0E', marginBottom: 24, letterSpacing: '-0.015em' }}>Send a Message</h2>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                             <div className="form-grid-2">
                                 <div>
